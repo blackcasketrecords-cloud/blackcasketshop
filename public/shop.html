@@ -28,6 +28,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .btn-checkout:hover:not(.disabled){background:rgba(107,15,15,.7);border-color:var(--parch)}
 .btn-checkout.disabled{opacity:.3;pointer-events:none}
 
+/* ── STICKY HEADER (cart bar + toolbar travel together) ── */
+.sticky-head{position:sticky;top:0;z-index:100;background:rgba(0,0,0,.94);backdrop-filter:blur(8px)}
+
 /* ── SHOP LAYOUT (browse + sidebar) ── */
 .shop-toolbar{display:flex;align-items:center;gap:.6rem;padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
 .search-input{flex:1;min-width:160px;background:rgba(196,186,168,.04);border:1px solid var(--border);color:var(--parch);font-family:'Crimson Text',serif;font-size:.95rem;padding:.6rem .85rem;outline:none}
@@ -36,24 +39,35 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 @media(max-width:820px){.filter-toggle{display:inline-block}}
 
 .shop-layout{display:flex;max-width:1200px;margin:0 auto;align-items:flex-start}
-.sidebar{width:190px;flex-shrink:0;padding:1.6rem 1.3rem;border-right:1px solid var(--border);position:sticky;top:57px;align-self:flex-start}
+.sidebar{width:190px;flex-shrink:0;border-right:1px solid var(--border);position:sticky;top:var(--head-h,115px);align-self:flex-start;max-height:calc(100vh - var(--head-h,115px));overflow-y:auto}
+.sidebar-inner{padding:1.6rem 1.3rem}
+.sidebar-header{display:none}
+.sidebar-footer{display:none}
 .sidebar-title{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;opacity:.4;margin-bottom:.7rem}
 .cat-btn{display:block;width:100%;text-align:left;background:none;border:none;color:var(--bone);font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:.6em .5em;cursor:pointer;opacity:.62;border-left:2px solid transparent}
 .cat-btn:hover{opacity:.9}
 .cat-btn.active{opacity:1;color:var(--parch);border-left-color:var(--bloodhi);background:rgba(196,186,168,.03)}
 .filters{margin-top:1.6rem;padding-top:1.3rem;border-top:1px solid var(--border)}
 .filter-group{margin-bottom:1.2rem}
+.filter-group.sale-group{margin-bottom:1.4rem;padding-bottom:1.2rem;border-bottom:1px solid var(--border)}
 .filter-label{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.24em;text-transform:uppercase;opacity:.42;margin-bottom:.5rem}
 .chip-row{display:flex;flex-wrap:wrap;gap:.32rem}
 .chip{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border);padding:.4em .65em;cursor:pointer;opacity:.6;background:none;color:var(--bone)}
 .chip.active{opacity:1;color:var(--parch);border-color:var(--bordhi);background:rgba(196,186,168,.05)}
+.chip-sale{display:block;width:100%;text-align:center;font-size:.58rem;letter-spacing:.16em;padding:.6em .8em;opacity:1;border:1px solid var(--bloodhi);color:var(--parch);background:rgba(107,15,15,.18);font-weight:700}
+.chip-sale:hover{background:rgba(107,15,15,.4)}
+.chip-sale.active{background:rgba(107,15,15,.6);box-shadow:0 0 16px rgba(160,30,30,.4);border-color:var(--parch)}
 .filters select{width:100%;background:rgba(196,186,168,.04);border:1px solid var(--border);color:var(--parch);font-family:'Crimson Text',serif;font-size:.85rem;padding:.45rem .5rem}
+.sidebar-backdrop{display:none}
 @media(max-width:820px){
-  .sidebar{position:fixed;top:0;left:0;bottom:0;z-index:200;background:var(--deep);width:250px;transform:translateX(-100%);transition:transform .3s;overflow-y:auto;box-shadow:0 0 40px rgba(0,0,0,.6)}
-  .sidebar.open{transform:translateX(0)}
-  .sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:199}
-  .sidebar-backdrop.show{display:block}
-  .sidebar-close{display:block;margin-bottom:1rem;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;background:none;border:1px solid var(--border);color:var(--bone);padding:.5em 1em;cursor:pointer}
+  .sidebar{position:fixed;inset:0;z-index:250;background:var(--deep);width:100%;max-height:none;transform:translateY(100%);transition:transform .32s ease;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar.open{transform:translateY(0)}
+  .sidebar-inner{flex:1;padding:1.4rem 1.3rem 2rem}
+  .sidebar-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.3rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--deep);z-index:2}
+  .sidebar-header-title{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--parch)}
+  .sidebar-footer{display:block;position:sticky;bottom:0;padding:1rem 1.3rem;border-top:1px solid var(--border);background:var(--deep)}
+  .btn-apply{width:100%;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--parch);border:1px solid var(--bloodhi);background:rgba(107,15,15,.45);padding:.85em;cursor:pointer}
+  .sidebar-close{display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;font-size:1.15rem;background:none;border:1px solid var(--border);color:var(--bone);cursor:pointer}
 }
 .sidebar-close{display:none}
 
@@ -73,7 +87,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .badge-row{position:absolute;top:.45rem;left:.45rem;display:flex;flex-direction:column;gap:.25rem;z-index:6}
 .tag-badge{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.1em;text-transform:uppercase;padding:.28em .55em;color:#fff;font-weight:700}
 .tag-badge.new{background:var(--new)}
-.tag-badge.discount{background:var(--bloodhi)}
+.tag-badge.discount{background:var(--bloodhi);font-size:.48rem;padding:.32em .62em;box-shadow:0 0 12px rgba(160,30,30,.55)}
 .tag-badge.preorder{background:var(--pre)}
 .tag-badge.sold{background:#3a3a3a;color:#bbb}
 .product-body{padding:.8rem;flex:1;display:flex;flex-direction:column;gap:.4rem;min-height:4.5rem}
@@ -207,53 +221,60 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
   <a href="index.html#payment" class="nav-btn">Payment</a>
   <a href="index.html#contact" class="nav-btn">Contact</a>
 </nav>
-<div class="cart-bar">
-  <div class="cart-info">
-    <span>Cart:</span><span class="cart-count" id="cartCount">0 items</span>
-    <span class="cart-sep">&middot;</span>
-    <span>Total:</span><span class="cart-total-val" id="cartTotal">&euro;0.00</span>
+<div class="sticky-head" id="stickyHead">
+  <div class="cart-bar">
+    <div class="cart-info">
+      <span>Cart:</span><span class="cart-count" id="cartCount">0 items</span>
+      <span class="cart-sep">&middot;</span>
+      <span>Total:</span><span class="cart-total-val" id="cartTotal">&euro;0.00</span>
+    </div>
+    <button class="btn-checkout disabled" id="checkoutBtn" onclick="goCheckout()">Checkout &#8599;</button>
   </div>
-  <button class="btn-checkout disabled" id="checkoutBtn" onclick="goCheckout()">Checkout &#8599;</button>
-</div>
-
-<div id="shopSection">
-  <div class="shop-toolbar">
+  <div class="shop-toolbar" id="shopToolbar">
     <button class="filter-toggle" id="filterToggle">&#9776; Filter</button>
     <input type="text" class="search-input" id="searchInput" placeholder="Search by title...">
   </div>
+</div>
 
+<div id="shopSection">
   <div class="shop-layout">
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
     <aside class="sidebar" id="sidebar">
-      <button class="sidebar-close" id="sidebarClose">&times; Close</button>
-      <div class="sidebar-title">Categories</div>
-      <button class="cat-btn active" data-cat="">All</button>
-      <button class="cat-btn" data-cat="cd">CD</button>
-      <button class="cat-btn" data-cat="tape">Tape</button>
-      <button class="cat-btn" data-cat="vinyl">Vinyl</button>
-      <button class="cat-btn" data-cat="merch">Merch</button>
-      <button class="cat-btn" data-cat="bundle">Bundle</button>
-      <button class="cat-btn" data-cat="other">Other</button>
+      <div class="sidebar-header">
+        <span class="sidebar-header-title">Filters</span>
+        <button class="sidebar-close" id="sidebarClose">&times;</button>
+      </div>
+      <div class="sidebar-inner">
+        <div class="sidebar-title">Categories</div>
+        <button class="cat-btn active" data-cat="">All</button>
+        <button class="cat-btn" data-cat="cd">CD</button>
+        <button class="cat-btn" data-cat="tape">Tape</button>
+        <button class="cat-btn" data-cat="vinyl">Vinyl</button>
+        <button class="cat-btn" data-cat="merch">Merch</button>
+        <button class="cat-btn" data-cat="bundle">Bundle</button>
+        <button class="cat-btn" data-cat="other">Other</button>
 
-      <div class="filters">
-        <div class="filter-group">
-          <div class="filter-label">Genre</div>
-          <div class="chip-row" id="genreChips"></div>
-        </div>
-        <div class="filter-group">
-          <div class="filter-label">Sort</div>
-          <select id="sortSelect">
-            <option value="date-desc">Newest first</option>
-            <option value="date-asc">Oldest first</option>
-            <option value="price-asc">Price: low to high</option>
-            <option value="price-desc">Price: high to low</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <div class="chip-row">
-            <button class="chip" id="discountChip">On Sale</button>
+        <div class="filters">
+          <div class="filter-group sale-group">
+            <button class="chip chip-sale" id="discountChip">&#9670; On Sale</button>
+          </div>
+          <div class="filter-group">
+            <div class="filter-label">Genre</div>
+            <div class="chip-row" id="genreChips"></div>
+          </div>
+          <div class="filter-group">
+            <div class="filter-label">Sort</div>
+            <select id="sortSelect">
+              <option value="date-desc">Newest first</option>
+              <option value="date-asc">Oldest first</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+            </select>
           </div>
         </div>
+      </div>
+      <div class="sidebar-footer">
+        <button class="btn-apply" id="sidebarApply">Show Results</button>
       </div>
     </aside>
 
@@ -473,7 +494,7 @@ function removeFromCart(id){
 // ── LOAD PRODUCTS ──
 fetch('/.netlify/functions/products')
   .then(function(r){ if(!r.ok) throw new Error('http '+r.status); return r.json(); })
-  .then(function(data){ PRODUCTS = data; buildGenreChips(); updateCartBar(); render(); })
+  .then(function(data){ PRODUCTS = data; buildGenreChips(); updateCartBar(); render(); updateHeadHeight(); })
   .catch(function(err){
     console.error('Failed to load products:', err);
     var grid = document.getElementById('productsGrid');
@@ -519,11 +540,23 @@ document.getElementById('searchInput').addEventListener('input', function(){
 });
 
 // Mobile sidebar toggle
-function openSidebar(){ document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebarBackdrop').classList.add('show'); }
-function closeSidebar(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarBackdrop').classList.remove('show'); }
+function openSidebar(){ document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebarBackdrop').classList.add('show'); document.body.style.overflow='hidden'; }
+function closeSidebar(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarBackdrop').classList.remove('show'); document.body.style.overflow=''; }
 document.getElementById('filterToggle').addEventListener('click', openSidebar);
 document.getElementById('sidebarClose').addEventListener('click', closeSidebar);
 document.getElementById('sidebarBackdrop').addEventListener('click', closeSidebar);
+var sidebarApplyBtn = document.getElementById('sidebarApply');
+if(sidebarApplyBtn) sidebarApplyBtn.addEventListener('click', closeSidebar);
+
+// Keep the sidebar's sticky offset (desktop) matched to the actual header height
+function updateHeadHeight(){
+  var head = document.getElementById('stickyHead');
+  if(head) document.documentElement.style.setProperty('--head-h', head.offsetHeight+'px');
+}
+window.addEventListener('load', updateHeadHeight);
+window.addEventListener('resize', updateHeadHeight);
+updateHeadHeight();
+setTimeout(updateHeadHeight, 300);
 
 function render(){
   var list = PRODUCTS.slice();
@@ -554,8 +587,8 @@ function renderProductsList(list){
     var soldOut = p.stock<=0;
 
     var badges = '';
+    if(p.discount && p.discount.enabled) badges += '<span class="tag-badge discount">Sale</span>';
     if(p.isNew) badges += '<span class="tag-badge new">New</span>';
-    if(p.discount && p.discount.enabled) badges += '<span class="tag-badge discount">Discount</span>';
     if(p.preorder && p.preorder.enabled) badges += '<span class="tag-badge preorder">Pre-order</span>';
     if(soldOut) badges += '<span class="tag-badge sold">Sold out</span>';
 
@@ -677,12 +710,14 @@ function renderPaymentSummary(){
 function goCheckout(){
   if(!cartCount())return;
   document.getElementById('shopSection').style.display='none';
+  document.getElementById('shopToolbar').style.display='none';
   document.getElementById('checkoutSection').classList.add('active');
   renderCartSummary();goStep(1);window.scrollTo(0,0);
 }
 function backToShop(){
   document.getElementById('checkoutSection').classList.remove('active');
   document.getElementById('shopSection').style.display='block';
+  document.getElementById('shopToolbar').style.display='flex';
   window.scrollTo(0,0);
 }
 function goStep(n){
