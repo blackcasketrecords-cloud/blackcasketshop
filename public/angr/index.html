@@ -38,14 +38,22 @@ a{color:inherit}
 .topbar h1{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--parch);margin-right:auto}
 .search-input{background:rgba(196,186,168,.05);border:1px solid var(--border);color:var(--parch);font-family:'Crimson Text',serif;font-size:.9rem;padding:.5rem .8rem;width:180px;outline:none}
 .search-input:focus{border-color:var(--bordhi)}
-.burger-toggle{display:none}
+.burger-toggle{display:none;align-items:center;justify-content:center;width:2.2rem;height:2.2rem;flex-shrink:0;font-size:1.05rem;border:1px solid var(--border);background:none;color:var(--bone);cursor:pointer}
+.topbar-actions{display:flex;align-items:center;gap:.6rem}
 @media(max-width:760px){
-  .search-input{width:120px}
-  .topbar h1{width:100%;order:-1;margin-bottom:.3rem}
+  .burger-toggle{display:inline-flex}
+  .topbar h1{display:none}
+  .search-input{flex:1;min-width:0;width:auto}
+  .topbar-actions{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(0,0,0,.96);border-top:1px solid var(--border);padding:.7rem 1rem;gap:.6rem}
+  #addBtn{flex:1}
+  #logoutBtn{flex:0 0 auto}
 }
 
 .layout{display:flex;max-width:1400px;margin:0 auto}
-.sidebar{width:190px;flex-shrink:0;border-right:1px solid var(--border);padding:1.2rem 1rem;position:sticky;top:56px;align-self:flex-start;max-height:calc(100vh - 56px);overflow-y:auto}
+.sidebar{width:190px;flex-shrink:0;border-right:1px solid var(--border);position:sticky;top:56px;align-self:flex-start;max-height:calc(100vh - 56px);overflow-y:auto}
+.sidebar-inner{padding:1.2rem 1rem}
+.sidebar-header{display:none}
+.sidebar-footer{display:none}
 .sidebar-title{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;opacity:.4;margin-bottom:.6rem}
 .cat-btn{display:block;width:100%;text-align:left;background:none;border:none;color:var(--bone);font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:.55em .5em;cursor:pointer;opacity:.65;border-left:2px solid transparent}
 .cat-btn:hover{opacity:.9}
@@ -58,12 +66,29 @@ a{color:inherit}
 .chip{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border);padding:.35em .6em;cursor:pointer;opacity:.6;background:none;color:var(--bone)}
 .chip.active{opacity:1;color:var(--parch);border-color:var(--bordhi);background:rgba(196,186,168,.05)}
 .filters select{width:100%;background:rgba(196,186,168,.04);border:1px solid var(--border);color:var(--parch);font-family:'Crimson Text',serif;font-size:.85rem;padding:.4rem .5rem}
+.sidebar-close{display:none}
+@media(max-width:760px){
+  .sidebar{position:fixed;inset:0;z-index:250;width:100%;max-height:none;background:var(--deep);transform:translateX(-100%);transition:transform .3s ease;overflow-y:auto;display:flex;flex-direction:column}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-inner{flex:1;padding:1.2rem 1.2rem 2rem}
+  .sidebar-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--deep);z-index:2}
+  .sidebar-header-title{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--parch)}
+  .sidebar-footer{display:block;position:sticky;bottom:0;padding:1rem 1.2rem;border-top:1px solid var(--border);background:var(--deep)}
+  .btn-apply{width:100%;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--parch);border:1px solid var(--bloodhi);background:rgba(107,15,15,.45);padding:.85em;cursor:pointer}
+  .sidebar-close{display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;font-size:1.15rem;background:none;border:1px solid var(--border);color:var(--bone);cursor:pointer}
+}
 
 .main{flex:1;min-width:0;padding:1.4rem}
 .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap;gap:.6rem}
 .count{font-size:.8rem;opacity:.5;font-style:italic}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem}
+@media(max-width:760px){
+  .main{padding:.9rem .8rem 5rem}
+  .grid{grid-template-columns:repeat(2,1fr);gap:.6rem}
+  .p-card-body{padding:.5rem .55rem}
+  .p-card-title{font-size:.78rem}
+}
 .p-card{border:1px solid var(--border);background:var(--ash);cursor:pointer;transition:border-color .2s;position:relative}
 .p-card:hover{border-color:var(--bordhi)}
 .p-card.is-hidden{opacity:.45}
@@ -121,43 +146,55 @@ a{color:inherit}
 
 <div class="app" id="app">
   <div class="topbar">
+    <button class="burger-toggle" id="sidebarToggle">&#9776;</button>
     <h1>Black Casket &middot; Admin</h1>
     <input type="text" class="search-input" id="searchInput" placeholder="Search by title...">
-    <button class="btn btn-blood" id="addBtn">+ Add product</button>
-    <button class="btn btn-ghost btn-sm" id="logoutBtn">Logout</button>
+    <div class="topbar-actions">
+      <button class="btn btn-blood" id="addBtn">+ Add product</button>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn">Logout</button>
+    </div>
   </div>
 
   <div class="layout">
-    <aside class="sidebar">
-      <div class="sidebar-title">Categories</div>
-      <button class="cat-btn active" data-cat="">All</button>
-      <button class="cat-btn" data-cat="cd">CD</button>
-      <button class="cat-btn" data-cat="tape">Tape</button>
-      <button class="cat-btn" data-cat="vinyl">Vinyl</button>
-      <button class="cat-btn" data-cat="merch">Merch</button>
-      <button class="cat-btn" data-cat="bundle">Bundle</button>
-      <button class="cat-btn" data-cat="other">Other</button>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-header-title">Filters</span>
+        <button class="sidebar-close" id="sidebarClose">&times;</button>
+      </div>
+      <div class="sidebar-inner">
+        <div class="sidebar-title">Categories</div>
+        <button class="cat-btn active" data-cat="">All</button>
+        <button class="cat-btn" data-cat="cd">CD</button>
+        <button class="cat-btn" data-cat="tape">Tape</button>
+        <button class="cat-btn" data-cat="vinyl">Vinyl</button>
+        <button class="cat-btn" data-cat="merch">Merch</button>
+        <button class="cat-btn" data-cat="bundle">Bundle</button>
+        <button class="cat-btn" data-cat="other">Other</button>
 
-      <div class="filters">
-        <div class="filter-group">
-          <div class="filter-label">Genre</div>
-          <div class="chip-row" id="genreChips"></div>
-        </div>
-        <div class="filter-group">
-          <div class="filter-label">Sort</div>
-          <select id="sortSelect">
-            <option value="date-desc">Newest first</option>
-            <option value="date-asc">Oldest first</option>
-            <option value="price-asc">Price: low to high</option>
-            <option value="price-desc">Price: high to low</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <div class="chip-row">
-            <button class="chip" id="discountChip">Discount only</button>
-            <button class="chip" id="hiddenChip">Hidden only</button>
+        <div class="filters">
+          <div class="filter-group">
+            <div class="filter-label">Genre</div>
+            <div class="chip-row" id="genreChips"></div>
+          </div>
+          <div class="filter-group">
+            <div class="filter-label">Sort</div>
+            <select id="sortSelect">
+              <option value="date-desc">Newest first</option>
+              <option value="date-asc">Oldest first</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <div class="chip-row">
+              <button class="chip" id="discountChip">Discount only</button>
+              <button class="chip" id="hiddenChip">Hidden only</button>
+            </div>
           </div>
         </div>
+      </div>
+      <div class="sidebar-footer">
+        <button class="btn-apply" id="sidebarApply">Show Results</button>
       </div>
     </aside>
 
@@ -366,8 +403,19 @@ document.querySelectorAll('.cat-btn').forEach(btn=>{
     btn.classList.add('active');
     activeCategory = btn.dataset.cat;
     render();
+    closeSidebar();
   });
 });
+
+// Mobile filter drawer
+function openSidebar(){ document.getElementById('sidebar').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeSidebar(){ document.getElementById('sidebar').classList.remove('open'); document.body.style.overflow=''; }
+var sidebarToggleBtn = document.getElementById('sidebarToggle');
+if(sidebarToggleBtn) sidebarToggleBtn.addEventListener('click', openSidebar);
+var sidebarCloseBtn = document.getElementById('sidebarClose');
+if(sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeSidebar);
+var sidebarApplyBtn = document.getElementById('sidebarApply');
+if(sidebarApplyBtn) sidebarApplyBtn.addEventListener('click', closeSidebar);
 
 document.getElementById('discountChip').addEventListener('click', function(){
   discountOnly = !discountOnly;
