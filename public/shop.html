@@ -47,16 +47,15 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .cat-btn{display:block;width:100%;text-align:left;background:none;border:none;color:var(--bone);font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:.6em .5em;cursor:pointer;opacity:.62;border-left:2px solid transparent}
 .cat-btn:hover{opacity:.9}
 .cat-btn.active{opacity:1;color:var(--parch);border-left-color:var(--bloodhi);background:rgba(196,186,168,.03)}
+.cat-btn-sale{opacity:.9;color:var(--parch);font-weight:700;margin-bottom:.5rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.cat-btn-sale:hover{opacity:1}
+.cat-btn-sale.active{opacity:1;border-left-color:var(--bloodhi);background:rgba(107,15,15,.16);text-shadow:0 0 12px rgba(160,30,30,.5)}
 .filters{margin-top:1.6rem;padding-top:1.3rem;border-top:1px solid var(--border)}
 .filter-group{margin-bottom:1.2rem}
-.filter-group.sale-group{margin-bottom:1.4rem;padding-bottom:1.2rem;border-bottom:1px solid var(--border)}
 .filter-label{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.24em;text-transform:uppercase;opacity:.42;margin-bottom:.5rem}
 .chip-row{display:flex;flex-wrap:wrap;gap:.32rem}
 .chip{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border);padding:.4em .65em;cursor:pointer;opacity:.6;background:none;color:var(--bone)}
 .chip.active{opacity:1;color:var(--parch);border-color:var(--bordhi);background:rgba(196,186,168,.05)}
-.chip-sale{display:block;width:100%;text-align:center;font-size:.58rem;letter-spacing:.16em;padding:.6em .8em;opacity:1;border:1px solid var(--bloodhi);color:var(--parch);background:rgba(107,15,15,.18);font-weight:700}
-.chip-sale:hover{background:rgba(107,15,15,.4)}
-.chip-sale.active{background:rgba(107,15,15,.6);box-shadow:0 0 16px rgba(160,30,30,.4);border-color:var(--parch)}
 .filters select{width:100%;background:rgba(196,186,168,.04);border:1px solid var(--border);color:var(--parch);font-family:'Crimson Text',serif;font-size:.85rem;padding:.45rem .5rem}
 .sidebar-backdrop{display:none}
 @media(max-width:820px){
@@ -246,6 +245,7 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
       </div>
       <div class="sidebar-inner">
         <div class="sidebar-title">Categories</div>
+        <button class="cat-btn cat-btn-sale" data-cat="__sale__">&#9670; Sale</button>
         <button class="cat-btn active" data-cat="">All</button>
         <button class="cat-btn" data-cat="cd">CD</button>
         <button class="cat-btn" data-cat="tape">Tape</button>
@@ -255,9 +255,6 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
         <button class="cat-btn" data-cat="other">Other</button>
 
         <div class="filters">
-          <div class="filter-group sale-group">
-            <button class="chip chip-sale" id="discountChip">&#9670; On Sale</button>
-          </div>
           <div class="filter-group">
             <div class="filter-label">Genre</div>
             <div class="chip-row" id="genreChips"></div>
@@ -519,17 +516,18 @@ document.querySelectorAll('.cat-btn').forEach(function(btn){
   btn.addEventListener('click', function(){
     document.querySelectorAll('.cat-btn').forEach(function(b){b.classList.remove('active');});
     btn.classList.add('active');
-    activeCategory = btn.dataset.cat;
+    if(btn.dataset.cat === '__sale__'){
+      discountOnly = true;
+      activeCategory = '';
+    } else {
+      discountOnly = false;
+      activeCategory = btn.dataset.cat;
+    }
     render();
     closeSidebar();
   });
 });
 
-document.getElementById('discountChip').addEventListener('click', function(){
-  discountOnly = !discountOnly;
-  this.classList.toggle('active');
-  render();
-});
 document.getElementById('sortSelect').addEventListener('change', function(){
   sortMode = this.value;
   render();
