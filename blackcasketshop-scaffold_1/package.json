@@ -1,0 +1,9 @@
+{
+  "name": "blackcasketshop",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Black Casket Records storefront + admin",
+  "dependencies": {
+    "@netlify/blobs": "^11.1.0"
+  }
+}

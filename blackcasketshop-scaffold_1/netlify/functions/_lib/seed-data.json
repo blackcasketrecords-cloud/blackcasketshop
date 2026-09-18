@@ -1,0 +1,2352 @@
+[
+  {
+    "id": "legacy-91",
+    "title": "Patches - Shining",
+    "categories": [],
+    "genres": [],
+    "price": 6.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0045937835_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-92",
+    "title": "Mushroom Grandpa Patch - BCR",
+    "categories": [],
+    "genres": [],
+    "price": 5.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0045896507_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-93",
+    "title": "Mushroom Grandpa - Mushroom Grandpa T-shirt - BCR",
+    "categories": [],
+    "genres": [],
+    "price": 19.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0045896483_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-0",
+    "title": "Mushroom Grandpa - Mushroom Grandpa",
+    "categories": [],
+    "genres": [],
+    "price": 10.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0045557506_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-1",
+    "title": "Shining Albums - No Box",
+    "categories": [],
+    "genres": [],
+    "price": 11.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0045360725_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-2",
+    "title": "DIABOLI (FI) - Albums (Digipack)",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0045312209_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-3",
+    "title": "Shining - Helsinki Tapes and Redefining Darkness (Double box)",
+    "categories": [],
+    "genres": [],
+    "price": 19.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0045360680_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-4",
+    "title": "Shining - Foberdrommar Del Ett and Del Tva (Double box)",
+    "categories": [],
+    "genres": [],
+    "price": 19.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0045360592_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-5",
+    "title": "SHINING - The Eerie Cold",
+    "categories": [],
+    "genres": [],
+    "price": 10.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0045301513_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-6",
+    "title": "SHINING - Angst",
+    "categories": [],
+    "genres": [],
+    "price": 10.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0045301489_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-7",
+    "title": "SHINING - Livets Andhallplats",
+    "categories": [],
+    "genres": [],
+    "price": 10.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0045301468_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-8",
+    "title": "SHINING - Within Deep Dark Chambers",
+    "categories": [],
+    "genres": [],
+    "price": 10.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0045301436_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-9",
+    "title": "Wachturm - Kapitel I & II",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0043957654_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-10",
+    "title": "Siege Golem - The Lure",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0043957504_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-11",
+    "title": "OFERMOD \"Thaumiel\" DIGIPAK",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0043397620_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-12",
+    "title": "COLD PROPHET \"Intentio Exitus\" CASSETTE",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0043397557_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-13",
+    "title": "The Legend of Zelda: Ocarina of Time (OST) - CS + Stickers + Pin",
+    "categories": [],
+    "genres": [],
+    "price": 16.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041355908_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-14",
+    "title": "Resident Evil 3 - Nemesis (OST) CS + Pin",
+    "categories": [],
+    "genres": [],
+    "price": 14.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041355846_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-15",
+    "title": "The Legend of Zelda: Ocarina of Time (OST) - CS Only",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041355887_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-16",
+    "title": "Resident Evil 3 (OST) - Nemesis CS Only",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041355806_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-17",
+    "title": "Graveland - EP and Albums",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116217_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-18",
+    "title": "Black Murder - Feasts",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116396_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-19",
+    "title": "Vlad Tepes - War Funeral March",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116389_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-20",
+    "title": "Black Murder - Promo 94",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116344_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-21",
+    "title": "Celestia - Forever Gone",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116322_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-22",
+    "title": "Celestia - Aetherra",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116276_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-23",
+    "title": "Mortifera - Ecclesiae Mortii",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116360_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-24",
+    "title": "SAD - Utter Nihil Worship",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116299_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-25",
+    "title": "Cachot d'Effroi - Dans le cimetière abandonné",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116290_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-26",
+    "title": "AEGRUS - Devotion for The Devil",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116420_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-27",
+    "title": "Shitangel - Shithead Metal",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116305_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-28",
+    "title": "Chamber of Mirrors - Moonlight Decay",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116270_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-29",
+    "title": "LEPRA - Whom Aeons Tore Apart",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116262_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-30",
+    "title": "Sisyphean - Illusions of Eternity",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116252_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-31",
+    "title": "Eternal Majesty - From War to Darkness",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0042116244_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-32",
+    "title": "Bethlehem - The Gospel According to Alexander",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041967823_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-33",
+    "title": "Shining - Feberdrömmar (Del Ett)",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041967809_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-34",
+    "title": "Shining - Divided You'll Stand and United You'll Fall (Digipack) + Gift",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041967711_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-35",
+    "title": "Cold Prophet - I (Double CD)",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041967760_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-36",
+    "title": "Shining - The Helsinki Tapes (CD) + Gift",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041967727_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-37",
+    "title": "Cold Prophet - Intentio Exitus (Digipack)",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041967745_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-38",
+    "title": "Wothrosch - Odium (Bradpack) + Gift",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041967706_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-39",
+    "title": "Wothrosch - Odium CS",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041967684_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-40",
+    "title": "Shining - Divided You'll Stand and United You'll Fall",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041967663_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-41",
+    "title": "Shining - Lots of Girls Gonna Get Hurt",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0041967635_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-42",
+    "title": "Chernomor - Rise of the Ancient",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0036999245_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-43",
+    "title": "Genshin Impact OST",
+    "categories": [],
+    "genres": [],
+    "price": 12.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0035652123_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-44",
+    "title": "Bloody Run - Decapitate the Tyrant",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0037422287_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-45",
+    "title": "Nesthuratic - Lunar Eclipse",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0037469316_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-46",
+    "title": "Ancient Storm - Forever and Never",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0037510426_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-47",
+    "title": "Vampyr - Hypnagogia CS + LP Bundle",
+    "categories": [],
+    "genres": [],
+    "price": 19.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0036667394_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-48",
+    "title": "Häkkänfałt - The Dark Majesty CS",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0036667441_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-49",
+    "title": "How do you Live OST",
+    "categories": [],
+    "genres": [],
+    "price": 12.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0037576893_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-50",
+    "title": "Vampyr - Hypnagogia CS",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0036667373_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-51",
+    "title": "Nukekubi & Bloodisthin - Forgotten Black Veins (Split)",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0030220924_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-52",
+    "title": "The Sabbath on Lysa Hora - Angel (CD)",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0030226601_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-53",
+    "title": "VAMPYR - NIGHTCURSE LP",
+    "categories": [],
+    "genres": [],
+    "price": 14.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0031010522_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-54",
+    "title": "Silent Hill 2 - Angela",
+    "categories": [],
+    "genres": [],
+    "price": 14.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0035393907_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-55",
+    "title": "Anime Sticker Pack",
+    "categories": [],
+    "genres": [],
+    "price": 2.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0037793408_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-56",
+    "title": "Mushroom Grandpa - Basic Micology",
+    "categories": [],
+    "genres": [],
+    "price": 14.0,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0034888315_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-57",
+    "title": "Night Tempo - Pure Baby Maker OST",
+    "categories": [],
+    "genres": [],
+    "price": 12.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0036358183_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-58",
+    "title": "Suzume no Tojimari OST",
+    "categories": [],
+    "genres": [],
+    "price": 12.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0036363537_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-59",
+    "title": "Forgotten Sword - One Ring, One Rule",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0036420093_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-60",
+    "title": "Old Distant Weep - Bliss In Eternal",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0033325925_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-61",
+    "title": "Phantom Spire - Formless Wraiths of the Black Ascension LP",
+    "categories": [],
+    "genres": [],
+    "price": 14.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0033528167_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-62",
+    "title": "Grollfried - Verpoͤnte Hexerey (2021)",
+    "categories": [],
+    "genres": [],
+    "price": 14.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0033444545_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-63",
+    "title": "Gameboard Dices Set (Dungeon & Dragons)",
+    "categories": [],
+    "genres": [],
+    "price": 7.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0033625987_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-64",
+    "title": "Mistress of the Dead - White Roses, White Coffin",
+    "categories": [],
+    "genres": [],
+    "price": 7.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0032352500_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-65",
+    "title": "Benighted in Sodom - Plateau Σ: The Harrowing",
+    "categories": [],
+    "genres": [],
+    "price": 7.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0032324188_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-66",
+    "title": "Butchery Kommand - Bestial Putrefaction/Sadistikum Split",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0031497809_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-67",
+    "title": "Inthuul - When the Sun Faded",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0031733195_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-68",
+    "title": "Marlynmage - Black Slime in the Wombs of Darkness",
+    "categories": [],
+    "genres": [],
+    "price": 6.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0029510284_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-69",
+    "title": "Pestilength - Demend",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0030540979_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-70",
+    "title": "Grifteskymfning - Djävulens Boning CD",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0029483700_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-71",
+    "title": "Vetus Supulcrum - Death's Oldest Songs (CS)",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0031093026_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-72",
+    "title": "Oscuro Pipistrello - Demo I",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0029122199_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-73",
+    "title": "Arcano Pensiero - Il mondo nuovo",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0029455975_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-74",
+    "title": "Altered Heresy & Dakhanavar - Split",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0030962731_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-75",
+    "title": "Night - Tape Chernomor",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0024244044_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-76",
+    "title": "Fires of Cernunnos - Wassail",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0025401881_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-77",
+    "title": "Revelations of Rain - T-Shirt",
+    "categories": [],
+    "genres": [],
+    "price": 6.0,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0024244093_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-78",
+    "title": "T-Shirt - Chernomor",
+    "categories": [],
+    "genres": [],
+    "price": 6.0,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0024244028_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-79",
+    "title": "Besteigung - T-shirt",
+    "categories": [],
+    "genres": [],
+    "price": 6.0,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0023741012_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-80",
+    "title": "Raven Frost & Sabbra",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0025099896_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-81",
+    "title": "Elffor - Impious Battlefields (A5-Digipack)",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0029207613_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-82",
+    "title": "Crushing The Celestial Chains - Logos",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0024850558_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-83",
+    "title": "Auwald - Cineastre",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0024073951_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-84",
+    "title": "Spiritual Abuse - Empty Chalice",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0023740439_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-85",
+    "title": "Piano and Stump - The Austrasian Goat",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0023430008_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-86",
+    "title": "LUCIFUGUM \"Sublimessiah\" Digipack CD",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0026810546_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-87",
+    "title": "Revelations of Rain",
+    "categories": [],
+    "genres": [],
+    "price": 9.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0024244070_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-88",
+    "title": "Gotisch Traumtänzer - Besteigung",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0023721658_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-89",
+    "title": "In the name of the Flesh...In the name of the Blood - Ludochka",
+    "categories": [],
+    "genres": [],
+    "price": 5.0,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0024853656_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  },
+  {
+    "id": "legacy-90",
+    "title": "Hymnen an die Nacht - Besteigung",
+    "categories": [],
+    "genres": [],
+    "price": 8.99,
+    "stock": 5,
+    "dateAdded": "2026-09-18T11:05:59.601423Z",
+    "photos": [
+      "https://f4.bcbits.com/img/0023721536_10.jpg"
+    ],
+    "note": "",
+    "discount": {
+      "enabled": false,
+      "price": null
+    },
+    "isNew": false,
+    "preorder": {
+      "enabled": false,
+      "priceNow": null,
+      "priceAfter": null
+    },
+    "hidden": false,
+    "legacy": true
+  }
+]
