@@ -71,7 +71,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .div span{font-family:'Cinzel',serif;font-size:.85rem}
 
 /* RELEASES */
-.rel-bg{background:var(--deep);padding:4rem 1.5rem}
+.rel-bg{background:var(--deep);padding:1.6rem 1.5rem 4rem}
 .rel-inner{max-width:1040px;margin:0 auto}
 .rel-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.2rem;flex-wrap:wrap;gap:.8rem}
 .rel-head a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--bone);opacity:.62;text-decoration:none;border-bottom:1px solid transparent;transition:all .28s;padding-bottom:.2em}
@@ -163,14 +163,13 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
   .slide-arrow{font-size:.95rem;width:1.8rem;height:1.8rem;color:rgba(196,186,168,.4)}
   .slide-prev{left:.2rem}
   .slide-next{right:.2rem}
-  .slide-dots{display:none}
   .slide img{object-position:center center}
 }
 
 /* ── SLIDER ── */
-.slider-section{background:var(--deep);padding:0 1.5rem 2rem;position:relative}
+.slider-section{background:var(--deep);padding:0 1.5rem .8rem;position:relative}
 .slider-wrap{position:relative;max-width:1040px;margin:0 auto;overflow:hidden}
-@media(max-width:600px){.slider-wrap{max-width:100%;margin:0}.slider-section{padding:0 0 2rem}}
+@media(max-width:600px){.slider-wrap{max-width:100%;margin:0}.slider-section{padding:0 0 .8rem}}
 
 .slider-track{display:flex;align-items:stretch;transition:transform .5s cubic-bezier(.4,0,.2,1)}
 .slide{flex:0 0 100%;position:relative;overflow:hidden;background:linear-gradient(135deg,#0a0a0f 0%,#111118 100%);line-height:0}
@@ -205,18 +204,14 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 .slide-prev{left:1.2rem}
 .slide-next{right:1.2rem}
 
-.slide-dots{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem;z-index:10}
-.dot{width:.55rem;height:.55rem;border-radius:50%;background:rgba(196,186,168,.35);cursor:pointer;transition:all .25s;border:none;display:inline-block;padding:0}
-.dot.active{background:var(--bone);transform:scale(1.2)}
-
 /* Slider JS */
 
 
 /* ── NAV BUTTONS ── */
-.nav-buttons{max-width:1040px;margin:0 auto;padding:2rem 1.5rem 1rem;display:flex;gap:.7rem;flex-wrap:wrap}
+.nav-buttons{max-width:1040px;margin:0 auto;padding:.8rem 1.5rem .6rem;display:flex;gap:.7rem;flex-wrap:wrap}
 .nav-btn{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;text-decoration:none;padding:.7em 1.6em;border:1px solid rgba(196,186,168,.28);color:var(--bone);background:transparent;transition:all .25s;white-space:nowrap}
 .nav-btn:hover{border-color:rgba(196,186,168,.7);color:var(--parch);background:rgba(196,186,168,.04)}
-@media(max-width:600px){.nav-buttons{gap:.5rem;padding:1.2rem 1rem .5rem}.nav-btn{font-size:.55rem;padding:.6em 1.1em}}
+@media(max-width:600px){.nav-buttons{gap:.5rem;padding:.7rem 1rem .5rem}.nav-btn{font-size:.55rem;padding:.6em 1.1em}}
 
 /* ── NEWS ── */
 .news-section{max-width:1040px;margin:0 auto;padding:2.5rem 1.5rem}
@@ -270,59 +265,14 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 <div class="slider-section">
   <div class="slider-wrap">
     <div class="slider-track" id="sliderTrack">
-
-      <!-- Slide 1: Mushroom Grandpa -->
-      <div class="slide">
-        <img src="https://i.imgur.com/1NlJeBU.png" alt="Mushroom Grandpa" loading="lazy">
-        <div class="slide-overlay">
-          <div class="slide-label">New Release</div>
-          <div class="slide-title">Mushroom Grandpa</div>
-          <a href="shop.html" class="slide-btn">Order &#8599;</a>
-        </div>
-      </div>
-
-      <!-- Slide 2: Shining -->
-      <div class="slide">
-        <img src="https://i.imgur.com/tDZBjL9.png" alt="Shining" loading="lazy">
-        <div class="slide-overlay">
-          <div class="slide-label">New Release</div>
-          <div class="slide-title">Shining</div>
-          <a href="shop.html" class="slide-btn">Order &#8599;</a>
-        </div>
-      </div>
-
-      <!-- Slide 3: Wachturm -->
-      <div class="slide">
-        <img src="https://i.imgur.com/FR78qJU.png" alt="Wachturm" loading="lazy">
-        <div class="slide-overlay">
-          <div class="slide-label">New Release</div>
-          <div class="slide-title">Wachturm</div>
-          <a href="shop.html" class="slide-btn">Order &#8599;</a>
-        </div>
-      </div>
-
-      <!-- Slide 4: Siege Golem -->
-      <div class="slide">
-        <img src="https://i.imgur.com/cICu0YQ.png" alt="Siege Golem" loading="lazy">
-        <div class="slide-overlay">
-          <div class="slide-label">New Release</div>
-          <div class="slide-title">Siege Golem</div>
-          <a href="shop.html" class="slide-btn">Order &#8599;</a>
-        </div>
-      </div>
+      <!-- filled dynamically from /.netlify/functions/content -->
     </div>
 
     <!-- Controls -->
     <button class="slide-arrow slide-prev" onclick="slideMove(-1)">&#10094;</button>
     <button class="slide-arrow slide-next" onclick="slideMove(1)">&#10095;</button>
   </div>
-
-  <!-- Dots (outside wrap so they can sit below the banner) -->
-  <div class="slide-dots" id="sliderDots"></div>
 </div>
-
-
-<div class="div"><span>&#10013;</span></div>
 
 <!-- NAV BUTTONS -->
 <div class="nav-buttons">
@@ -343,54 +293,8 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
       </div>
       <a href="shop.html">View full shop &#8599;</a>
     </div>
-    <div class="rgrid">
-      <a href="shop.html" class="rcard rv">
-        <div class="rcard-img"><img src="https://f4.bcbits.com/img/a1757989563_16.jpg" alt="Mushroom Grandpa" loading="lazy"></div>
-        <div class="rcard-body">
-          <div class="rcard-artist">Mushroom Grandpa</div>
-          <div class="rcard-title">Mushroom Grandpa</div>
-          <div class="rcard-foot"><span class="rcard-price">&euro;10.99</span><span class="tag tag-new">New</span></div>
-        </div>
-      </a>
-      <a href="shop.html" class="rcard rv" style="transition-delay:.06s">
-        <div class="rcard-img"><img src="https://f4.bcbits.com/img/0043957654_16.jpg" alt="Wachturm" loading="lazy"></div>
-        <div class="rcard-body">
-          <div class="rcard-artist">Wachturm</div>
-          <div class="rcard-title">Kapitel I &amp; II</div>
-          <div class="rcard-foot"><span class="rcard-price">&euro;9.99</span><span class="tag tag-new">New</span></div>
-        </div>
-      </a>
-      <a href="shop.html" class="rcard rv" style="transition-delay:.12s">
-        <div class="rcard-img"><img src="https://f4.bcbits.com/img/0043957504_16.jpg" alt="Siege Golem" loading="lazy"></div>
-        <div class="rcard-body">
-          <div class="rcard-artist">Siege Golem</div>
-          <div class="rcard-title">The Lure</div>
-          <div class="rcard-foot"><span class="rcard-price">&euro;9.99</span><span class="tag tag-new">New</span></div>
-        </div>
-      </a>
-      <a href="shop.html" class="rcard rv" style="transition-delay:.18s">
-        <div class="rcard-img"><img src="https://f4.bcbits.com/img/0045360592_16.jpg" alt="Shining - Feberdrommar (Double box)" loading="lazy"></div>
-        <div class="rcard-body">
-          <div class="rcard-artist">Shining</div>
-          <div class="rcard-title">Feberdr&ouml;mmar (Double box)</div>
-          <div class="rcard-foot"><span class="rcard-price">&euro;19.99</span><span class="tag tag-cs">Cassette</span></div>
-        </div>
-      </a>
-      <a href="shop.html" class="rcard rv" style="transition-delay:.24s">
-        <div class="rcard-img"><img src="https://f4.bcbits.com/img/0045360680_16.jpg" alt="Shining - Helsinki Tapes and Redefining Darkness (Double box)" loading="lazy"></div>
-        <div class="rcard-body">
-          <div class="rcard-artist">Shining</div>
-          <div class="rcard-title">Helsinki Tapes (Double box)</div>
-          <div class="rcard-foot"><span class="rcard-price">&euro;19.99</span><span class="tag tag-cs">Cassette</span></div>
-        </div>
-      </a>
-      <a href="shop.html" class="rcard-all rv" style="transition-delay:.30s">
-        <div class="rcard-all-inner">
-          <div class="rcard-all-sym">&#8734;</div>
-          <div class="rcard-all-lbl">Full Shop</div>
-          <div class="rcard-all-hint">Browse the full catalogue &#8599;</div>
-        </div>
-      </a>
+    <div class="rgrid" id="recentGrid">
+      <!-- filled dynamically from /.netlify/functions/products (newest items marked "New") -->
     </div>
     <div class="rv" style="text-align:center;margin-top:2.2rem;transition-delay:.32s">
       <a href="shop.html" class="btn btn-blood">&#128722; Go to Shop &amp; Order</a>
@@ -404,15 +308,11 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 <div class="news-section" id="news">
   <div class="slabel">Latest</div>
   <h2 class="stitle">News</h2>
-  <div class="news-list">
+  <div class="news-list" id="newsList">
 
-    <div class="news-item rv">
-      <div class="news-date">June 18, 2026</div>
+    <div class="news-item">
       <p class="news-text">
-        The new <strong>Mushroom Grandpa</strong> release is now online. It's available on <strong>Spotify</strong> and <strong>YouTube Music</strong>, and will be coming to all other platforms soon.<br><br>
-        Cassette <strong>pre-orders are now open</strong> &mdash; reserve your tape in the <a href="shop.html">shop</a>. More merch updates are on the way shortly.<br><br>
-        A new journey into the world of forests, dreams, memories, and forgotten paths. This release is dedicated to the memory of my grandfather, who passed away on December 27, 2025.<br><br>
-        Thank you for listening.
+        Loading&hellip;
       </p>
     </div>
 
@@ -523,30 +423,20 @@ const io = new IntersectionObserver(e => {
 },{threshold:.07,rootMargin:'0px 0px -20px 0px'});
 document.querySelectorAll('.rv').forEach(el => io.observe(el));
 
-// Slider
+function escapeHtml(s){
+  return String(s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// Slider (slides come from /.netlify/functions/content, managed in the admin panel)
 let slideIdx = 0;
 const track = document.getElementById('sliderTrack');
-const dotsWrap = document.getElementById('sliderDots');
-let dots = [];
 let autoSlide;
-
-// Build navigation dots based on the actual number of slides
-if (track && dotsWrap) {
-  const slideCount = track.children.length;
-  for (let i = 0; i < slideCount; i++) {
-    const dot = document.createElement('span');
-    dot.className = 'dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => slideTo(i));
-    dotsWrap.appendChild(dot);
-  }
-  dots = Array.from(dotsWrap.children);
-}
 
 function slideTo(n) {
   const total = track.children.length;
+  if (!total) return;
   slideIdx = (n + total) % total;
   track.style.transform = `translateX(-${slideIdx * 100}%)`;
-  dots.forEach((d, i) => d.classList.toggle('active', i === slideIdx));
   resetAuto();
 }
 
@@ -554,8 +444,87 @@ function slideMove(dir) { slideTo(slideIdx + dir); }
 
 function resetAuto() {
   clearInterval(autoSlide);
-  autoSlide = setInterval(() => slideMove(1), 5000);
+  if (track.children.length > 1) autoSlide = setInterval(() => slideMove(1), 5000);
 }
+
+function renderBanners(banners){
+  const list = (banners || []).filter(b => b && (b.image || b.top || b.bottom));
+  const section = document.querySelector('.slider-section');
+  if (!list.length) { if (section) section.style.display = 'none'; return; }
+  if (section) section.style.display = '';
+  track.innerHTML = list.map(b => {
+    const topColor = b.topColor === 'black' ? '#111' : '#fff';
+    const bottomColor = b.bottomColor === 'black' ? '#111' : '#fff';
+    const img = b.image
+      ? `<img src="${escapeHtml(b.image)}" alt="" loading="lazy">`
+      : `<div class="slide-placeholder"><span class="slide-ph-text">No image</span></div>`;
+    return `<div class="slide">${img}<div class="slide-overlay">` +
+      (b.top ? `<div class="slide-label" style="color:${topColor};opacity:1">${escapeHtml(b.top)}</div>` : '') +
+      (b.bottom ? `<div class="slide-title" style="color:${bottomColor}">${escapeHtml(b.bottom)}</div>` : '') +
+      `</div></div>`;
+  }).join('');
+  document.querySelectorAll('.slide-arrow').forEach(a => a.style.display = list.length > 1 ? '' : 'none');
+  slideIdx = 0;
+  track.style.transform = 'translateX(0%)';
+  resetAuto();
+}
+
+function renderNews(text){
+  const wrap = document.getElementById('newsList');
+  const t = (text || '').trim();
+  const html = t ? escapeHtml(t).replace(/\n/g, '<br>') : 'No news yet.';
+  wrap.innerHTML = `<div class="news-item rv"><p class="news-text">${html}</p></div>`;
+  wrap.querySelectorAll('.rv').forEach(el => io.observe(el));
+}
+
+function effectivePrice(p){
+  if (p.preorder && p.preorder.enabled && p.preorder.priceNow != null) return p.preorder.priceNow;
+  if (p.discount && p.discount.enabled && p.discount.price != null) return p.discount.price;
+  return p.price;
+}
+
+function renderRecent(products){
+  const items = (products || []).filter(p => p.isNew).sort((a, b) => {
+    const da = new Date(a.dateAdded || 0).getTime();
+    const db = new Date(b.dateAdded || 0).getTime();
+    return db - da;
+  }).slice(0, 5);
+
+  const cardsHtml = items.map((p, i) => {
+    const img = (p.photos && p.photos[0]) || '';
+    return `<a href="shop.html" class="rcard rv" style="transition-delay:${(i * 0.06).toFixed(2)}s">` +
+      `<div class="rcard-img"><img src="${escapeHtml(img)}" alt="${escapeHtml(p.title)}" loading="lazy"></div>` +
+      `<div class="rcard-body">` +
+        `<div class="rcard-title">${escapeHtml(p.title)}</div>` +
+        `<div class="rcard-foot"><span class="rcard-price">&euro;${effectivePrice(p).toFixed(2)}</span><span class="tag tag-new">New</span></div>` +
+      `</div></a>`;
+  }).join('');
+
+  const fullShopHtml = `<a href="shop.html" class="rcard-all rv" style="transition-delay:${(items.length * 0.06).toFixed(2)}s">` +
+      `<div class="rcard-all-inner">` +
+        `<div class="rcard-all-sym">&#8734;</div>` +
+        `<div class="rcard-all-lbl">Full Shop</div>` +
+        `<div class="rcard-all-hint">Browse the full catalogue &#8599;</div>` +
+      `</div></a>`;
+
+  const grid = document.getElementById('recentGrid');
+  grid.innerHTML = cardsHtml + fullShopHtml;
+  grid.querySelectorAll('.rv').forEach(el => io.observe(el));
+}
+
+fetch('/.netlify/functions/content')
+  .then(r => r.json())
+  .then(data => { renderNews(data.news); renderBanners(data.banners); })
+  .catch(() => {
+    renderNews('');
+    const section = document.querySelector('.slider-section');
+    if (section) section.style.display = 'none';
+  });
+
+fetch('/.netlify/functions/products')
+  .then(r => r.json())
+  .then(products => renderRecent(products))
+  .catch(() => renderRecent([]));
 
 // Touch/swipe
 let touchStartX = 0;
@@ -565,7 +534,6 @@ if (track) {
     const diff = touchStartX - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 40) slideMove(diff > 0 ? 1 : -1);
   }, {passive:true});
-  resetAuto();
 }
 
 
