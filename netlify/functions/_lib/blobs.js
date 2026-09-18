@@ -1,11 +1,20 @@
 const { getStore } = require('@netlify/blobs');
 
+function openStore(name) {
+  const siteID = process.env.NETLIFY_BLOBS_SITE_ID || process.env.SITE_ID;
+  const token = process.env.NETLIFY_BLOBS_TOKEN;
+  if (siteID && token) {
+    return getStore({ name, siteID, token });
+  }
+  return getStore(name);
+}
+
 function productsStore() {
-  return getStore('bcr-shop');
+  return openStore('bcr-shop');
 }
 
 function imageStore() {
-  return getStore('bcr-images');
+  return openStore('bcr-images');
 }
 
 async function getCatalog() {
