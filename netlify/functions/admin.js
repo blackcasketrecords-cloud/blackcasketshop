@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const { getCatalog, saveCatalog, imageStore } = require('./_lib/blobs');
+const { getCatalog, saveCatalog, imageStore, getSiteContent, saveSiteContent } = require('./_lib/blobs');
 const { makeToken, isAuthed, setCookieHeader, clearCookieHeader } = require('./_lib/auth');
 const { CATEGORIES, GENRES } = require('./_lib/data');
 
@@ -127,6 +127,28 @@ exports.handler = async (event) => {
     const seed = require('./_lib/seed-data.json');
     await saveCatalog(seed);
     return json(200, { ok: true, count: seed.length });
+  }
+
+  if (action === 'get-content') {
+    const content = await getSiteContent();
+    return json(200, { ok: true, content });
+  }
+
+  if (action === 'save-content') {
+    const incoming = body.content || {};
+    const news = typeof incoming.news === 'string' ? incoming.news.slice(0, 5000) : '';
+    const banners = Array.isArray(incoming.banners)
+      ? incoming.banners.slice(0, 8).map((b) => ({
+          image: typeof (b && b.image) === 'string' ? b.image : '',
+          top: typeof (b && b.top) === 'string' ? b.top.slice(0, 80) : '',
+          topColor: b && b.topColor === 'black' ? 'black' : 'white',
+          bottom: typeof (b && b.bottom) === 'string' ? b.bottom.slice(0, 80) : '',
+          bottomColor: b && b.bottomColor === 'black' ? 'black' : 'white'
+        }))
+      : [];
+    const content = { news, banners };
+    await saveSiteContent(content);
+    return json(200, { ok: true, content });
   }
 
   if (action === 'upload-image') {
