@@ -50,6 +50,11 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .cat-btn-sale{opacity:.9;color:var(--parch);font-weight:700;margin-bottom:.5rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
 .cat-btn-sale:hover{opacity:1}
 .cat-btn-sale.active{opacity:1;border-left-color:var(--bloodhi);background:rgba(107,15,15,.16);text-shadow:0 0 12px rgba(160,30,30,.5)}
+.projects-group{margin-top:1.3rem;padding:.85rem .6rem;border:1px solid rgba(196,186,168,.18);background:rgba(196,186,168,.025)}
+.projects-label{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.26em;text-transform:uppercase;opacity:.48;margin-bottom:.5rem;padding:0 .4rem}
+.project-btn{display:block;width:100%;text-align:left;background:none;border:none;color:var(--bone);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.5em .4em;cursor:pointer;opacity:.68;border-left:2px solid transparent}
+.project-btn:hover{opacity:1}
+.project-btn.active{opacity:1;color:var(--parch);border-left-color:#c9a15c;background:rgba(201,161,92,.08)}
 .filters{margin-top:1.6rem;padding-top:1.3rem;border-top:1px solid var(--border)}
 .filter-group{margin-bottom:1.2rem}
 .filter-label{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.24em;text-transform:uppercase;opacity:.42;margin-bottom:.5rem}
@@ -254,6 +259,14 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
         <button class="cat-btn" data-cat="bundle">Bundle</button>
         <button class="cat-btn" data-cat="other">Other</button>
 
+        <div class="projects-group">
+          <div class="projects-label">Projects</div>
+          <button class="project-btn" data-project="blackcasket">Black Casket</button>
+          <button class="project-btn" data-project="ugunsvija">Ugunsvija</button>
+          <button class="project-btn" data-project="mushroom">Mushroom Grandpa</button>
+          <button class="project-btn" data-project="perkona">Perkona Calve</button>
+        </div>
+
         <div class="filters">
           <div class="filter-group">
             <div class="filter-label">Genre</div>
@@ -420,12 +433,14 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 <footer><p>&#169; Black Casket Records &nbsp;&middot;&nbsp; Est. 2019 &nbsp;&middot;&nbsp; Ukraine &middot; Latvia</p></footer>
 <script>
 const CATEGORY_LABELS = {cd:'CD',tape:'Tape',vinyl:'Vinyl',merch:'Merch',bundle:'Bundle',other:'Other'};
-const GENRES = ['black-metal','doom-metal','metal','dungeon-synth','ambient','comfy-synth','death-metal'];
-const GENRE_LABELS = {'black-metal':'Black Metal','doom-metal':'Doom Metal','metal':'Metal','dungeon-synth':'Dungeon Synth','ambient':'Ambient','comfy-synth':'Comfy Synth','death-metal':'Death Metal'};
+const GENRES = ['black-metal','doom-metal','metal','dungeon-synth','ambient','comfy-synth','death-metal','other'];
+const GENRE_LABELS = {'black-metal':'Black Metal','doom-metal':'Doom Metal','metal':'Metal','dungeon-synth':'Dungeon Synth','ambient':'Ambient','comfy-synth':'Comfy Synth','death-metal':'Death Metal','other':'Other'};
+const PROJECTS = ['blackcasket','ugunsvija','mushroom','perkona'];
 
 let PRODUCTS = [];
 let activeCategory = '';
 let activeGenres = [];
+let activeProject = '';
 let discountOnly = false;
 let searchTerm = '';
 let sortMode = 'date-desc';
@@ -528,6 +543,31 @@ document.querySelectorAll('.cat-btn').forEach(function(btn){
   });
 });
 
+document.querySelectorAll('.project-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var proj = btn.dataset.project;
+    if(activeProject === proj){
+      activeProject = '';
+      document.querySelectorAll('.project-btn').forEach(function(b){b.classList.remove('active');});
+    } else {
+      activeProject = proj;
+      document.querySelectorAll('.project-btn').forEach(function(b){b.classList.toggle('active', b===btn);});
+    }
+    render();
+    closeSidebar();
+  });
+});
+
+// Deep link from a project page, e.g. shop.html?project=ugunsvija
+(function applyProjectFromUrl(){
+  var proj = new URLSearchParams(location.search).get('project');
+  if(proj && PROJECTS.includes(proj)){
+    activeProject = proj;
+    var btn = document.querySelector('.project-btn[data-project="'+proj+'"]');
+    if(btn) btn.classList.add('active');
+  }
+})();
+
 document.getElementById('sortSelect').addEventListener('change', function(){
   sortMode = this.value;
   render();
@@ -560,6 +600,7 @@ function render(){
   var list = PRODUCTS.slice();
   if(activeCategory) list = list.filter(function(p){return (p.categories||[]).includes(activeCategory);});
   if(activeGenres.length) list = list.filter(function(p){return activeGenres.some(function(g){return (p.genres||[]).includes(g);});});
+  if(activeProject) list = list.filter(function(p){return (p.project||'blackcasket')===activeProject;});
   if(discountOnly) list = list.filter(function(p){return p.discount && p.discount.enabled;});
   if(searchTerm) list = list.filter(function(p){return (p.title||'').toLowerCase().includes(searchTerm);});
 
