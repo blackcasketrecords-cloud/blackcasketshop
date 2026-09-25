@@ -83,15 +83,23 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 @media(max-width:700px){.gal-prev{left:-1.1rem}.gal-next{right:-1.1rem}}
 
 /* ANNOUNCEMENTS (thin-divider list, mirrors homepage News) */
-.news-item{display:flex;gap:1.1rem;padding:1.1rem 0;border-bottom:1px solid var(--border)}
+.news-item{display:flex;gap:1.1rem;padding:.85rem 0;border-bottom:1px solid var(--border)}
 .news-item:last-child{border-bottom:none}
-.news-thumb{flex:0 0 96px;width:96px;height:96px;overflow:hidden;border:1px solid var(--border);cursor:pointer}
+.news-thumb-col{flex:0 0 96px;width:96px;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.news-thumb{width:96px;height:96px;overflow:hidden;border:1px solid var(--border);cursor:pointer}
 .news-thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(6%) contrast(1.04);transition:transform .4s ease}
 .news-thumb:hover img{transform:scale(1.06)}
 .news-body{flex:1;min-width:0}
 .news-text{font-size:1rem;line-height:1.78;opacity:.78}
-.news-date{display:block;margin-top:.5rem;font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;opacity:.42}
-@media(max-width:520px){.news-thumb{flex-basis:72px;width:72px;height:72px}}
+.news-date{display:block;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;opacity:.42;text-align:center}
+.news-date-inline{margin-top:.4rem}
+@media(max-width:520px){.news-thumb-col{flex-basis:72px;width:72px}.news-thumb{width:72px;height:72px}.news-date{font-size:.46rem;letter-spacing:.06em}}
+
+/* CONTACT INFO (address / hours, above the socials row) */
+.ug-contact-info{display:flex;flex-direction:column;gap:.5rem;align-items:center;margin-bottom:.6rem}
+.ug-contact-info p{font-size:.92rem;line-height:1.6;opacity:.72;margin:0;letter-spacing:.01em}
+.ug-contact-info .ci-icon{opacity:.55;margin-right:.5rem;display:inline-block;vertical-align:-2px}
+.ug-contact-info .ci-icon svg{width:15px;height:15px}
 
 /* SHOP SHOWCASE (mirrors homepage Recent Releases) */
 .rel-bg{background:var(--deep);padding:1.2rem 1.5rem 2.4rem}
@@ -122,8 +130,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* CONTACT */
 .contact-sec{text-align:center;padding:2.4rem 1.5rem 3rem}
 .clinks{display:flex;gap:2.2rem;justify-content:center;flex-wrap:wrap;margin-top:1.4rem}
-.cl{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.28em;text-transform:uppercase;color:var(--bone);opacity:.65;text-decoration:none;transition:all .26s;padding-bottom:.22em;border-bottom:1px solid transparent}
+.cl{display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.28em;text-transform:uppercase;color:var(--bone);opacity:.65;text-decoration:none;transition:all .26s;padding-bottom:.22em;border-bottom:1px solid transparent}
 .cl:hover{opacity:.92;color:var(--parch);border-bottom-color:var(--bordhi)}
+.cl svg{width:16px;height:16px;flex:0 0 16px}
 
 /* FOOTER */
 footer{border-top:1px solid rgba(196,186,168,.06);padding:1.8rem 1.5rem;text-align:center}
@@ -222,6 +231,7 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 <div class="contact-sec rv" id="contact">
   <div class="slabel">Find Us</div>
   <h2 class="stitle" style="margin-bottom:.7rem">Contact &amp; Location</h2>
+  <div class="ug-contact-info" id="ugContactInfo"></div>
   <div class="clinks" id="ugSocials"></div>
   <div id="ugMapWrap" style="margin-top:1.6rem;display:flex;justify-content:center"></div>
 </div>
@@ -249,6 +259,46 @@ function effectivePrice(p){
   if (p.preorder && p.preorder.enabled && p.preorder.priceNow != null) return p.preorder.priceNow;
   if (p.discount && p.discount.enabled && p.discount.price != null) return p.discount.price;
   return p.price;
+}
+
+// ---- Vector icons (inline SVG, currentColor so they follow link color/hover) ----
+const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10.5c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10.5" r="2.6"/></svg>';
+const ICON_CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5.3l3.6 2.1"/></svg>';
+
+const SOCIAL_ICON_ATTRS = ' viewBox="0 0 24 24"';
+const SOCIAL_ICONS = {
+  instagram: `<svg${SOCIAL_ICON_ATTRS} fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg>`,
+  facebook: `<svg${SOCIAL_ICON_ATTRS} fill="currentColor"><path d="M13.9 21.4v-8.05h2.7l.4-3.14h-3.1V8.24c0-.91.25-1.53 1.56-1.53h1.66V3.9A22.3 22.3 0 0 0 14.7 3.74c-2.4 0-4.04 1.47-4.04 4.16v2.3H8v3.15h2.66v8.05h3.24z"/></svg>`,
+  twitter: `<svg${SOCIAL_ICON_ATTRS} fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22.2 4.8a9.2 9.2 0 0 1-2.65 1.3 3.8 3.8 0 0 0-6.6 2.6v.85A8.98 8.98 0 0 1 5.4 5.8s-3.4 7.6 4.2 11a9.8 9.8 0 0 1-5.9 1.7c7.6 4.2 16.8 0 16.8-9.7 0-.24-.02-.47-.07-.7A6.5 6.5 0 0 0 22.2 4.8z"/></svg>`,
+  youtube: `<svg${SOCIAL_ICON_ATTRS} fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M22 12s0-2.7-.35-4a2.3 2.3 0 0 0-1.6-1.6C18.6 6 12 6 12 6s-6.6 0-8.05.4A2.3 2.3 0 0 0 2.35 8C2 9.3 2 12 2 12s0 2.7.35 4a2.3 2.3 0 0 0 1.6 1.6C5.4 18 12 18 12 18s6.6 0 8.05-.4a2.3 2.3 0 0 0 1.6-1.6c.35-1.3.35-4 .35-4z"/><path d="M10 9.6l4.8 2.4-4.8 2.4z" fill="currentColor" stroke="none"/></svg>`,
+  spotify: `<svg${SOCIAL_ICON_ATTRS} fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 18V5.2L20.5 3.3v12.9"/><circle cx="6" cy="18" r="3"/><circle cx="17.5" cy="16.2" r="3"/></svg>`,
+  bandcamp: `<svg${SOCIAL_ICON_ATTRS} fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9.2"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></svg>`,
+  soundcloud: `<svg${SOCIAL_ICON_ATTRS} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.6 19H8.2a3.4 3.4 0 0 1-.4-6.78A5.6 5.6 0 0 1 18.6 10a3.9 3.9 0 0 1-1 9z"/><path d="M8.2 12.3V19M5.5 14v5M11 10.6V19M13.7 10V19"/></svg>`,
+  telegram: `<svg${SOCIAL_ICON_ATTRS} fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="21.5" y1="2.5" x2="10.8" y2="13.2"/><polygon points="21.5 2.5 14.6 21 10.8 13.2 3 9.4 21.5 2.5"/></svg>`,
+  whatsapp: `<svg${SOCIAL_ICON_ATTRS} fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5a8.4 8.4 0 0 1-9.3 8.4A8.3 8.3 0 0 1 7.4 19L3 20.5 4.5 16a8.3 8.3 0 0 1-.9-3.8A8.4 8.4 0 1 1 20.5 11.5z"/></svg>`,
+  vk: `<svg${SOCIAL_ICON_ATTRS} fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9.2"/><text x="12" y="15.4" text-anchor="middle" font-size="8.6" font-family="Arial,sans-serif" fill="currentColor" stroke="none">VK</text></svg>`,
+  tiktok: `<svg${SOCIAL_ICON_ATTRS} fill="currentColor"><path d="M16.6 2.9c.32 2.15 1.8 3.9 4.1 4.3V10c-1.5 0-2.9-.44-4.1-1.24v6.5a5.85 5.85 0 1 1-5.85-5.85c.3 0 .6.02.9.07v2.68a3.15 3.15 0 1 0 2.25 3.02V2.9h2.7z"/></svg>`,
+  mail: `<svg${SOCIAL_ICON_ATTRS} fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 6l9 6.5L21 6"/></svg>`,
+  phone: `<svg${SOCIAL_ICON_ATTRS} fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16.4v3a2 2 0 0 1-2.2 2 19.6 19.6 0 0 1-8.5-3 19.3 19.3 0 0 1-6-6 19.6 19.6 0 0 1-3-8.6A2 2 0 0 1 3.3 2h3a2 2 0 0 1 2 1.7c.13.95.36 1.88.7 2.77a2 2 0 0 1-.45 2.1L7.3 9.8a16 16 0 0 0 6 6l1.24-1.24a2 2 0 0 1 2.1-.45c.9.34 1.83.57 2.77.7a2 2 0 0 1 1.7 2.03z"/></svg>`,
+  globe: `<svg${SOCIAL_ICON_ATTRS} fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9.2"/><line x1="2.8" y1="12" x2="21.2" y2="12"/><path d="M12 2.8c2.6 2.4 4 5.8 4 9.2s-1.4 6.8-4 9.2c-2.6-2.4-4-5.8-4-9.2s1.4-6.8 4-9.2z"/></svg>`
+};
+
+function getSocialIcon(label, url){
+  const t = ((label || '') + ' ' + (url || '')).toLowerCase();
+  if (/instagram|instagr\.am/.test(t)) return SOCIAL_ICONS.instagram;
+  if (/facebook|fb\.com|fb\.me/.test(t)) return SOCIAL_ICONS.facebook;
+  if (/tiktok/.test(t)) return SOCIAL_ICONS.tiktok;
+  if (/youtube|youtu\.be/.test(t)) return SOCIAL_ICONS.youtube;
+  if (/spotify/.test(t)) return SOCIAL_ICONS.spotify;
+  if (/bandcamp/.test(t)) return SOCIAL_ICONS.bandcamp;
+  if (/soundcloud/.test(t)) return SOCIAL_ICONS.soundcloud;
+  if (/telegram|t\.me/.test(t)) return SOCIAL_ICONS.telegram;
+  if (/whatsapp|wa\.me/.test(t)) return SOCIAL_ICONS.whatsapp;
+  if (/\bvk\.com\b|vkontakte|(^|\s)vk(\s|$)/.test(t)) return SOCIAL_ICONS.vk;
+  if (/twitter|x\.com/.test(t)) return SOCIAL_ICONS.twitter;
+  if (/mailto:|@/.test(t) && !/instagram|facebook/.test(t)) return SOCIAL_ICONS.mail;
+  if (/^tel:/.test(t)) return SOCIAL_ICONS.phone;
+  return SOCIAL_ICONS.globe;
 }
 
 function formatNewsDate(d){
@@ -299,10 +349,16 @@ function renderContent(data){
 
   renderAnnouncements(data && data.newsItems);
 
+  const infoWrap = document.getElementById('ugContactInfo');
+  const infoParts = [];
+  if (p.address && p.address.trim()) infoParts.push(`<p><span class="ci-icon">${ICON_PIN}</span>${escapeHtml(p.address.trim())}</p>`);
+  if (p.hours && p.hours.trim()) infoParts.push(`<p><span class="ci-icon">${ICON_CLOCK}</span>${escapeHtml(p.hours.trim())}</p>`);
+  infoWrap.innerHTML = infoParts.join('');
+
   const socials = (p.socials || []).filter(s => s && s.url);
   const socialsWrap = document.getElementById('ugSocials');
   socialsWrap.innerHTML = socials.length
-    ? socials.map(s => `<a href="${escapeHtml(s.url)}" class="cl" target="_blank" rel="noopener">${escapeHtml(s.label || 'Link')}</a>`).join('')
+    ? socials.map(s => `<a href="${escapeHtml(s.url)}" class="cl" target="_blank" rel="noopener">${getSocialIcon(s.label, s.url)}<span>${escapeHtml(s.label || 'Link')}</span></a>`).join('')
     : '<p style="opacity:.5;font-style:italic">Socials coming soon.</p>';
 
   if (p.mapUrl) {
@@ -311,7 +367,7 @@ function renderContent(data){
       document.getElementById('ugMapWrap').innerHTML =
         `<iframe class="ug-map-frame" src="${escapeHtml(p.mapUrl)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>`;
     } else {
-      document.getElementById('ugMapWrap').innerHTML = `<a href="${escapeHtml(p.mapUrl)}" class="cl" target="_blank" rel="noopener">&#128205; View on Map</a>`;
+      document.getElementById('ugMapWrap').innerHTML = `<a href="${escapeHtml(p.mapUrl)}" class="cl" target="_blank" rel="noopener">${ICON_PIN}<span>View on Map</span></a>`;
     }
   }
 }
@@ -329,13 +385,19 @@ function renderAnnouncements(newsItems){
   wrap.innerHTML = items.map((it, i) => {
     const textHtml = escapeHtml(it.text.trim()).replace(/\n/g, '<br>');
     const dateLabel = formatNewsDate(it.date);
-    const thumb = it.image ? `<div class="news-thumb"><img src="${escapeHtml(it.image)}" alt="" loading="lazy"></div>` : '';
+    const dateEsc = escapeHtml(dateLabel);
+    // With a photo: date sits centered under the thumbnail (keeps the text
+    // column from getting a third stacked line on mobile). Without a photo:
+    // date falls back to sitting under the text itself.
+    const thumbCol = it.image
+      ? `<div class="news-thumb-col"><div class="news-thumb"><img src="${escapeHtml(it.image)}" alt="" loading="lazy"></div>${dateLabel ? `<span class="news-date">${dateEsc}</span>` : ''}</div>`
+      : '';
     return `<div class="news-item rv" style="transition-delay:${(i * 0.06).toFixed(2)}s">` +
-      thumb +
+      thumbCol +
       `<div class="news-body">` +
         `<div class="clamp-3 news-text" id="ugAnnounceText-${i}">${textHtml}</div>` +
         `<button type="button" class="read-more-btn" id="ugAnnounceToggle-${i}">Read more</button>` +
-        (dateLabel ? `<span class="news-date">${escapeHtml(dateLabel)}</span>` : '') +
+        (!it.image && dateLabel ? `<span class="news-date news-date-inline" style="text-align:left">${dateEsc}</span>` : '') +
       `</div></div>`;
   }).join('');
   wrap.querySelectorAll('.rv').forEach(el => io.observe(el));
