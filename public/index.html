@@ -230,14 +230,32 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 
 /* ── NEWS ── */
 .news-section{max-width:1040px;margin:0 auto;padding:2.5rem 1.5rem}
-.news-list{display:flex;flex-direction:column;gap:1.2rem}
-.news-item{border:1px solid var(--border);padding:1.2rem 1.4rem;background:rgba(196,186,168,.02);transition:border-color .25s}
-.news-item:hover{border-color:rgba(196,186,168,.25)}
-.news-date{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;opacity:.42;margin-bottom:.5rem}
-.news-text{font-size:1rem;line-height:1.78;opacity:.78}
+.news-list{display:flex;flex-direction:column}
+.news-item{display:flex;gap:1.1rem;align-items:flex-start;padding:1.3rem 0;border-bottom:1px solid var(--border)}
+.news-item:last-child{border-bottom:none}
+.news-thumb{flex:0 0 90px;width:90px;height:90px;border:1px solid var(--border);overflow:hidden;cursor:pointer;background:#0c0c10}
+.news-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.news-thumb:hover img{transform:scale(1.06)}
+.news-body{flex:1;min-width:0}
+.news-text{font-size:1rem;line-height:1.78;opacity:.8;margin-bottom:.4rem}
 .news-text a{color:var(--parch);opacity:.9;text-decoration:none;border-bottom:1px solid rgba(229,220,197,.3);transition:all .22s}
 .news-text a:hover{opacity:1;border-bottom-color:var(--parch)}
-@media(max-width:600px){.news-section{padding:1.5rem 1rem}.news-item{padding:.9rem 1rem}}
+.news-meta{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-top:.2rem}
+.news-project{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:var(--parch);opacity:.6;border:1px solid var(--border);padding:.22em .55em}
+.news-date{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;opacity:.4}
+@media(max-width:600px){.news-section{padding:1.5rem 1rem}.news-thumb{flex-basis:70px;width:70px;height:70px}}
+
+/* READ MORE */
+.clamp-3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.read-more-btn{display:none;margin-top:.3rem;font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bone);opacity:.6;background:none;border:none;border-bottom:1px solid transparent;cursor:pointer;padding:0}
+.read-more-btn:hover{opacity:.95;color:var(--parch);border-bottom-color:var(--bordhi)}
+
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:500;align-items:center;justify-content:center;padding:2rem;cursor:zoom-out}
+.lightbox.show{display:flex}
+.lightbox img{max-width:92vw;max-height:88vh;object-fit:contain;border:1px solid var(--border);cursor:default}
+.lightbox-close{position:absolute;top:1.2rem;right:1.5rem;width:2.4rem;height:2.4rem;display:flex;align-items:center;justify-content:center;font-size:1.4rem;background:none;border:1px solid var(--border);color:var(--bone);cursor:pointer;z-index:2}
+.lightbox-close:hover{color:var(--parch);border-color:var(--bordhi)}
 
 </style>
 </head>
@@ -456,6 +474,11 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
   <p>&#169; Black Casket Records &nbsp;&middot;&nbsp; Est. 2019 &nbsp;&middot;&nbsp; Ukraine &middot; Latvia</p>
 </footer>
 
+<div class="lightbox" id="lightbox">
+  <button type="button" class="lightbox-close" id="lightboxClose">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const io = new IntersectionObserver(e => {
   e.forEach(x => { if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target)} });
@@ -508,12 +531,71 @@ function renderBanners(banners){
   resetAuto();
 }
 
-function renderNews(text){
+const NEWS_PROJECT_LABELS = { blackcasket: 'Black Casket', ugunsvija: 'Ugunsvija', mushroom: 'Mushroom Grandpa', perkona: 'Perkona Calve' };
+
+function formatNewsDate(d){
+  if (!d) return '';
+  const dt = new Date(d + 'T00:00:00');
+  if (isNaN(dt.getTime())) return '';
+  return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function setupReadMore(textId, btnId){
+  const textEl = document.getElementById(textId);
+  const btn = document.getElementById(btnId);
+  if (!textEl || !btn) return;
+  requestAnimationFrame(() => {
+    if (textEl.scrollHeight > textEl.clientHeight + 2) {
+      btn.style.display = 'inline-block';
+      btn.addEventListener('click', () => {
+        const nowClamped = textEl.classList.toggle('clamp-3');
+        btn.textContent = nowClamped ? 'Read more' : 'Show less';
+      });
+    }
+  });
+}
+
+function openLightbox(src){
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('show');
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('show');
+  document.getElementById('lightboxImg').src = '';
+}
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+document.getElementById('lightbox').addEventListener('click', e => { if (e.target.id === 'lightbox') closeLightbox(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+function renderNews(items){
   const wrap = document.getElementById('newsList');
-  const t = (text || '').trim();
-  const html = t ? escapeHtml(t).replace(/\n/g, '<br>') : 'No news yet.';
-  wrap.innerHTML = `<div class="news-item rv"><p class="news-text">${html}</p></div>`;
+  const list = (items || []).filter(it => it && it.text && it.text.trim());
+  if (!list.length) {
+    wrap.innerHTML = '<div class="news-item rv"><div class="news-body"><p class="news-text" style="opacity:.55;font-style:italic">No news yet.</p></div></div>';
+    wrap.querySelectorAll('.rv').forEach(el => io.observe(el));
+    return;
+  }
+  wrap.innerHTML = list.map((it, i) => {
+    const textHtml = escapeHtml(it.text.trim()).replace(/\n/g, '<br>');
+    const dateLabel = formatNewsDate(it.date);
+    const projectLabel = NEWS_PROJECT_LABELS[it.project] || NEWS_PROJECT_LABELS.blackcasket;
+    const thumb = it.image ? `<div class="news-thumb"><img src="${escapeHtml(it.image)}" alt="" loading="lazy"></div>` : '';
+    return `<div class="news-item rv" style="transition-delay:${(i * 0.06).toFixed(2)}s">` +
+      thumb +
+      `<div class="news-body">` +
+        `<div class="clamp-3 news-text" id="newsText-${i}">${textHtml}</div>` +
+        `<button type="button" class="read-more-btn" id="newsToggle-${i}">Read more</button>` +
+        `<div class="news-meta">` +
+          `<span class="news-project">${escapeHtml(projectLabel)}</span>` +
+          (dateLabel ? `<span class="news-date">${escapeHtml(dateLabel)}</span>` : '') +
+        `</div>` +
+      `</div></div>`;
+  }).join('');
   wrap.querySelectorAll('.rv').forEach(el => io.observe(el));
+  list.forEach((it, i) => setupReadMore(`newsText-${i}`, `newsToggle-${i}`));
+  wrap.querySelectorAll('.news-thumb').forEach(el => {
+    el.addEventListener('click', () => openLightbox(el.querySelector('img').src));
+  });
 }
 
 function effectivePrice(p){
@@ -568,9 +650,9 @@ function renderProjects(projects){
 
 fetch('/.netlify/functions/content')
   .then(r => r.json())
-  .then(data => { renderNews(data.news); renderBanners(data.banners); renderProjects(data.projects); })
+  .then(data => { renderNews(data.newsItems); renderBanners(data.banners); renderProjects(data.projects); })
   .catch(() => {
-    renderNews('');
+    renderNews([]);
     const section = document.querySelector('.slider-section');
     if (section) section.style.display = 'none';
   });
