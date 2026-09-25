@@ -283,7 +283,7 @@ a{color:inherit}
 
     <section class="content-section">
       <h2 class="csec-title">Ugunsvija &middot; Page Content</h2>
-      <p class="csec-hint">Content shown on the Ugunsvija project page (bar info, gallery, announcement, contacts).</p>
+      <p class="csec-hint">Content shown on the Ugunsvija project page (bar info, gallery, contacts). Announcements are pulled from the News cards above, tagged with this project.</p>
 
       <div class="field">
         <label>Tagline (short, shown on the homepage card)</label>
@@ -319,10 +319,7 @@ a{color:inherit}
         <p class="csec-hint" style="margin:.4rem 0 0;font-size:.78rem">Shown on the page as a sliding carousel (3 photos per view on desktop, 1 on mobile), auto-rotating. Roughly 4:3 photos work best.</p>
       </div>
 
-      <div class="field">
-        <label>Announcement (shown in the Announcements block)</label>
-        <textarea id="ug_announcement" rows="4"></textarea>
-      </div>
+      <p class="csec-hint" style="margin:-.2rem 0 0">Announcements on this page are pulled automatically from the News cards above (in Site Content &rarr; News) that have their Project set to Ugunsvija &mdash; no separate field here anymore.</p>
 
       <div class="field">
         <label>Map (Google Maps)</label>
@@ -559,7 +556,7 @@ function newsItem(i){
 function ugContent(){
   if(!siteContent.projects) siteContent.projects = {};
   if(!siteContent.projects.ugunsvija){
-    siteContent.projects.ugunsvija = { tagline:'', logo:'', hero:'', heroMobile:'', bio:'', gallery:[], socials:[], mapUrl:'', announcement:'' };
+    siteContent.projects.ugunsvija = { tagline:'', logo:'', hero:'', heroMobile:'', bio:'', gallery:[], socials:[], mapUrl:'' };
   }
   if(siteContent.projects.ugunsvija.heroMobile == null) siteContent.projects.ugunsvija.heroMobile = '';
   return siteContent.projects.ugunsvija;
@@ -578,7 +575,6 @@ async function loadContent(){
 
   document.getElementById('ug_tagline').value = ugContent().tagline || '';
   document.getElementById('ug_bio').value = ugContent().bio || '';
-  document.getElementById('ug_announcement').value = ugContent().announcement || '';
   document.getElementById('ug_mapurl').value = ugContent().mapUrl || '';
   renderUgImages();
   renderUgGallery();
@@ -828,7 +824,6 @@ function renderUgSocials(){
 
 document.getElementById('ug_tagline').addEventListener('input', function(){ ugContent().tagline = this.value; });
 document.getElementById('ug_bio').addEventListener('input', function(){ ugContent().bio = this.value; });
-document.getElementById('ug_announcement').addEventListener('input', function(){ ugContent().announcement = this.value; });
 function extractMapEmbedSrc(raw){
   var s = (raw || '').trim();
   var m = s.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i);
