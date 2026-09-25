@@ -67,6 +67,11 @@ a{color:inherit}
 .chip.active{opacity:1;color:var(--parch);border-color:var(--bordhi);background:rgba(196,186,168,.05)}
 .filters select{width:100%;background:rgba(196,186,168,.04);border:1px solid var(--border);color:var(--parch);font-family:'Crimson Text',serif;font-size:.85rem;padding:.4rem .5rem}
 .sidebar-close{display:none}
+.projects-group{margin-top:1.3rem;padding:.85rem .6rem;border:1px solid rgba(196,186,168,.18);background:rgba(196,186,168,.025)}
+.projects-label{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.26em;text-transform:uppercase;opacity:.48;margin-bottom:.5rem;padding:0 .4rem}
+.project-btn{display:block;width:100%;text-align:left;background:none;border:none;color:var(--bone);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.5em .4em;cursor:pointer;opacity:.68;border-left:2px solid transparent}
+.project-btn:hover{opacity:1}
+.project-btn.active{opacity:1;color:var(--parch);border-left-color:#c9a15c;background:rgba(201,161,92,.08)}
 @media(max-width:760px){
   .sidebar{position:fixed;inset:0;z-index:250;width:100%;max-height:none;background:var(--deep);transform:translateX(-100%);transition:transform .3s ease;overflow-y:auto;display:flex;flex-direction:column}
   .sidebar.open{transform:translateX(0)}
@@ -208,6 +213,14 @@ a{color:inherit}
         <button class="cat-btn" data-cat="bundle">Bundle</button>
         <button class="cat-btn" data-cat="other">Other</button>
 
+        <div class="projects-group">
+          <div class="projects-label">Projects</div>
+          <button class="project-btn" data-project="blackcasket">Black Casket</button>
+          <button class="project-btn" data-project="ugunsvija">Ugunsvija</button>
+          <button class="project-btn" data-project="mushroom">Mushroom Grandpa</button>
+          <button class="project-btn" data-project="perkona">Perkona Calve</button>
+        </div>
+
         <div class="filters">
           <div class="filter-group">
             <div class="filter-label">Genre</div>
@@ -268,8 +281,63 @@ a{color:inherit}
         <span class="status-msg" id="bannersStatus"></span>
       </div>
     </section>
+
+    <section class="content-section">
+      <h2 class="csec-title">Ugunsvija &middot; Page Content</h2>
+      <p class="csec-hint">Content shown on the Ugunsvija project page (bar info, gallery, announcement, contacts).</p>
+
+      <div class="field">
+        <label>Tagline (short, shown on the homepage card)</label>
+        <input type="text" id="ug_tagline" maxlength="140">
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Logo</label>
+          <div class="banner-img-slot" id="ug_logo_slot" style="width:96px;height:96px"><div class="plus">+</div></div>
+        </div>
+        <div class="field">
+          <label>Hero / banner image</label>
+          <div class="banner-img-slot" id="ug_hero_slot" style="width:100%;height:96px"><div class="plus">+</div></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Bio / About text</label>
+        <textarea id="ug_bio" rows="8" style="min-height:160px"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Gallery (up to 12 photos)</label>
+        <div class="photo-row" id="ug_gallery_row"></div>
+      </div>
+
+      <div class="field">
+        <label>Announcement (shown in the Announcements block)</label>
+        <textarea id="ug_announcement" rows="4"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Map link (Google Maps URL, etc.)</label>
+        <input type="text" id="ug_mapurl" maxlength="300">
+      </div>
+
+      <div class="field">
+        <label>Socials</label>
+        <div id="ug_socials_list"></div>
+        <button type="button" class="btn btn-ghost btn-sm" id="ug_addSocialBtn">+ Add social link</button>
+      </div>
+
+      <div class="csec-actions">
+        <button class="btn btn-blood" id="saveUgunsvijaBtn">Save Ugunsvija Page</button>
+        <span class="status-msg" id="ugunsvijaStatus"></span>
+      </div>
+    </section>
   </div>
   <input type="file" id="bannerPhotoInput" accept="image/*" style="display:none">
+  <input type="file" id="ug_logo_input" accept="image/*" style="display:none">
+  <input type="file" id="ug_hero_input" accept="image/*" style="display:none">
+  <input type="file" id="ug_gallery_input" accept="image/*" style="display:none">
 </div>
 
 <div class="overlay" id="overlay">
@@ -295,6 +363,11 @@ a{color:inherit}
     <div class="field">
       <label>Genres (max 2)</label>
       <div class="chip-row" id="genreFieldChips"></div>
+    </div>
+
+    <div class="field">
+      <label>Project</label>
+      <div class="chip-row" id="projectChips"></div>
     </div>
 
     <div class="row2">
@@ -358,12 +431,15 @@ a{color:inherit}
 <script>
 const CATEGORIES = ['cd','tape','vinyl','merch','bundle','other'];
 const CATEGORY_LABELS = {cd:'CD',tape:'Tape',vinyl:'Vinyl',merch:'Merch',bundle:'Bundle',other:'Other'};
-const GENRES = ['black-metal','doom-metal','metal','dungeon-synth','ambient','comfy-synth','death-metal'];
-const GENRE_LABELS = {'black-metal':'Black Metal','doom-metal':'Doom Metal','metal':'Metal','dungeon-synth':'Dungeon Synth','ambient':'Ambient','comfy-synth':'Comfy Synth','death-metal':'Death Metal'};
+const GENRES = ['black-metal','doom-metal','metal','dungeon-synth','ambient','comfy-synth','death-metal','other'];
+const GENRE_LABELS = {'black-metal':'Black Metal','doom-metal':'Doom Metal','metal':'Metal','dungeon-synth':'Dungeon Synth','ambient':'Ambient','comfy-synth':'Comfy Synth','death-metal':'Death Metal','other':'Other'};
+const PROJECTS = ['blackcasket','ugunsvija','mushroom','perkona'];
+const PROJECT_LABELS = {blackcasket:'Black Casket', ugunsvija:'Ugunsvija', mushroom:'Mushroom Grandpa', perkona:'Perkona Calve'};
 
 let catalog = [];
 let activeCategory = '';
 let activeGenres = [];
+let activeProject = '';
 let discountOnly = false;
 let hiddenOnly = false;
 let searchTerm = '';
@@ -419,6 +495,7 @@ async function boot(){
   buildGenreChips();
   buildCatChips();
   buildGenreFieldChips();
+  buildProjectChips();
   await loadCatalog();
   render();
 }
@@ -459,18 +536,35 @@ function switchView(v){
 document.getElementById('tabProducts').addEventListener('click', () => switchView('products'));
 document.getElementById('tabContent').addEventListener('click', () => switchView('content'));
 
-// ---- SITE CONTENT (News + Banners) ----
-let siteContent = { news: '', banners: [] };
+// ---- SITE CONTENT (News + Banners + Project pages) ----
+let siteContent = { news: '', banners: [], projects: {} };
+
+function ugContent(){
+  if(!siteContent.projects) siteContent.projects = {};
+  if(!siteContent.projects.ugunsvija){
+    siteContent.projects.ugunsvija = { tagline:'', logo:'', hero:'', bio:'', gallery:[], socials:[], mapUrl:'', announcement:'' };
+  }
+  return siteContent.projects.ugunsvija;
+}
 
 async function loadContent(){
   try{
     const res = await api('get-content', {});
-    siteContent = res.content || { news: '', banners: [] };
+    siteContent = res.content || { news: '', banners: [], projects: {} };
   }catch(e){
-    siteContent = { news: '', banners: [] };
+    siteContent = { news: '', banners: [], projects: {} };
   }
+  if(!siteContent.projects) siteContent.projects = {};
   document.getElementById('newsText').value = siteContent.news || '';
   renderBanners();
+
+  document.getElementById('ug_tagline').value = ugContent().tagline || '';
+  document.getElementById('ug_bio').value = ugContent().bio || '';
+  document.getElementById('ug_announcement').value = ugContent().announcement || '';
+  document.getElementById('ug_mapurl').value = ugContent().mapUrl || '';
+  renderUgImages();
+  renderUgGallery();
+  renderUgSocials();
 }
 
 function renderBanners(){
@@ -588,6 +682,140 @@ document.getElementById('saveBannersBtn').addEventListener('click', async () => 
   }
 });
 
+// ---- Ugunsvija page editor ----
+function renderUgImages(){
+  const logo = ugContent().logo;
+  const hero = ugContent().hero;
+  document.getElementById('ug_logo_slot').innerHTML = logo ? `<img src="${escapeHtml(logo)}">` : '<div class="plus">+</div>';
+  document.getElementById('ug_hero_slot').innerHTML = hero ? `<img src="${escapeHtml(hero)}">` : '<div class="plus">+</div>';
+}
+
+function renderUgGallery(){
+  const wrap = document.getElementById('ug_gallery_row');
+  const photos = ugContent().gallery || [];
+  let html = photos.map((url, i) => `
+    <div class="photo-slot">
+      <img src="${escapeHtml(url)}"><div class="rm" data-gidx="${i}">&times;</div>
+    </div>
+  `).join('');
+  if(photos.length < 12){
+    html += `<div class="photo-slot" id="ug_gallery_add"><div class="plus">+</div></div>`;
+  }
+  wrap.innerHTML = html;
+  wrap.querySelectorAll('.rm').forEach(rm=>{
+    rm.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      ugContent().gallery.splice(Number(rm.dataset.gidx), 1);
+      renderUgGallery();
+    });
+  });
+  const addSlot = document.getElementById('ug_gallery_add');
+  if(addSlot) addSlot.addEventListener('click', ()=>{
+    document.getElementById('ug_gallery_input').click();
+  });
+}
+
+function renderUgSocials(){
+  const wrap = document.getElementById('ug_socials_list');
+  const socials = ugContent().socials || [];
+  if(!socials.length){
+    wrap.innerHTML = '<p style="opacity:.5;font-style:italic;margin-bottom:.6rem">No social links yet.</p>';
+    return;
+  }
+  wrap.innerHTML = socials.map((s, i) => `
+    <div class="field-row" style="margin-bottom:.5rem">
+      <input type="text" class="ug-social-label" data-sidx="${i}" placeholder="Label (e.g. Instagram)" maxlength="40" value="${escapeHtml(s.label || '')}" style="max-width:160px">
+      <input type="text" class="ug-social-url" data-sidx="${i}" placeholder="URL" maxlength="300" value="${escapeHtml(s.url || '')}">
+      <button type="button" class="btn btn-danger btn-sm ug-social-rm" data-sidx="${i}">&times;</button>
+    </div>
+  `).join('');
+}
+
+document.getElementById('ug_tagline').addEventListener('input', function(){ ugContent().tagline = this.value; });
+document.getElementById('ug_bio').addEventListener('input', function(){ ugContent().bio = this.value; });
+document.getElementById('ug_announcement').addEventListener('input', function(){ ugContent().announcement = this.value; });
+document.getElementById('ug_mapurl').addEventListener('input', function(){ ugContent().mapUrl = this.value; });
+
+document.getElementById('ug_logo_slot').addEventListener('click', () => document.getElementById('ug_logo_input').click());
+document.getElementById('ug_hero_slot').addEventListener('click', () => document.getElementById('ug_hero_input').click());
+
+document.getElementById('ug_logo_input').addEventListener('change', async function(){
+  const file = this.files[0];
+  if(!file) return;
+  try{
+    const dataUrl = await fileToDataUrl(file);
+    const res = await api('upload-image', { dataUrl });
+    ugContent().logo = res.url;
+    renderUgImages();
+  }catch(e){
+    alert('Upload failed: ' + e.message);
+  }
+  this.value = '';
+});
+
+document.getElementById('ug_hero_input').addEventListener('change', async function(){
+  const file = this.files[0];
+  if(!file) return;
+  try{
+    const dataUrl = await fileToDataUrl(file);
+    const res = await api('upload-image', { dataUrl });
+    ugContent().hero = res.url;
+    renderUgImages();
+  }catch(e){
+    alert('Upload failed: ' + e.message);
+  }
+  this.value = '';
+});
+
+document.getElementById('ug_gallery_input').addEventListener('change', async function(){
+  const file = this.files[0];
+  if(!file) return;
+  try{
+    const dataUrl = await fileToDataUrl(file);
+    const res = await api('upload-image', { dataUrl });
+    const g = ugContent();
+    g.gallery = g.gallery || [];
+    if(g.gallery.length < 12) g.gallery.push(res.url);
+    renderUgGallery();
+  }catch(e){
+    alert('Upload failed: ' + e.message);
+  }
+  this.value = '';
+});
+
+document.getElementById('ug_addSocialBtn').addEventListener('click', () => {
+  const g = ugContent();
+  g.socials = g.socials || [];
+  if(g.socials.length < 8) g.socials.push({ label: '', url: '' });
+  renderUgSocials();
+});
+
+document.getElementById('ug_socials_list').addEventListener('input', (e) => {
+  const idx = Number(e.target.dataset.sidx);
+  if(Number.isNaN(idx)) return;
+  if(e.target.classList.contains('ug-social-label')) ugContent().socials[idx].label = e.target.value;
+  if(e.target.classList.contains('ug-social-url')) ugContent().socials[idx].url = e.target.value;
+});
+
+document.getElementById('ug_socials_list').addEventListener('click', (e) => {
+  const rm = e.target.closest('.ug-social-rm');
+  if(rm){
+    ugContent().socials.splice(Number(rm.dataset.sidx), 1);
+    renderUgSocials();
+  }
+});
+
+document.getElementById('saveUgunsvijaBtn').addEventListener('click', async () => {
+  const statusEl = document.getElementById('ugunsvijaStatus');
+  statusEl.textContent = 'Saving...'; statusEl.className = 'status-msg';
+  try{
+    await api('save-content', { content: siteContent });
+    statusEl.textContent = 'Saved.'; statusEl.className = 'status-msg ok';
+  }catch(e){
+    statusEl.textContent = 'Failed: ' + e.message; statusEl.className = 'status-msg err';
+  }
+});
+
 function buildGenreChips(){
   const wrap = document.getElementById('genreChips');
   wrap.innerHTML = GENRES.map(g=>`<button class="chip" data-genre="${g}">${GENRE_LABELS[g]}</button>`).join('');
@@ -607,6 +835,21 @@ document.querySelectorAll('.cat-btn').forEach(btn=>{
     document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     activeCategory = btn.dataset.cat;
+    render();
+    closeSidebar();
+  });
+});
+
+document.querySelectorAll('.project-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var proj = btn.dataset.project;
+    if(activeProject === proj){
+      activeProject = '';
+      document.querySelectorAll('.project-btn').forEach(function(b){b.classList.remove('active');});
+    } else {
+      activeProject = proj;
+      document.querySelectorAll('.project-btn').forEach(function(b){b.classList.toggle('active', b===btn);});
+    }
     render();
     closeSidebar();
   });
@@ -645,6 +888,7 @@ function render(){
   let list = catalog.slice();
   if(activeCategory) list = list.filter(p=>(p.categories||[]).includes(activeCategory));
   if(activeGenres.length) list = list.filter(p=>activeGenres.some(g=>(p.genres||[]).includes(g)));
+  if(activeProject) list = list.filter(p=>(p.project||'blackcasket')===activeProject);
   if(discountOnly) list = list.filter(p=>p.discount && p.discount.enabled);
   if(hiddenOnly) list = list.filter(p=>p.hidden);
   if(searchTerm) list = list.filter(p=>(p.title||'').toLowerCase().includes(searchTerm));
@@ -693,6 +937,9 @@ function buildCatChips(){
 function buildGenreFieldChips(){
   document.getElementById('genreFieldChips').innerHTML = GENRES.map(g=>`<button type="button" class="chip" data-genre="${g}">${GENRE_LABELS[g]}</button>`).join('');
 }
+function buildProjectChips(){
+  document.getElementById('projectChips').innerHTML = PROJECTS.map(p=>`<button type="button" class="chip" data-project="${p}">${PROJECT_LABELS[p]}</button>`).join('');
+}
 
 document.getElementById('addBtn').addEventListener('click', ()=>openEdit(null));
 document.getElementById('cancelBtn').addEventListener('click', closeModal);
@@ -734,6 +981,9 @@ function openEdit(id){
   document.querySelectorAll('#genreFieldChips .chip').forEach(b=>{
     b.classList.toggle('active', !!(p && p.genres && p.genres.includes(b.dataset.genre)));
   });
+  document.querySelectorAll('#projectChips .chip').forEach(b=>{
+    b.classList.toggle('active', (p && p.project ? p.project : 'blackcasket') === b.dataset.project);
+  });
 
   document.getElementById('overlay').classList.add('show');
 }
@@ -759,6 +1009,12 @@ document.getElementById('genreFieldChips').addEventListener('click', (e)=>{
     return;
   }
   btn.classList.toggle('active');
+});
+document.getElementById('projectChips').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.chip');
+  if(!btn) return;
+  document.querySelectorAll('#projectChips .chip').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
 });
 
 document.getElementById('f_discount_on').addEventListener('change', function(){
@@ -832,12 +1088,15 @@ document.getElementById('saveBtn').addEventListener('click', async ()=>{
   if(!title){ setStatus('Title is required.', true); return; }
   const categories = Array.from(document.querySelectorAll('#catChips .chip.active')).map(b=>b.dataset.cat);
   const genres = Array.from(document.querySelectorAll('#genreFieldChips .chip.active')).map(b=>b.dataset.genre);
+  const projectBtn = document.querySelector('#projectChips .chip.active');
+  const project = projectBtn ? projectBtn.dataset.project : 'blackcasket';
 
   const payload = {
     id: editingId || undefined,
     title,
     categories,
     genres,
+    project,
     price: parseFloat(document.getElementById('f_price').value) || 0,
     stock: parseInt(document.getElementById('f_stock').value, 10) || 0,
     photos: currentPhotos,
