@@ -68,7 +68,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .div span{font-family:'Cinzel',serif;font-size:.85rem;display:inline-block;transform:rotate(180deg)}
 
 /* RELEASES */
-.rel-bg{background:var(--deep);padding:1.6rem 1.5rem 4rem}
+.rel-bg{background:var(--deep);padding:2rem 1.5rem 2.6rem}
+@media(max-width:600px){.rel-bg{padding:1.5rem 1.5rem 2rem}}
 .rel-inner{max-width:1040px;margin:0 auto}
 .rel-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.2rem;flex-wrap:wrap;gap:.8rem}
 .rel-head a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--bone);opacity:.62;text-decoration:none;border-bottom:1px solid transparent;transition:all .28s;padding-bottom:.2em}
@@ -101,7 +102,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .rcard-all-hint{font-family:'Crimson Text',serif;font-style:italic;font-size:.78rem;opacity:.45;color:var(--bone)}
 
 /* PAYMENT */
-.pay-bg{background:var(--bg);padding:4rem 1.5rem 2.4rem}
+.pay-bg{background:var(--bg);padding:2.2rem 1.5rem 2.2rem}
+@media(max-width:600px){.pay-bg{padding:1.6rem 1.5rem}}
 .pay-inner{max-width:680px;margin:0 auto}
 .pmethods{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1.8rem}
 .pm{border:1px solid var(--border);overflow:hidden;transition:border-color .22s}
@@ -131,13 +133,14 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .pay-after a{color:var(--parch);opacity:.88}
 
 /* CONTACT */
-.contact-sec{text-align:center;padding:2rem 1.5rem 3.5rem}
+.contact-sec{text-align:center;padding:2rem 1.5rem 2.4rem}
+@media(max-width:600px){.contact-sec{padding:1.6rem 1.5rem 2rem}}
 .clinks{display:flex;gap:2.2rem;justify-content:center;flex-wrap:wrap;margin-top:1.8rem}
 .cl{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.28em;text-transform:uppercase;color:var(--bone);opacity:.65;text-decoration:none;transition:all .26s;padding-bottom:.22em;border-bottom:1px solid transparent}
 .cl:hover{opacity:.92;color:var(--parch);border-bottom-color:var(--bordhi)}
 
 /* FOOTER */
-footer{border-top:1px solid rgba(196,186,168,.06);padding:1.8rem 1.5rem;text-align:center}
+footer{border-top:1px solid rgba(196,186,168,.06);padding:1.3rem 1.5rem;text-align:center}
 footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;opacity:.38}
 
 /* REVEAL */
@@ -210,7 +213,8 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 @media(max-width:600px){.nav-buttons{gap:.5rem;padding:.7rem 1rem .5rem}.nav-btn{font-size:.55rem;padding:.6em 1.1em}}
 
 /* ── SIDE PROJECTS ── */
-.projects-teaser{max-width:1040px;margin:0 auto;padding:.2rem 1.5rem 3rem}
+.projects-teaser{max-width:1040px;margin:0 auto;padding:1rem 1.5rem 2rem}
+@media(max-width:600px){.projects-teaser{padding:.8rem 1.5rem 1.5rem}}
 .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
 @media(max-width:760px){.proj-grid{grid-template-columns:1fr;gap:2.2rem}}
 .proj-card{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:var(--bone);padding:.6rem;text-align:center;transition:transform .3s ease}
@@ -225,11 +229,12 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 @media(max-width:760px){.proj-logo{width:100px;height:100px}}
 
 /* ── NEWS ── */
-.news-section{max-width:1040px;margin:0 auto;padding:2.5rem 1.5rem}
+.news-section{max-width:1040px;margin:0 auto;padding:2.2rem 1.5rem}
 .news-list{display:flex;flex-direction:column}
-.news-item{display:flex;gap:1.1rem;align-items:flex-start;padding:1.3rem 0;border-bottom:1px solid var(--border)}
+.news-item{display:flex;gap:1.1rem;align-items:flex-start;padding:1rem 0;border-bottom:1px solid var(--border)}
 .news-item:last-child{border-bottom:none}
-.news-thumb{flex:0 0 90px;width:90px;height:90px;border:1px solid var(--border);overflow:hidden;cursor:pointer;background:#0c0c10}
+.news-thumb-col{flex:0 0 90px;width:90px;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.news-thumb{width:90px;height:90px;border:1px solid var(--border);overflow:hidden;cursor:pointer;background:#0c0c10}
 .news-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
 .news-thumb:hover img{transform:scale(1.06)}
 .news-body{flex:1;min-width:0}
@@ -238,8 +243,8 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 .news-text a:hover{opacity:1;border-bottom-color:var(--parch)}
 .news-meta{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-top:.2rem}
 .news-project{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:var(--parch);opacity:.6;border:1px solid var(--border);padding:.22em .55em}
-.news-date{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;opacity:.4}
-@media(max-width:600px){.news-section{padding:1.5rem 1rem}.news-thumb{flex-basis:70px;width:70px;height:70px}}
+.news-date{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;opacity:.4;text-align:center}
+@media(max-width:600px){.news-section{padding:1.6rem 1rem}.news-thumb-col{flex-basis:70px;width:70px}.news-thumb{width:70px;height:70px}.news-date{font-size:.44rem;letter-spacing:.06em}}
 
 /* READ MORE */
 .clamp-3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -570,16 +575,21 @@ function renderNews(items){
   wrap.innerHTML = list.map((it, i) => {
     const textHtml = escapeHtml(it.text.trim()).replace(/\n/g, '<br>');
     const dateLabel = formatNewsDate(it.date);
+    const dateEsc = escapeHtml(dateLabel);
     const projectLabel = NEWS_PROJECT_LABELS[it.project] || NEWS_PROJECT_LABELS.blackcasket;
-    const thumb = it.image ? `<div class="news-thumb"><img src="${escapeHtml(it.image)}" alt="" loading="lazy"></div>` : '';
+    // With a photo: date sits centered under the thumbnail, out of the text
+    // column. Without one: date falls back into the meta row under the text.
+    const thumbCol = it.image
+      ? `<div class="news-thumb-col"><div class="news-thumb"><img src="${escapeHtml(it.image)}" alt="" loading="lazy"></div>${dateLabel ? `<span class="news-date">${dateEsc}</span>` : ''}</div>`
+      : '';
     return `<div class="news-item rv" style="transition-delay:${(i * 0.06).toFixed(2)}s">` +
-      thumb +
+      thumbCol +
       `<div class="news-body">` +
         `<div class="clamp-3 news-text" id="newsText-${i}">${textHtml}</div>` +
         `<button type="button" class="read-more-btn" id="newsToggle-${i}">Read more</button>` +
         `<div class="news-meta">` +
           `<span class="news-project">${escapeHtml(projectLabel)}</span>` +
-          (dateLabel ? `<span class="news-date">${escapeHtml(dateLabel)}</span>` : '') +
+          (!it.image && dateLabel ? `<span class="news-date">${dateEsc}</span>` : '') +
         `</div>` +
       `</div></div>`;
   }).join('');
