@@ -162,6 +162,7 @@ exports.handler = async (event) => {
         tagline: typeof pc.tagline === 'string' ? pc.tagline.slice(0, 140) : '',
         logo: typeof pc.logo === 'string' ? pc.logo : '',
         hero: typeof pc.hero === 'string' ? pc.hero : '',
+        heroMobile: typeof pc.heroMobile === 'string' ? pc.heroMobile : '',
         bio: typeof pc.bio === 'string' ? pc.bio.slice(0, 4000) : '',
         gallery: Array.isArray(pc.gallery) ? pc.gallery.filter((u) => typeof u === 'string').slice(0, 12) : [],
         socials: Array.isArray(pc.socials)
@@ -170,7 +171,7 @@ exports.handler = async (event) => {
               url: typeof (s && s.url) === 'string' ? s.url.slice(0, 300) : ''
             }))
           : [],
-        mapUrl: typeof pc.mapUrl === 'string' ? pc.mapUrl.slice(0, 300) : '',
+        mapUrl: typeof pc.mapUrl === 'string' ? pc.mapUrl.slice(0, 2000) : '',
         announcement: typeof pc.announcement === 'string' ? pc.announcement.slice(0, 2000) : ''
       };
     });
