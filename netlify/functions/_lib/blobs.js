@@ -30,11 +30,11 @@ async function saveCatalog(catalog) {
   await productsStore().setJSON('catalog', catalog);
 }
 
-// Site content: homepage news text + banner carousel slides.
+// Site content: homepage news cards + banner carousel slides.
 // Stored as one JSON blob under key "site-content" in the same store as the catalog.
 async function getSiteContent() {
   const data = await productsStore().get('site-content', { type: 'json' });
-  return data || { news: '', banners: [], projects: {} };
+  return data || { newsItems: [], banners: [], projects: {} };
 }
 
 async function saveSiteContent(content) {
