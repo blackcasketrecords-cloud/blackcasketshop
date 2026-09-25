@@ -74,7 +74,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .ug-gallery-wrap{position:relative;max-width:1040px;margin:0 auto;overflow:hidden}
 .ug-gallery-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
 .ug-gallery-item{flex:0 0 33.3333%;padding:0 .45rem;box-sizing:border-box}
-.ug-gallery-item img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border:1px solid var(--border);filter:grayscale(6%) contrast(1.04)}
+.ug-gallery-item img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border:1px solid var(--border);filter:grayscale(6%) contrast(1.04);cursor:pointer}
 @media(max-width:700px){.ug-gallery-item{flex:0 0 100%;padding:0 .2rem}}
 .gal-arrow{position:absolute;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(196,186,168,.55);font-size:1rem;width:2.4rem;height:2.4rem;cursor:pointer;z-index:10;transition:all .25s;display:flex;align-items:center;justify-content:center;text-shadow:0 0 8px rgba(0,0,0,.9)}
 .gal-arrow:hover{color:var(--parch)}
@@ -121,6 +121,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* FOOTER */
 footer{border-top:1px solid rgba(196,186,168,.06);padding:1.8rem 1.5rem;text-align:center}
 footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;opacity:.38}
+
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:500;align-items:center;justify-content:center;padding:2rem;cursor:zoom-out}
+.lightbox.show{display:flex}
+.lightbox img{max-width:92vw;max-height:88vh;object-fit:contain;border:1px solid var(--border);cursor:default}
+.lightbox-close{position:absolute;top:1.2rem;right:1.5rem;width:2.4rem;height:2.4rem;display:flex;align-items:center;justify-content:center;font-size:1.4rem;background:none;border:1px solid var(--border);color:var(--bone);cursor:pointer;z-index:2}
+.lightbox-close:hover{color:var(--parch);border-color:var(--bordhi)}
 </style>
 </head>
 <body>
@@ -144,7 +151,6 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
   <div class="ug-hero-img-mobile" id="ugHeroImgMobile"></div>
   <div class="ug-hero-overlay">
     <div class="ug-logo-wrap" id="ugLogoWrap"><span class="ug-logo-ph">&#10013;</span></div>
-    <div class="slabel">Side Project</div>
     <h1 class="stitle" style="margin-bottom:.4rem">Ugunsvija</h1>
     <p class="ug-tagline" id="ugTagline">A bar in Riga &middot; friends of the label</p>
   </div>
@@ -219,6 +225,11 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 <footer>
   <p>&#169; Ugunsvija &nbsp;&middot;&nbsp; part of the Black Casket Records family &nbsp;&middot;&nbsp; Riga, Latvia</p>
 </footer>
+
+<div class="lightbox" id="lightbox">
+  <button type="button" class="lightbox-close" id="lightboxClose">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
 
 <script>
 const io = new IntersectionObserver(e => {
@@ -301,43 +312,60 @@ function renderContent(data){
 }
 
 // ---- Gallery carousel: 3 photos/view on desktop, 1 on mobile, auto-rotating, no dots ----
-let galIdx = 0;
+// Slides by whole "pages" (not single-item steps) so the last page always
+// shows a full set of images instead of trailing off into empty slots.
+let galPageIdx = 0;
+let galStarts = [0];
 let galAuto = null;
 let galTotal = 0;
+let galUrls = [];
 
 function galItemsPerView(){
   return window.matchMedia('(max-width:700px)').matches ? 1 : 3;
 }
 
+function galComputeStarts(){
+  const perView = galItemsPerView();
+  if (galTotal <= perView) return [0];
+  const starts = [];
+  for (let s = 0; s + perView < galTotal; s += perView) starts.push(s);
+  starts.push(galTotal - perView);
+  return starts;
+}
+
 function galApply(){
   const track = document.getElementById('ugGalleryTrack');
   if (!track || !galTotal) return;
-  const pct = 100 / galItemsPerView();
-  track.style.transform = `translateX(-${galIdx * pct}%)`;
+  const perView = galItemsPerView();
+  const pct = 100 / perView;
+  const start = galStarts[galPageIdx] || 0;
+  track.style.transform = `translateX(-${start * pct}%)`;
 }
 
-function galSlideTo(n){
-  if (!galTotal) return;
-  galIdx = (n + galTotal) % galTotal;
+function galSlideToPage(n){
+  if (!galStarts.length) return;
+  galPageIdx = (n + galStarts.length) % galStarts.length;
   galApply();
   galResetAuto();
 }
 
-function galMove(dir){ galSlideTo(galIdx + dir); }
+function galMove(dir){ galSlideToPage(galPageIdx + dir); }
 
 function galResetAuto(){
   clearInterval(galAuto);
-  if (galTotal > galItemsPerView()) galAuto = setInterval(() => galMove(1), 3800);
+  if (galStarts.length > 1) galAuto = setInterval(() => galMove(1), 3800);
 }
 
 function initGallery(urls){
+  galUrls = urls;
   galTotal = urls.length;
   const track = document.getElementById('ugGalleryTrack');
   track.innerHTML = urls.map(u => `<div class="ug-gallery-item"><img src="${escapeHtml(u)}" alt="" loading="lazy"></div>`).join('');
-  const showArrows = galTotal > galItemsPerView();
+  galStarts = galComputeStarts();
+  const showArrows = galStarts.length > 1;
   document.getElementById('galPrev').style.display = showArrows ? '' : 'none';
   document.getElementById('galNext').style.display = showArrows ? '' : 'none';
-  galIdx = 0;
+  galPageIdx = 0;
   galApply();
   galResetAuto();
 
@@ -348,6 +376,11 @@ function initGallery(urls){
     const diff = touchStartX - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 40) galMove(diff > 0 ? 1 : -1);
   }, {passive:true});
+
+  track.addEventListener('click', (e) => {
+    const img = e.target.closest('img');
+    if (img) openLightbox(img.src);
+  });
 }
 
 document.getElementById('galPrev').addEventListener('click', () => galMove(-1));
@@ -356,7 +389,29 @@ document.getElementById('galNext').addEventListener('click', () => galMove(1));
 let galResizeTimer;
 window.addEventListener('resize', () => {
   clearTimeout(galResizeTimer);
-  galResizeTimer = setTimeout(() => { galIdx = 0; galApply(); galResetAuto(); }, 200);
+  galResizeTimer = setTimeout(() => {
+    galStarts = galComputeStarts();
+    galPageIdx = 0;
+    galApply();
+    galResetAuto();
+  }, 200);
+});
+
+// ---- Lightbox ----
+function openLightbox(src){
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('show');
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('show');
+  document.getElementById('lightboxImg').src = '';
+}
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+document.getElementById('lightbox').addEventListener('click', (e) => {
+  if (e.target.id === 'lightbox') closeLightbox();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeLightbox();
 });
 
 function renderShop(products){
