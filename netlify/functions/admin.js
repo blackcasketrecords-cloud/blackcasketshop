@@ -180,7 +180,9 @@ exports.handler = async (event) => {
               url: typeof (s && s.url) === 'string' ? s.url.slice(0, 300) : ''
             }))
           : [],
-        mapUrl: typeof pc.mapUrl === 'string' ? pc.mapUrl.slice(0, 2000) : ''
+        mapUrl: typeof pc.mapUrl === 'string' ? pc.mapUrl.slice(0, 2000) : '',
+        address: typeof pc.address === 'string' ? pc.address.slice(0, 200) : '',
+        hours: typeof pc.hours === 'string' ? pc.hours.slice(0, 200) : ''
       };
     });
 
