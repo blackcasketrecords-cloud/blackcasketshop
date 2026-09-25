@@ -19,7 +19,8 @@ const GENRES = [
   'dungeon-synth',
   'ambient',
   'comfy-synth',
-  'death-metal'
+  'death-metal',
+  'other'
 ];
 
 const GENRE_LABELS = {
@@ -29,7 +30,19 @@ const GENRE_LABELS = {
   'dungeon-synth': 'Dungeon Synth',
   'ambient': 'Ambient',
   'comfy-synth': 'Comfy Synth',
-  'death-metal': 'Death Metal'
+  'death-metal': 'Death Metal',
+  'other': 'Other'
 };
 
-module.exports = { CATEGORIES, CATEGORY_LABELS, GENRES, GENRE_LABELS };
+// Sub-brands / side projects a product can belong to. "blackcasket" is the
+// default (the main label) rather than leaving the field blank.
+const PROJECTS = ['blackcasket', 'ugunsvija', 'mushroom', 'perkona'];
+
+const PROJECT_LABELS = {
+  blackcasket: 'Black Casket',
+  ugunsvija: 'Ugunsvija',
+  mushroom: 'Mushroom Grandpa',
+  perkona: 'Perkona Calve'
+};
+
+module.exports = { CATEGORIES, CATEGORY_LABELS, GENRES, GENRE_LABELS, PROJECTS, PROJECT_LABELS };

@@ -34,7 +34,7 @@ async function saveCatalog(catalog) {
 // Stored as one JSON blob under key "site-content" in the same store as the catalog.
 async function getSiteContent() {
   const data = await productsStore().get('site-content', { type: 'json' });
-  return data || { news: '', banners: [] };
+  return data || { news: '', banners: [], projects: {} };
 }
 
 async function saveSiteContent(content) {
