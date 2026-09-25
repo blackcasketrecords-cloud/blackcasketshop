@@ -82,9 +82,16 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .gal-next{right:-.3rem}
 @media(max-width:700px){.gal-prev{left:-1.1rem}.gal-next{right:-1.1rem}}
 
-/* ANNOUNCEMENT (reuse news-item look) */
-.news-item{border:1px solid var(--border);padding:1.1rem 1.3rem;background:rgba(196,186,168,.02)}
+/* ANNOUNCEMENTS (thin-divider list, mirrors homepage News) */
+.news-item{display:flex;gap:1.1rem;padding:1.1rem 0;border-bottom:1px solid var(--border)}
+.news-item:last-child{border-bottom:none}
+.news-thumb{flex:0 0 96px;width:96px;height:96px;overflow:hidden;border:1px solid var(--border);cursor:pointer}
+.news-thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(6%) contrast(1.04);transition:transform .4s ease}
+.news-thumb:hover img{transform:scale(1.06)}
+.news-body{flex:1;min-width:0}
 .news-text{font-size:1rem;line-height:1.78;opacity:.78}
+.news-date{display:block;margin-top:.5rem;font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;opacity:.42}
+@media(max-width:520px){.news-thumb{flex-basis:72px;width:72px;height:72px}}
 
 /* SHOP SHOWCASE (mirrors homepage Recent Releases) */
 .rel-bg{background:var(--deep);padding:1.2rem 1.5rem 2.4rem}
@@ -184,16 +191,13 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 
 <div class="div" id="ugGalleryDiv"><span>&#10013;</span></div>
 
-<!-- ANNOUNCEMENT -->
+<!-- ANNOUNCEMENTS -->
 <div class="wrap" id="ugAnnounceSection">
   <div class="rv">
     <div class="slabel">Latest</div>
-    <h2 class="stitle" style="font-size:clamp(1.6rem,3.6vw,2.6rem);margin-bottom:1rem">Announcement</h2>
+    <h2 class="stitle" style="font-size:clamp(1.6rem,3.6vw,2.6rem);margin-bottom:1rem">Announcements</h2>
   </div>
-  <div class="news-item rv" style="transition-delay:.08s">
-    <div class="news-text clamp-3" id="ugAnnounceText">No announcements yet.</div>
-    <button type="button" class="read-more-btn" id="ugAnnounceToggle">Read more</button>
-  </div>
+  <div id="ugAnnounceList"></div>
 </div>
 
 <div class="div" id="ugAnnounceDiv"><span>&#10013;</span></div>
@@ -247,6 +251,13 @@ function effectivePrice(p){
   return p.price;
 }
 
+function formatNewsDate(d){
+  if(!d) return '';
+  const dt = new Date(d + 'T00:00:00');
+  if (Number.isNaN(dt.getTime())) return '';
+  return dt.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+}
+
 function setupReadMore(textId, btnId){
   const textEl = document.getElementById(textId);
   const btn = document.getElementById(btnId);
@@ -286,13 +297,7 @@ function renderContent(data){
     document.getElementById('ugGalleryDiv').style.display = 'none';
   }
 
-  if (p.announcement && p.announcement.trim()) {
-    document.getElementById('ugAnnounceText').innerHTML = escapeHtml(p.announcement.trim()).replace(/\n/g,'<br>');
-    setupReadMore('ugAnnounceText', 'ugAnnounceToggle');
-  } else {
-    document.getElementById('ugAnnounceSection').style.display = 'none';
-    document.getElementById('ugAnnounceDiv').style.display = 'none';
-  }
+  renderAnnouncements(data && data.newsItems);
 
   const socials = (p.socials || []).filter(s => s && s.url);
   const socialsWrap = document.getElementById('ugSocials');
@@ -309,6 +314,35 @@ function renderContent(data){
       document.getElementById('ugMapWrap').innerHTML = `<a href="${escapeHtml(p.mapUrl)}" class="cl" target="_blank" rel="noopener">&#128205; View on Map</a>`;
     }
   }
+}
+
+function renderAnnouncements(newsItems){
+  const items = (newsItems || []).filter(it => it && it.project === 'ugunsvija' && it.text && it.text.trim());
+  const section = document.getElementById('ugAnnounceSection');
+  const div = document.getElementById('ugAnnounceDiv');
+  if (!items.length) {
+    section.style.display = 'none';
+    div.style.display = 'none';
+    return;
+  }
+  const wrap = document.getElementById('ugAnnounceList');
+  wrap.innerHTML = items.map((it, i) => {
+    const textHtml = escapeHtml(it.text.trim()).replace(/\n/g, '<br>');
+    const dateLabel = formatNewsDate(it.date);
+    const thumb = it.image ? `<div class="news-thumb"><img src="${escapeHtml(it.image)}" alt="" loading="lazy"></div>` : '';
+    return `<div class="news-item rv" style="transition-delay:${(i * 0.06).toFixed(2)}s">` +
+      thumb +
+      `<div class="news-body">` +
+        `<div class="clamp-3 news-text" id="ugAnnounceText-${i}">${textHtml}</div>` +
+        `<button type="button" class="read-more-btn" id="ugAnnounceToggle-${i}">Read more</button>` +
+        (dateLabel ? `<span class="news-date">${escapeHtml(dateLabel)}</span>` : '') +
+      `</div></div>`;
+  }).join('');
+  wrap.querySelectorAll('.rv').forEach(el => io.observe(el));
+  items.forEach((it, i) => setupReadMore(`ugAnnounceText-${i}`, `ugAnnounceToggle-${i}`));
+  wrap.querySelectorAll('.news-thumb').forEach(el => {
+    el.addEventListener('click', () => openLightbox(el.querySelector('img').src));
+  });
 }
 
 // ---- Gallery carousel: 3 photos/view on desktop, 1 on mobile, auto-rotating, no dots ----
