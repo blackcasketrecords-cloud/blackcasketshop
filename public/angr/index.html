@@ -117,7 +117,8 @@ a{color:inherit}
 .modal h2{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--parch);margin-bottom:1.2rem}
 .field{margin-bottom:1rem}
 .field label{display:block;font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin-bottom:.35rem}
-.field input[type=text],.field input[type=number],.field textarea{width:100%;background:rgba(196,186,168,.04);border:1px solid var(--border);color:var(--parch);font-family:'Crimson Text',serif;font-size:.95rem;padding:.55rem .7rem;outline:none}
+.field input[type=text],.field input[type=number],.field input[type=date],.field textarea{width:100%;background:rgba(196,186,168,.04);border:1px solid var(--border);color:var(--parch);font-family:'Crimson Text',serif;font-size:.95rem;padding:.55rem .7rem;outline:none}
+.field input[type=date]{color-scheme:dark}
 .field input:focus,.field textarea:focus{border-color:var(--bordhi)}
 .field textarea{resize:vertical;min-height:60px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
@@ -148,8 +149,6 @@ a{color:inherit}
 .csec-title{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--parch);margin-bottom:.4rem}
 .csec-hint{font-size:.85rem;opacity:.55;font-style:italic;margin-bottom:1rem}
 .csec-actions{display:flex;align-items:center;gap:.8rem;margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--border)}
-#newsText{width:100%;background:rgba(196,186,168,.04);border:1px solid var(--border);color:var(--parch);font-family:'Crimson Text',serif;font-size:.95rem;line-height:1.6;padding:.7rem .85rem;outline:none;resize:vertical;min-height:220px}
-#newsText:focus{border-color:var(--bordhi)}
 .banner-item{border:1px solid var(--border);background:rgba(196,186,168,.02);padding:.9rem;margin-bottom:.9rem}
 .banner-row{display:flex;gap:.9rem;align-items:flex-start;flex-wrap:wrap}
 .banner-img-slot{width:96px;height:64px;flex-shrink:0;border:1px dashed var(--border);position:relative;background:#0c0c10;overflow:hidden;cursor:pointer}
@@ -263,8 +262,8 @@ a{color:inherit}
   <div class="content-view hidden" id="contentView">
     <section class="content-section">
       <h2 class="csec-title">News</h2>
-      <p class="csec-hint">This text replaces the News block on the homepage. Leave a blank line between paragraphs.</p>
-      <textarea id="newsText" rows="10"></textarea>
+      <p class="csec-hint">Up to 3 cards shown on the homepage News block, newest first. Each card can have a photo, a project tag, a date and text — leave a card's text empty to hide it on the site.</p>
+      <div id="newsCardsList"></div>
       <div class="csec-actions">
         <button class="btn btn-blood" id="saveNewsBtn">Save News</button>
         <span class="status-msg" id="newsStatus"></span>
@@ -344,6 +343,7 @@ a{color:inherit}
     </section>
   </div>
   <input type="file" id="bannerPhotoInput" accept="image/*" style="display:none">
+  <input type="file" id="newsImgInput" accept="image/*" style="display:none">
   <input type="file" id="ug_logo_input" accept="image/*" style="display:none">
   <input type="file" id="ug_hero_input" accept="image/*" style="display:none">
   <input type="file" id="ug_hero_mobile_input" accept="image/*" style="display:none">
@@ -547,7 +547,14 @@ document.getElementById('tabProducts').addEventListener('click', () => switchVie
 document.getElementById('tabContent').addEventListener('click', () => switchView('content'));
 
 // ---- SITE CONTENT (News + Banners + Project pages) ----
-let siteContent = { news: '', banners: [], projects: {} };
+let siteContent = { newsItems: [], banners: [], projects: {} };
+
+function newsItem(i){
+  if(!Array.isArray(siteContent.newsItems)) siteContent.newsItems = [];
+  while(siteContent.newsItems.length < 3) siteContent.newsItems.push({ image:'', date:'', text:'', project:'blackcasket' });
+  if(!siteContent.newsItems[i]) siteContent.newsItems[i] = { image:'', date:'', text:'', project:'blackcasket' };
+  return siteContent.newsItems[i];
+}
 
 function ugContent(){
   if(!siteContent.projects) siteContent.projects = {};
@@ -561,12 +568,12 @@ function ugContent(){
 async function loadContent(){
   try{
     const res = await api('get-content', {});
-    siteContent = res.content || { news: '', banners: [], projects: {} };
+    siteContent = res.content || { newsItems: [], banners: [], projects: {} };
   }catch(e){
-    siteContent = { news: '', banners: [], projects: {} };
+    siteContent = { newsItems: [], banners: [], projects: {} };
   }
   if(!siteContent.projects) siteContent.projects = {};
-  document.getElementById('newsText').value = siteContent.news || '';
+  renderNewsCards();
   renderBanners();
 
   document.getElementById('ug_tagline').value = ugContent().tagline || '';
@@ -577,6 +584,82 @@ async function loadContent(){
   renderUgGallery();
   renderUgSocials();
 }
+
+function renderNewsCards(){
+  const wrap = document.getElementById('newsCardsList');
+  wrap.innerHTML = [0, 1, 2].map((i) => {
+    const item = newsItem(i);
+    return `
+    <div class="banner-item">
+      <div class="banner-row">
+        <div class="banner-img-slot" data-nidx="${i}">
+          ${item.image ? `<img src="${escapeHtml(item.image)}">` : '<div class="plus">+</div>'}
+        </div>
+        <div class="banner-fields">
+          <div class="field" style="margin-bottom:.5rem">
+            <label>Card ${i + 1} &middot; Project</label>
+            <div class="chip-row news-project-chips" data-nidx="${i}">
+              ${PROJECTS.map(p => `<button type="button" class="chip news-project-chip${item.project === p ? ' active' : ''}" data-nidx="${i}" data-project="${p}">${PROJECT_LABELS[p]}</button>`).join('')}
+            </div>
+          </div>
+          <div class="field" style="max-width:180px;margin-bottom:.5rem">
+            <label>Date</label>
+            <input type="date" class="news-date-input" data-nidx="${i}" value="${escapeHtml(item.date || '')}">
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label>Text (leave empty to hide this card)</label>
+            <textarea class="news-text-input" data-nidx="${i}" rows="4">${escapeHtml(item.text || '')}</textarea>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('newsCardsList').addEventListener('click', (e) => {
+  const imgSlot = e.target.closest('.banner-img-slot');
+  if (imgSlot) {
+    document.getElementById('newsImgInput').dataset.nidx = imgSlot.dataset.nidx;
+    document.getElementById('newsImgInput').click();
+    return;
+  }
+  const chip = e.target.closest('.news-project-chip');
+  if (chip) {
+    const idx = Number(chip.dataset.nidx);
+    newsItem(idx).project = chip.dataset.project;
+    wrap_setActiveProjectChip(idx, chip.dataset.project);
+  }
+});
+
+function wrap_setActiveProjectChip(idx, project){
+  document.querySelectorAll(`.news-project-chip[data-nidx="${idx}"]`).forEach(b => {
+    b.classList.toggle('active', b.dataset.project === project);
+  });
+}
+
+document.getElementById('newsCardsList').addEventListener('input', (e) => {
+  if (e.target.classList.contains('news-date-input')) {
+    newsItem(Number(e.target.dataset.nidx)).date = e.target.value;
+  }
+  if (e.target.classList.contains('news-text-input')) {
+    newsItem(Number(e.target.dataset.nidx)).text = e.target.value;
+  }
+});
+
+document.getElementById('newsImgInput').addEventListener('change', async function(){
+  const file = this.files[0];
+  if (!file) return;
+  const idx = Number(this.dataset.nidx);
+  try{
+    const dataUrl = await fileToDataUrl(file);
+    const res = await api('upload-image', { dataUrl });
+    newsItem(idx).image = res.url;
+    renderNewsCards();
+  }catch(e){
+    alert('Upload failed: ' + e.message);
+  }
+  this.value = '';
+});
 
 function renderBanners(){
   const wrap = document.getElementById('bannerList');
@@ -671,7 +754,6 @@ document.getElementById('bannerPhotoInput').addEventListener('change', async fun
 });
 
 document.getElementById('saveNewsBtn').addEventListener('click', async () => {
-  siteContent.news = document.getElementById('newsText').value;
   const statusEl = document.getElementById('newsStatus');
   statusEl.textContent = 'Saving...'; statusEl.className = 'status-msg';
   try{
