@@ -291,14 +291,21 @@ a{color:inherit}
         <input type="text" id="ug_tagline" maxlength="140">
       </div>
 
+      <div class="field">
+        <label>Logo (shown on the homepage card &amp; page hero, square)</label>
+        <div class="banner-img-slot" id="ug_logo_slot" style="width:96px;height:96px"><div class="plus">+</div></div>
+      </div>
+
       <div class="row2">
         <div class="field">
-          <label>Logo</label>
-          <div class="banner-img-slot" id="ug_logo_slot" style="width:96px;height:96px"><div class="plus">+</div></div>
+          <label>Hero image &mdash; desktop</label>
+          <div class="banner-img-slot" id="ug_hero_slot" style="width:100%;height:110px"><div class="plus">+</div></div>
+          <p class="csec-hint" style="margin:.4rem 0 0;font-size:.78rem">Recommended ~1800&times;800px (wide), landscape photo. Shown full-width across the top of the page.</p>
         </div>
         <div class="field">
-          <label>Hero / banner image</label>
-          <div class="banner-img-slot" id="ug_hero_slot" style="width:100%;height:96px"><div class="plus">+</div></div>
+          <label>Hero image &mdash; mobile</label>
+          <div class="banner-img-slot" id="ug_hero_mobile_slot" style="width:100%;height:110px"><div class="plus">+</div></div>
+          <p class="csec-hint" style="margin:.4rem 0 0;font-size:.78rem">Recommended ~900&times;1100px (taller/portrait crop). Optional &mdash; if empty, the desktop image is used on phones too.</p>
         </div>
       </div>
 
@@ -310,6 +317,7 @@ a{color:inherit}
       <div class="field">
         <label>Gallery (up to 12 photos)</label>
         <div class="photo-row" id="ug_gallery_row"></div>
+        <p class="csec-hint" style="margin:.4rem 0 0;font-size:.78rem">Shown on the page as a sliding carousel (3 photos per view on desktop, 1 on mobile), auto-rotating. Roughly 4:3 photos work best.</p>
       </div>
 
       <div class="field">
@@ -318,8 +326,9 @@ a{color:inherit}
       </div>
 
       <div class="field">
-        <label>Map link (Google Maps URL, etc.)</label>
-        <input type="text" id="ug_mapurl" maxlength="300">
+        <label>Map (Google Maps)</label>
+        <input type="text" id="ug_mapurl" maxlength="2000" placeholder="Paste embed code from Share &#8594; Embed a map, or a plain Maps link">
+        <p class="csec-hint" style="margin:.4rem 0 0;font-size:.78rem">Best: on Google Maps, click Share &rarr; Embed a map &rarr; Copy HTML, and paste the whole thing here &mdash; we'll pull out the link automatically and show a real embedded map. A plain Maps URL also works, but shows as a link only.</p>
       </div>
 
       <div class="field">
@@ -337,6 +346,7 @@ a{color:inherit}
   <input type="file" id="bannerPhotoInput" accept="image/*" style="display:none">
   <input type="file" id="ug_logo_input" accept="image/*" style="display:none">
   <input type="file" id="ug_hero_input" accept="image/*" style="display:none">
+  <input type="file" id="ug_hero_mobile_input" accept="image/*" style="display:none">
   <input type="file" id="ug_gallery_input" accept="image/*" style="display:none">
 </div>
 
@@ -542,8 +552,9 @@ let siteContent = { news: '', banners: [], projects: {} };
 function ugContent(){
   if(!siteContent.projects) siteContent.projects = {};
   if(!siteContent.projects.ugunsvija){
-    siteContent.projects.ugunsvija = { tagline:'', logo:'', hero:'', bio:'', gallery:[], socials:[], mapUrl:'', announcement:'' };
+    siteContent.projects.ugunsvija = { tagline:'', logo:'', hero:'', heroMobile:'', bio:'', gallery:[], socials:[], mapUrl:'', announcement:'' };
   }
+  if(siteContent.projects.ugunsvija.heroMobile == null) siteContent.projects.ugunsvija.heroMobile = '';
   return siteContent.projects.ugunsvija;
 }
 
@@ -686,8 +697,10 @@ document.getElementById('saveBannersBtn').addEventListener('click', async () => 
 function renderUgImages(){
   const logo = ugContent().logo;
   const hero = ugContent().hero;
+  const heroMobile = ugContent().heroMobile;
   document.getElementById('ug_logo_slot').innerHTML = logo ? `<img src="${escapeHtml(logo)}">` : '<div class="plus">+</div>';
   document.getElementById('ug_hero_slot').innerHTML = hero ? `<img src="${escapeHtml(hero)}">` : '<div class="plus">+</div>';
+  document.getElementById('ug_hero_mobile_slot').innerHTML = heroMobile ? `<img src="${escapeHtml(heroMobile)}">` : '<div class="plus">+</div>';
 }
 
 function renderUgGallery(){
@@ -734,10 +747,20 @@ function renderUgSocials(){
 document.getElementById('ug_tagline').addEventListener('input', function(){ ugContent().tagline = this.value; });
 document.getElementById('ug_bio').addEventListener('input', function(){ ugContent().bio = this.value; });
 document.getElementById('ug_announcement').addEventListener('input', function(){ ugContent().announcement = this.value; });
-document.getElementById('ug_mapurl').addEventListener('input', function(){ ugContent().mapUrl = this.value; });
+function extractMapEmbedSrc(raw){
+  var s = (raw || '').trim();
+  var m = s.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i);
+  return m ? m[1] : s;
+}
+document.getElementById('ug_mapurl').addEventListener('input', function(){
+  var extracted = extractMapEmbedSrc(this.value);
+  if(extracted !== this.value) this.value = extracted;
+  ugContent().mapUrl = this.value;
+});
 
 document.getElementById('ug_logo_slot').addEventListener('click', () => document.getElementById('ug_logo_input').click());
 document.getElementById('ug_hero_slot').addEventListener('click', () => document.getElementById('ug_hero_input').click());
+document.getElementById('ug_hero_mobile_slot').addEventListener('click', () => document.getElementById('ug_hero_mobile_input').click());
 
 document.getElementById('ug_logo_input').addEventListener('change', async function(){
   const file = this.files[0];
@@ -760,6 +783,20 @@ document.getElementById('ug_hero_input').addEventListener('change', async functi
     const dataUrl = await fileToDataUrl(file);
     const res = await api('upload-image', { dataUrl });
     ugContent().hero = res.url;
+    renderUgImages();
+  }catch(e){
+    alert('Upload failed: ' + e.message);
+  }
+  this.value = '';
+});
+
+document.getElementById('ug_hero_mobile_input').addEventListener('change', async function(){
+  const file = this.files[0];
+  if(!file) return;
+  try{
+    const dataUrl = await fileToDataUrl(file);
+    const res = await api('upload-image', { dataUrl });
+    ugContent().heroMobile = res.url;
     renderUgImages();
   }catch(e){
     alert('Upload failed: ' + e.message);
