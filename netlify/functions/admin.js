@@ -142,7 +142,16 @@ exports.handler = async (event) => {
 
   if (action === 'save-content') {
     const incoming = body.content || {};
-    const news = typeof incoming.news === 'string' ? incoming.news.slice(0, 5000) : '';
+    const incomingNewsItems = Array.isArray(incoming.newsItems) ? incoming.newsItems : [];
+    const newsItems = [0, 1, 2].map((i) => {
+      const it = incomingNewsItems[i] || {};
+      return {
+        image: typeof it.image === 'string' ? it.image : '',
+        date: typeof it.date === 'string' ? it.date.slice(0, 20) : '',
+        text: typeof it.text === 'string' ? it.text.slice(0, 2000) : '',
+        project: typeof it.project === 'string' && PROJECTS.includes(it.project) ? it.project : 'blackcasket'
+      };
+    });
     const banners = Array.isArray(incoming.banners)
       ? incoming.banners.slice(0, 8).map((b) => ({
           image: typeof (b && b.image) === 'string' ? b.image : '',
@@ -176,7 +185,7 @@ exports.handler = async (event) => {
       };
     });
 
-    const content = { news, banners, projects };
+    const content = { newsItems, banners, projects };
     await saveSiteContent(content);
     return json(200, { ok: true, content });
   }
