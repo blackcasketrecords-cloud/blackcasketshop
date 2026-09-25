@@ -215,16 +215,18 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 
 /* ── SIDE PROJECTS ── */
 .projects-teaser{max-width:1040px;margin:0 auto;padding:.2rem 1.5rem 3rem}
-.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
-@media(max-width:760px){.proj-grid{grid-template-columns:1fr}}
-.proj-card{display:block;position:relative;text-decoration:none;border:1px solid var(--border);background:var(--ash);padding:1.7rem 1.4rem;transition:transform .3s,border-color .3s,box-shadow .3s;text-align:center}
-.proj-card:hover{transform:translateY(-4px);border-color:var(--bordhi);box-shadow:0 14px 40px rgba(0,0,0,.7),0 0 24px rgba(107,15,15,.18)}
-.proj-logo{width:64px;height:64px;margin:0 auto .9rem;border-radius:50%;overflow:hidden;background:rgba(196,186,168,.04);border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
-.proj-logo img{width:100%;height:100%;object-fit:cover}
-.proj-logo-ph{font-family:'UnifrakturMaguntia',cursive;font-size:1.6rem;color:var(--parch);opacity:.4}
-.proj-name{font-family:'Cinzel',serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--parch);margin-bottom:.55rem}
-.proj-tag{font-family:'Crimson Text',serif;font-style:italic;font-size:.88rem;opacity:.65;line-height:1.5;margin-bottom:.8rem;min-height:2.7em}
-.proj-hint{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;opacity:.4}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
+@media(max-width:760px){.proj-grid{grid-template-columns:1fr;gap:2.2rem}}
+.proj-card{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:var(--bone);padding:.6rem;text-align:center;transition:transform .3s ease}
+.proj-card:hover{transform:translateY(-4px)}
+.proj-logo{width:120px;height:120px;margin:0 auto .8rem;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:transform .35s ease,filter .35s ease;filter:drop-shadow(0 8px 22px rgba(0,0,0,.55))}
+.proj-card:hover .proj-logo{transform:scale(1.05)}
+.proj-logo img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.proj-logo-ph{font-family:'UnifrakturMaguntia',cursive;font-size:3rem;color:var(--parch);opacity:.45}
+.proj-name{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--parch);margin-bottom:.4rem}
+.proj-tag{font-family:'Crimson Text',serif;font-style:italic;font-size:.85rem;opacity:.65;line-height:1.4;margin-bottom:.55rem}
+.proj-hint{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;opacity:.42;color:var(--bone)}
+@media(max-width:760px){.proj-logo{width:100px;height:100px}}
 
 /* ── NEWS ── */
 .news-section{max-width:1040px;margin:0 auto;padding:2.5rem 1.5rem}

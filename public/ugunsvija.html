@@ -28,16 +28,16 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 @media(max-width:600px){.page-nav{gap:.4rem}.nav-btn{font-size:.54rem;padding:.55em 1em}}
 
 /* LAYOUT */
-.wrap{max-width:1040px;margin:0 auto;padding:3.4rem 1.5rem 2rem}
-.slabel{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;opacity:.55;margin-bottom:.65rem}
-.stitle{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,5vw,4rem);color:var(--parch);text-shadow:0 0 30px rgba(107,15,15,.2);margin-bottom:2.5rem;line-height:1}
-.about-text p{opacity:.82;font-size:1.05rem;line-height:1.9;margin-bottom:1.1rem}
+.wrap{max-width:1040px;margin:0 auto;padding:2.2rem 1.5rem 1.2rem}
+.slabel{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;opacity:.55;margin-bottom:.55rem}
+.stitle{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,5vw,4rem);color:var(--parch);text-shadow:0 0 30px rgba(107,15,15,.2);margin-bottom:1rem;line-height:1}
+.about-text p{opacity:.82;font-size:1.05rem;line-height:1.85;margin-bottom:.9rem}
 .about-text p em{color:var(--parch);opacity:1}
 
 /* DIVIDER */
-.div{display:flex;align-items:center;gap:1.1rem;max-width:460px;margin:0 auto;padding:0 1.5rem;opacity:.18}
+.div{display:flex;align-items:center;gap:1.1rem;max-width:460px;margin:0 auto;padding:0 1.5rem}
 .div::before,.div::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--bone),transparent)}
-.div span{font-family:'Cinzel',serif;font-size:.85rem}
+.div span{font-family:'Cinzel',serif;font-size:.85rem;opacity:.3}
 
 /* BUTTONS */
 .btn{font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;padding:.82em 2.2em;border:1px solid;transition:all .3s ease;white-space:nowrap;display:inline-block}
@@ -50,28 +50,46 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
 /* HERO */
 .ug-hero{position:relative;min-height:46vh;display:flex;align-items:flex-end;overflow:hidden;background:linear-gradient(135deg,#0a0a0f 0%,#111118 100%);border-bottom:1px solid var(--border)}
-.ug-hero-img{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.55;filter:grayscale(10%) contrast(1.05)}
-.ug-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 10%,rgba(0,0,0,.35) 60%,rgba(0,0,0,.15) 100%)}
-.ug-hero-overlay{position:relative;z-index:2;padding:3rem 1.5rem 2.4rem;max-width:1040px;margin:0 auto;width:100%}
-.ug-logo-wrap{width:72px;height:72px;border-radius:50%;overflow:hidden;background:rgba(196,186,168,.06);border:1px solid var(--bordhi);display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+.ug-hero-img{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.88;filter:grayscale(6%) contrast(1.03)}
+.ug-hero-img-mobile{display:none}
+.ug-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.2) 42%,rgba(0,0,0,.05) 75%)}
+.ug-hero-overlay{position:relative;z-index:2;padding:2.2rem 1.5rem 1.8rem;max-width:1040px;margin:0 auto;width:100%}
+.ug-logo-wrap{width:72px;height:72px;border-radius:50%;overflow:hidden;background:rgba(196,186,168,.06);border:1px solid var(--bordhi);display:flex;align-items:center;justify-content:center;margin-bottom:.9rem}
 .ug-logo-wrap img{width:100%;height:100%;object-fit:cover}
 .ug-logo-ph{font-family:'UnifrakturMaguntia',cursive;font-size:1.7rem;color:var(--parch);opacity:.5}
-.ug-tagline{font-style:italic;font-size:1rem;opacity:.75;max-width:440px;line-height:1.7}
-@media(max-width:600px){.ug-hero{min-height:36vh}.ug-hero-overlay{padding:2rem 1.2rem 1.6rem}}
+.ug-tagline{font-style:italic;font-size:1rem;opacity:.8;max-width:440px;line-height:1.6;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+@media(max-width:600px){
+  .ug-hero{min-height:42vh}
+  .ug-hero-overlay{padding:1.5rem 1.2rem 1.3rem}
+  .ug-hero-img{display:none}
+  .ug-hero-img-mobile{display:block;position:absolute;inset:0;background-size:cover;background-position:center;opacity:.88;filter:grayscale(6%) contrast(1.03)}
+}
 
-/* GALLERY */
-.ug-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.8rem}
-.ug-gallery img{width:100%;aspect-ratio:1;object-fit:cover;display:block;border:1px solid var(--border);filter:grayscale(8%) contrast(1.05);transition:transform .4s}
-.ug-gallery img:hover{transform:scale(1.03)}
+/* READ MORE */
+.clamp-3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.read-more-btn{display:none;margin-top:.5rem;font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bone);opacity:.6;background:none;border:none;border-bottom:1px solid transparent;cursor:pointer;padding:0}
+.read-more-btn:hover{opacity:.95;color:var(--parch);border-bottom-color:var(--bordhi)}
+
+/* GALLERY CAROUSEL */
+.ug-gallery-wrap{position:relative;max-width:1040px;margin:0 auto;overflow:hidden}
+.ug-gallery-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.ug-gallery-item{flex:0 0 33.3333%;padding:0 .45rem;box-sizing:border-box}
+.ug-gallery-item img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border:1px solid var(--border);filter:grayscale(6%) contrast(1.04)}
+@media(max-width:700px){.ug-gallery-item{flex:0 0 100%;padding:0 .2rem}}
+.gal-arrow{position:absolute;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(196,186,168,.55);font-size:1rem;width:2.4rem;height:2.4rem;cursor:pointer;z-index:10;transition:all .25s;display:flex;align-items:center;justify-content:center;text-shadow:0 0 8px rgba(0,0,0,.9)}
+.gal-arrow:hover{color:var(--parch)}
+.gal-prev{left:-.3rem}
+.gal-next{right:-.3rem}
+@media(max-width:700px){.gal-prev{left:-1.1rem}.gal-next{right:-1.1rem}}
 
 /* ANNOUNCEMENT (reuse news-item look) */
-.news-item{border:1px solid var(--border);padding:1.2rem 1.4rem;background:rgba(196,186,168,.02)}
+.news-item{border:1px solid var(--border);padding:1.1rem 1.3rem;background:rgba(196,186,168,.02)}
 .news-text{font-size:1rem;line-height:1.78;opacity:.78}
 
 /* SHOP SHOWCASE (mirrors homepage Recent Releases) */
-.rel-bg{background:var(--deep);padding:1.6rem 1.5rem 3.2rem}
+.rel-bg{background:var(--deep);padding:1.2rem 1.5rem 2.4rem}
 .rel-inner{max-width:1040px;margin:0 auto}
-.rel-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.2rem;flex-wrap:wrap;gap:.8rem}
+.rel-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:1.6rem;flex-wrap:wrap;gap:.8rem}
 .rel-head a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--bone);opacity:.62;text-decoration:none;border-bottom:1px solid transparent;transition:all .28s;padding-bottom:.2em}
 .rel-head a:hover{opacity:.8;border-bottom-color:var(--bordhi)}
 .rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:1.3rem}
@@ -90,10 +108,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .tag-new{color:#c8783a;border-color:rgba(200,120,58,.55)}
 .ug-shop-empty{opacity:.55;font-style:italic;text-align:center;padding:1rem 0 0}
 
+/* MAP */
+.ug-map-frame{width:100%;max-width:640px;height:280px;border:1px solid var(--border);filter:grayscale(12%) contrast(1.03)}
+@media(max-width:600px){.ug-map-frame{height:220px}}
+
 /* CONTACT */
-.contact-sec{text-align:center;padding:3.5rem 1.5rem 4.5rem}
-.contact-sec::before{content:'';display:block;width:1px;height:45px;background:linear-gradient(to bottom,transparent,rgba(196,186,168,.18));margin:0 auto 3rem}
-.clinks{display:flex;gap:2.2rem;justify-content:center;flex-wrap:wrap;margin-top:1.8rem}
+.contact-sec{text-align:center;padding:2.4rem 1.5rem 3rem}
+.clinks{display:flex;gap:2.2rem;justify-content:center;flex-wrap:wrap;margin-top:1.4rem}
 .cl{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.28em;text-transform:uppercase;color:var(--bone);opacity:.65;text-decoration:none;transition:all .26s;padding-bottom:.22em;border-bottom:1px solid transparent}
 .cl:hover{opacity:.92;color:var(--parch);border-bottom-color:var(--bordhi)}
 
@@ -120,6 +141,7 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 <!-- HERO -->
 <div class="ug-hero rv" id="ugHero">
   <div class="ug-hero-img" id="ugHeroImg"></div>
+  <div class="ug-hero-img-mobile" id="ugHeroImgMobile"></div>
   <div class="ug-hero-overlay">
     <div class="ug-logo-wrap" id="ugLogoWrap"><span class="ug-logo-ph">&#10013;</span></div>
     <div class="slabel">Side Project</div>
@@ -132,22 +154,26 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 <div class="wrap" style="padding-bottom:0">
   <div class="rv">
     <div class="slabel">About</div>
-    <h2 class="stitle" style="font-size:clamp(1.6rem,3.6vw,2.6rem);margin-bottom:1.6rem">The Bar</h2>
+    <h2 class="stitle" style="font-size:clamp(1.6rem,3.6vw,2.6rem);margin-bottom:1rem">The Bar</h2>
   </div>
   <div class="about-text rv" id="ugBio" style="transition-delay:.08s">
     <p style="opacity:.55;font-style:italic">More about Ugunsvija is coming soon.</p>
   </div>
 </div>
 
-<div class="div" style="margin-top:2.4rem"><span>&#10013;</span></div>
+<div class="div" style="margin-top:1.6rem"><span>&#10013;</span></div>
 
 <!-- GALLERY -->
 <div class="wrap" id="ugGallerySection">
   <div class="rv">
     <div class="slabel">Gallery</div>
-    <h2 class="stitle" style="font-size:clamp(1.6rem,3.6vw,2.6rem);margin-bottom:1.6rem">Photos</h2>
+    <h2 class="stitle" style="font-size:clamp(1.6rem,3.6vw,2.6rem);margin-bottom:1rem">Photos</h2>
   </div>
-  <div class="ug-gallery rv" id="ugGallery" style="transition-delay:.08s"></div>
+  <div class="ug-gallery-wrap rv" id="ugGalleryWrap" style="transition-delay:.08s">
+    <div class="ug-gallery-track" id="ugGalleryTrack"></div>
+    <button type="button" class="gal-arrow gal-prev" id="galPrev">&#10094;</button>
+    <button type="button" class="gal-arrow gal-next" id="galNext">&#10095;</button>
+  </div>
 </div>
 
 <div class="div" id="ugGalleryDiv"><span>&#10013;</span></div>
@@ -156,10 +182,11 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 <div class="wrap" id="ugAnnounceSection">
   <div class="rv">
     <div class="slabel">Latest</div>
-    <h2 class="stitle" style="font-size:clamp(1.6rem,3.6vw,2.6rem);margin-bottom:1.6rem">Announcement</h2>
+    <h2 class="stitle" style="font-size:clamp(1.6rem,3.6vw,2.6rem);margin-bottom:1rem">Announcement</h2>
   </div>
   <div class="news-item rv" style="transition-delay:.08s">
-    <p class="news-text" id="ugAnnounceText">No announcements yet.</p>
+    <div class="news-text clamp-3" id="ugAnnounceText">No announcements yet.</div>
+    <button type="button" class="read-more-btn" id="ugAnnounceToggle">Read more</button>
   </div>
 </div>
 
@@ -184,9 +211,9 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 <!-- CONTACTS -->
 <div class="contact-sec rv" id="contact">
   <div class="slabel">Find Us</div>
-  <h2 class="stitle">Contact &amp; Location</h2>
+  <h2 class="stitle" style="margin-bottom:.7rem">Contact &amp; Location</h2>
   <div class="clinks" id="ugSocials"></div>
-  <div id="ugMapWrap" style="margin-top:1.8rem"></div>
+  <div id="ugMapWrap" style="margin-top:1.6rem;display:flex;justify-content:center"></div>
 </div>
 
 <footer>
@@ -209,21 +236,40 @@ function effectivePrice(p){
   return p.price;
 }
 
+function setupReadMore(textId, btnId){
+  const textEl = document.getElementById(textId);
+  const btn = document.getElementById(btnId);
+  if(!textEl || !btn) return;
+  requestAnimationFrame(() => {
+    if (textEl.scrollHeight > textEl.clientHeight + 2) {
+      btn.style.display = 'inline-block';
+      btn.addEventListener('click', () => {
+        const nowClamped = textEl.classList.toggle('clamp-3');
+        btn.textContent = nowClamped ? 'Read more' : 'Show less';
+      });
+    }
+  });
+}
+
 function renderContent(data){
   const p = (data && data.projects && data.projects.ugunsvija) || {};
 
   if (p.hero) document.getElementById('ugHeroImg').style.backgroundImage = `url('${p.hero}')`;
+  const mobileHeroUrl = p.heroMobile || p.hero;
+  if (mobileHeroUrl) document.getElementById('ugHeroImgMobile').style.backgroundImage = `url('${mobileHeroUrl}')`;
   if (p.logo) document.getElementById('ugLogoWrap').innerHTML = `<img src="${escapeHtml(p.logo)}" alt="">`;
   if (p.tagline) document.getElementById('ugTagline').textContent = p.tagline;
 
   const bioEl = document.getElementById('ugBio');
   if (p.bio && p.bio.trim()) {
-    bioEl.innerHTML = p.bio.trim().split(/\n{2,}/).map(par => `<p>${escapeHtml(par).replace(/\n/g,'<br>')}</p>`).join('');
+    const html = escapeHtml(p.bio.trim()).replace(/\n/g, '<br>');
+    bioEl.innerHTML = `<div class="clamp-3" id="ugBioText"><p>${html}</p></div><button type="button" class="read-more-btn" id="ugBioToggle">Read more</button>`;
+    setupReadMore('ugBioText', 'ugBioToggle');
   }
 
   const gallery = (p.gallery || []).filter(Boolean);
   if (gallery.length) {
-    document.getElementById('ugGallery').innerHTML = gallery.map(url => `<img src="${escapeHtml(url)}" alt="" loading="lazy">`).join('');
+    initGallery(gallery);
   } else {
     document.getElementById('ugGallerySection').style.display = 'none';
     document.getElementById('ugGalleryDiv').style.display = 'none';
@@ -231,6 +277,7 @@ function renderContent(data){
 
   if (p.announcement && p.announcement.trim()) {
     document.getElementById('ugAnnounceText').innerHTML = escapeHtml(p.announcement.trim()).replace(/\n/g,'<br>');
+    setupReadMore('ugAnnounceText', 'ugAnnounceToggle');
   } else {
     document.getElementById('ugAnnounceSection').style.display = 'none';
     document.getElementById('ugAnnounceDiv').style.display = 'none';
@@ -243,9 +290,74 @@ function renderContent(data){
     : '<p style="opacity:.5;font-style:italic">Socials coming soon.</p>';
 
   if (p.mapUrl) {
-    document.getElementById('ugMapWrap').innerHTML = `<a href="${escapeHtml(p.mapUrl)}" class="cl" target="_blank" rel="noopener">&#128205; View on Map</a>`;
+    const isEmbed = /^https:\/\/www\.google\.com\/maps\/embed/i.test(p.mapUrl) || /[?&]output=embed/i.test(p.mapUrl);
+    if (isEmbed) {
+      document.getElementById('ugMapWrap').innerHTML =
+        `<iframe class="ug-map-frame" src="${escapeHtml(p.mapUrl)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>`;
+    } else {
+      document.getElementById('ugMapWrap').innerHTML = `<a href="${escapeHtml(p.mapUrl)}" class="cl" target="_blank" rel="noopener">&#128205; View on Map</a>`;
+    }
   }
 }
+
+// ---- Gallery carousel: 3 photos/view on desktop, 1 on mobile, auto-rotating, no dots ----
+let galIdx = 0;
+let galAuto = null;
+let galTotal = 0;
+
+function galItemsPerView(){
+  return window.matchMedia('(max-width:700px)').matches ? 1 : 3;
+}
+
+function galApply(){
+  const track = document.getElementById('ugGalleryTrack');
+  if (!track || !galTotal) return;
+  const pct = 100 / galItemsPerView();
+  track.style.transform = `translateX(-${galIdx * pct}%)`;
+}
+
+function galSlideTo(n){
+  if (!galTotal) return;
+  galIdx = (n + galTotal) % galTotal;
+  galApply();
+  galResetAuto();
+}
+
+function galMove(dir){ galSlideTo(galIdx + dir); }
+
+function galResetAuto(){
+  clearInterval(galAuto);
+  if (galTotal > galItemsPerView()) galAuto = setInterval(() => galMove(1), 3800);
+}
+
+function initGallery(urls){
+  galTotal = urls.length;
+  const track = document.getElementById('ugGalleryTrack');
+  track.innerHTML = urls.map(u => `<div class="ug-gallery-item"><img src="${escapeHtml(u)}" alt="" loading="lazy"></div>`).join('');
+  const showArrows = galTotal > galItemsPerView();
+  document.getElementById('galPrev').style.display = showArrows ? '' : 'none';
+  document.getElementById('galNext').style.display = showArrows ? '' : 'none';
+  galIdx = 0;
+  galApply();
+  galResetAuto();
+
+  let touchStartX = 0;
+  const wrap = document.getElementById('ugGalleryWrap');
+  wrap.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+  wrap.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) galMove(diff > 0 ? 1 : -1);
+  }, {passive:true});
+}
+
+document.getElementById('galPrev').addEventListener('click', () => galMove(-1));
+document.getElementById('galNext').addEventListener('click', () => galMove(1));
+
+let galResizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(galResizeTimer);
+  galResizeTimer = setTimeout(() => { galIdx = 0; galApply(); galResetAuto(); }, 200);
+});
 
 function renderShop(products){
   const items = (products || []).filter(p => p.project === 'ugunsvija' && !p.hidden).slice(0, 8);
