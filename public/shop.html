@@ -18,7 +18,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .page-nav{padding:.8rem 1.5rem;border-bottom:1px solid var(--border);display:flex;gap:.6rem;flex-wrap:wrap}
 .nav-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;text-decoration:none;padding:.65em 1.4em;border:1px solid rgba(196,186,168,.25);color:var(--bone);background:transparent;transition:all .25s;white-space:nowrap}
 .nav-btn:hover,.nav-btn.active{border-color:rgba(196,186,168,.65);color:var(--parch);background:rgba(196,186,168,.04)}
-@media(max-width:600px){.page-nav{gap:.4rem}.nav-btn{font-size:.54rem;padding:.55em 1em}}
+@media(max-width:600px){.page-nav{gap:.28rem;padding:.7rem 1rem}.nav-btn{font-size:.48rem;letter-spacing:.13em;padding:.5em .75em}}
 .cart-bar{position:sticky;top:0;z-index:100;background:rgba(0,0,0,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:.7rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .cart-info{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
 .cart-count{color:var(--parch);font-weight:700}
@@ -44,17 +44,17 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .sidebar-header{display:none}
 .sidebar-footer{display:none}
 .sidebar-title{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;opacity:.4;margin-bottom:.7rem}
-.cat-btn{display:block;width:100%;text-align:left;background:none;border:none;color:var(--bone);font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:.6em .5em;cursor:pointer;opacity:.62;border-left:2px solid transparent}
-.cat-btn:hover{opacity:.9}
-.cat-btn.active{opacity:1;color:var(--parch);border-left-color:var(--bloodhi);background:rgba(196,186,168,.03)}
-.cat-btn-sale{opacity:.9;color:var(--parch);font-weight:700;margin-bottom:.5rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.cat-btn{display:block;width:100%;text-align:left;background:rgba(196,186,168,.02);border:1px solid rgba(196,186,168,.14);color:var(--bone);font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:.55em .65em;cursor:pointer;opacity:.62;border-left:3px solid transparent;margin-bottom:.35rem;transition:all .2s}
+.cat-btn:hover{opacity:.9;border-color:rgba(196,186,168,.32)}
+.cat-btn.active{opacity:1;color:var(--parch);border-left-color:var(--bloodhi);background:rgba(196,186,168,.05)}
+.cat-btn-sale{opacity:.9;color:var(--parch);font-weight:700;margin-bottom:.6rem}
 .cat-btn-sale:hover{opacity:1}
 .cat-btn-sale.active{opacity:1;border-left-color:var(--bloodhi);background:rgba(107,15,15,.16);text-shadow:0 0 12px rgba(160,30,30,.5)}
-.projects-group{margin-top:1.3rem;padding:.85rem .6rem;border:1px solid rgba(196,186,168,.18);background:rgba(196,186,168,.025)}
-.projects-label{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.26em;text-transform:uppercase;opacity:.48;margin-bottom:.5rem;padding:0 .4rem}
-.project-btn{display:block;width:100%;text-align:left;background:none;border:none;color:var(--bone);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.5em .4em;cursor:pointer;opacity:.68;border-left:2px solid transparent}
-.project-btn:hover{opacity:1}
-.project-btn.active{opacity:1;color:var(--parch);border-left-color:#c9a15c;background:rgba(201,161,92,.08)}
+.projects-group{margin-top:1.1rem}
+.projects-label{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.26em;text-transform:uppercase;opacity:.48;margin-bottom:.5rem}
+.project-btn{display:block;width:100%;text-align:left;background:rgba(196,186,168,.02);border:1px solid rgba(196,186,168,.14);color:var(--parch);font-family:'Cinzel',serif;font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;font-style:italic;font-weight:600;padding:.55em .65em;cursor:pointer;opacity:.8;border-left:3px solid transparent;margin-bottom:.35rem;transition:all .2s}
+.project-btn:hover{opacity:1;border-color:rgba(196,186,168,.32)}
+.project-btn.active{opacity:1;border-left-color:#c9a15c;background:rgba(201,161,92,.08)}
 .filters{margin-top:1.6rem;padding-top:1.3rem;border-top:1px solid var(--border)}
 .filter-group{margin-bottom:1.2rem}
 .filter-label{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.24em;text-transform:uppercase;opacity:.42;margin-bottom:.5rem}
