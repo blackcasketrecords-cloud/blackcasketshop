@@ -180,8 +180,7 @@ exports.handler = async (event) => {
               url: typeof (s && s.url) === 'string' ? s.url.slice(0, 300) : ''
             }))
           : [],
-        mapUrl: typeof pc.mapUrl === 'string' ? pc.mapUrl.slice(0, 2000) : '',
-        announcement: typeof pc.announcement === 'string' ? pc.announcement.slice(0, 2000) : ''
+        mapUrl: typeof pc.mapUrl === 'string' ? pc.mapUrl.slice(0, 2000) : ''
       };
     });
 
