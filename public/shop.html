@@ -198,6 +198,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .success-screen{display:none;text-align:center;padding:5rem 2rem}
 .success-screen.active{display:block}
 .success-cross{font-size:2.2rem;opacity:.28;letter-spacing:.8rem;margin-bottom:2rem}
+.success-cross span{display:inline-block;transform:rotate(180deg)}
+.btn-cross{display:inline-block;transform:rotate(180deg)}
 .success-title{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,6vw,4rem);color:var(--parch);margin-bottom:1.5rem}
 .success-text{opacity:.58;max-width:440px;margin:0 auto 2.5rem;line-height:1.85;font-style:italic;font-size:1.05rem}
 .success-link{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--bone);text-decoration:none;border-bottom:1px solid var(--bordhi);padding-bottom:.18em;opacity:.55}
@@ -420,12 +422,12 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
         <span>I confirm that I have made the payment and I am placing this order. I understand that the order will be processed after the payment is received and verified.</span>
       </label>
     </div>
-    <button class="btn-primary" id="placeOrderBtn" disabled onclick="placeOrder()">&#10013; Place Order</button>
+    <button class="btn-primary" id="placeOrderBtn" disabled onclick="placeOrder()"><span class="btn-cross">&#10013;</span> Place Order</button>
     <div style="margin-top:1rem"><button class="btn-back" onclick="goStep(2)">&#8592; Back to Details</button></div>
   </div>
 </div>
 <div class="success-screen" id="successScreen">
-  <div class="success-cross">&#10013; &#10013; &#10013;</div>
+  <div class="success-cross"><span>&#10013;</span> <span>&#10013;</span> <span>&#10013;</span></div>
   <h2 class="success-title">Order Placed</h2>
   <p class="success-text">Your order has been submitted. We will contact you at <strong id="successEmail"></strong> to confirm shipping. Thank you for supporting the underground.</p>
   <a href="index.html" class="success-link">&#8592; Back to Home</a>
