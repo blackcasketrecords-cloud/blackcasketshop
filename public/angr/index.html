@@ -322,6 +322,16 @@ a{color:inherit}
       <p class="csec-hint" style="margin:-.2rem 0 0">Announcements on this page are pulled automatically from the News cards above (in Site Content &rarr; News) that have their Project set to Ugunsvija &mdash; no separate field here anymore.</p>
 
       <div class="field">
+        <label>Address</label>
+        <input type="text" id="ug_address" maxlength="200" placeholder="e.g. Miera iela 22, Riga">
+      </div>
+
+      <div class="field">
+        <label>Working Hours</label>
+        <input type="text" id="ug_hours" maxlength="200" placeholder="e.g. Wed, Fri, Sat &middot; 18:00 &ndash; 02:00">
+      </div>
+
+      <div class="field">
         <label>Map (Google Maps)</label>
         <input type="text" id="ug_mapurl" maxlength="2000" placeholder="Paste embed code from Share &#8594; Embed a map, or a plain Maps link">
         <p class="csec-hint" style="margin:.4rem 0 0;font-size:.78rem">Best: on Google Maps, click Share &rarr; Embed a map &rarr; Copy HTML, and paste the whole thing here &mdash; we'll pull out the link automatically and show a real embedded map. A plain Maps URL also works, but shows as a link only.</p>
@@ -556,9 +566,11 @@ function newsItem(i){
 function ugContent(){
   if(!siteContent.projects) siteContent.projects = {};
   if(!siteContent.projects.ugunsvija){
-    siteContent.projects.ugunsvija = { tagline:'', logo:'', hero:'', heroMobile:'', bio:'', gallery:[], socials:[], mapUrl:'' };
+    siteContent.projects.ugunsvija = { tagline:'', logo:'', hero:'', heroMobile:'', bio:'', gallery:[], socials:[], mapUrl:'', address:'', hours:'' };
   }
   if(siteContent.projects.ugunsvija.heroMobile == null) siteContent.projects.ugunsvija.heroMobile = '';
+  if(siteContent.projects.ugunsvija.address == null) siteContent.projects.ugunsvija.address = '';
+  if(siteContent.projects.ugunsvija.hours == null) siteContent.projects.ugunsvija.hours = '';
   return siteContent.projects.ugunsvija;
 }
 
@@ -575,6 +587,8 @@ async function loadContent(){
 
   document.getElementById('ug_tagline').value = ugContent().tagline || '';
   document.getElementById('ug_bio').value = ugContent().bio || '';
+  document.getElementById('ug_address').value = ugContent().address || '';
+  document.getElementById('ug_hours').value = ugContent().hours || '';
   document.getElementById('ug_mapurl').value = ugContent().mapUrl || '';
   renderUgImages();
   renderUgGallery();
@@ -824,6 +838,8 @@ function renderUgSocials(){
 
 document.getElementById('ug_tagline').addEventListener('input', function(){ ugContent().tagline = this.value; });
 document.getElementById('ug_bio').addEventListener('input', function(){ ugContent().bio = this.value; });
+document.getElementById('ug_address').addEventListener('input', function(){ ugContent().address = this.value; });
+document.getElementById('ug_hours').addEventListener('input', function(){ ugContent().hours = this.value; });
 function extractMapEmbedSrc(raw){
   var s = (raw || '').trim();
   var m = s.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i);
