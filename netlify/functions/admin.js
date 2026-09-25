@@ -1,7 +1,11 @@
 const crypto = require('crypto');
 const { getCatalog, saveCatalog, imageStore, getSiteContent, saveSiteContent } = require('./_lib/blobs');
 const { makeToken, isAuthed, setCookieHeader, clearCookieHeader } = require('./_lib/auth');
-const { CATEGORIES, GENRES } = require('./_lib/data');
+const { CATEGORIES, GENRES, PROJECTS } = require('./_lib/data');
+
+// Side-project pages that have their own editable content block (excludes
+// "blackcasket", which is the main label and has no dedicated page).
+const PROJECT_PAGE_KEYS = ['ugunsvija', 'mushroom', 'perkona'];
 
 function json(statusCode, data, extraHeaders) {
   return {
@@ -43,6 +47,7 @@ function sanitizeProduct(input, existing) {
     };
   }
   if (typeof input.hidden === 'boolean') p.hidden = input.hidden;
+  if (typeof input.project === 'string' && PROJECTS.includes(input.project)) p.project = input.project;
 
   p.title = p.title || 'Untitled';
   p.categories = p.categories || [];
@@ -54,6 +59,7 @@ function sanitizeProduct(input, existing) {
   p.discount = p.discount || { enabled: false, price: null };
   p.isNew = !!p.isNew;
   p.preorder = p.preorder || { enabled: false, priceNow: null, priceAfter: null };
+  p.project = p.project && PROJECTS.includes(p.project) ? p.project : 'blackcasket';
   return p;
 }
 
@@ -146,7 +152,30 @@ exports.handler = async (event) => {
           bottomColor: b && b.bottomColor === 'black' ? 'black' : 'white'
         }))
       : [];
-    const content = { news, banners };
+
+    const incomingProjects = (incoming.projects && typeof incoming.projects === 'object') ? incoming.projects : {};
+    const projects = {};
+    PROJECT_PAGE_KEYS.forEach((key) => {
+      const pc = incomingProjects[key];
+      if (!pc || typeof pc !== 'object') return;
+      projects[key] = {
+        tagline: typeof pc.tagline === 'string' ? pc.tagline.slice(0, 140) : '',
+        logo: typeof pc.logo === 'string' ? pc.logo : '',
+        hero: typeof pc.hero === 'string' ? pc.hero : '',
+        bio: typeof pc.bio === 'string' ? pc.bio.slice(0, 4000) : '',
+        gallery: Array.isArray(pc.gallery) ? pc.gallery.filter((u) => typeof u === 'string').slice(0, 12) : [],
+        socials: Array.isArray(pc.socials)
+          ? pc.socials.slice(0, 8).map((s) => ({
+              label: typeof (s && s.label) === 'string' ? s.label.slice(0, 40) : '',
+              url: typeof (s && s.url) === 'string' ? s.url.slice(0, 300) : ''
+            }))
+          : [],
+        mapUrl: typeof pc.mapUrl === 'string' ? pc.mapUrl.slice(0, 300) : '',
+        announcement: typeof pc.announcement === 'string' ? pc.announcement.slice(0, 2000) : ''
+      };
+    });
+
+    const content = { news, banners, projects };
     await saveSiteContent(content);
     return json(200, { ok: true, content });
   }
