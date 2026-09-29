@@ -75,31 +75,23 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .rel-head a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--bone);opacity:.62;text-decoration:none;border-bottom:1px solid transparent;transition:all .28s;padding-bottom:.2em}
 .rel-head a:hover{opacity:.8;border-bottom-color:var(--bordhi)}
 
-.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:1.3rem}
-@media(max-width:500px){.rgrid{grid-template-columns:repeat(2,1fr)}}
+.rgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem}
 
-.rcard{display:block;position:relative;text-decoration:none;border:1px solid var(--border);background:var(--ash);transition:transform .3s,border-color .3s,box-shadow .3s}
+.rcard{display:block;position:relative;border:1px solid var(--border);background:var(--ash);transition:transform .3s,border-color .3s,box-shadow .3s}
 .rcard:hover{transform:translateY(-4px);border-color:var(--bordhi);box-shadow:0 14px 40px rgba(0,0,0,.7),0 0 24px rgba(107,15,15,.22)}
-.rcard-img{width:100%;aspect-ratio:1;overflow:hidden;background:#0c0c10;position:relative}
+.rcard-img{width:100%;aspect-ratio:1;overflow:hidden;background:#0c0c10;position:relative;cursor:zoom-in}
 .rcard-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9) 0%,transparent 50%)}
 .rcard-img img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(15%) contrast(1.08);transition:transform .5s}
 .rcard:hover .rcard-img img{transform:scale(1.06)}
-.rcard-body{position:absolute;bottom:0;left:0;right:0;padding:.85rem;z-index:2}
+.rcard-body{position:absolute;bottom:0;left:0;right:0;padding:1rem;z-index:2;text-decoration:none;color:inherit;cursor:pointer}
 .rcard-artist{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;opacity:.7;color:var(--bone);margin-bottom:.12rem}
-.rcard-title{font-family:'Crimson Text',serif;font-size:.88rem;font-weight:600;color:var(--parch);line-height:1.2;margin-bottom:.35rem}
+.rcard-title{font-family:'Crimson Text',serif;font-size:1rem;font-weight:600;color:var(--parch);line-height:1.2;margin-bottom:.4rem}
 .rcard-foot{display:flex;align-items:center;justify-content:space-between}
-.rcard-price{font-family:'Cinzel',serif;font-size:.68rem;font-weight:600;color:var(--parch)}
+.rcard-price{font-family:'Cinzel',serif;font-size:.76rem;font-weight:600;color:var(--parch)}
 .tag{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.16em;text-transform:uppercase;padding:.16em .5em;border:1px solid}
 .tag-cs{color:#9a8f7f;border-color:rgba(154,143,127,.38)}
 .tag-new{color:#c8783a;border-color:rgba(200,120,58,.55);animation:npulse 2.5s ease-in-out infinite}
 @keyframes npulse{0%,100%{opacity:1}50%{opacity:.55}}
-
-.rcard-all{display:flex;align-items:center;justify-content:center;aspect-ratio:1;background:rgba(196,186,168,.02);border:1px dashed rgba(196,186,168,.14);text-decoration:none;transition:border-color .3s,background .3s}
-.rcard-all:hover{border-color:rgba(196,186,168,.32);background:rgba(196,186,168,.04)}
-.rcard-all-inner{text-align:center;padding:1.5rem}
-.rcard-all-sym{font-family:'UnifrakturMaguntia',cursive;font-size:2.8rem;color:var(--parch);opacity:.35;line-height:1;margin-bottom:.5rem}
-.rcard-all-lbl{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;opacity:.55;margin-bottom:.35rem;color:var(--bone)}
-.rcard-all-hint{font-family:'Crimson Text',serif;font-style:italic;font-size:.78rem;opacity:.45;color:var(--bone)}
 
 /* PAYMENT */
 .pay-bg{background:var(--bg);padding:2.2rem 1.5rem 2.2rem}
@@ -156,7 +148,7 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
   .about-grid{gap:1.8rem}
   .facts{flex-direction:row;flex-wrap:wrap}
   .fact{flex:1;min-width:calc(50% - .3rem)}
-  .rgrid{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .rgrid{grid-template-columns:repeat(2,1fr);gap:.9rem}
   .rel-head{flex-direction:column;align-items:flex-start;gap:.5rem}
   /* Slider mobile */
   .slide-arrow{font-size:.95rem;width:1.8rem;height:1.8rem;color:rgba(196,186,168,.4)}
@@ -317,17 +309,13 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 <div class="rel-bg" id="releases">
   <div class="rel-inner">
     <div class="rel-head rv">
-      <div>
-        <div class="slabel">Catalogue</div>
-        <h2 class="stitle" style="margin-bottom:0">Recent Releases</h2>
-      </div>
-      <a href="shop.html">View full shop &#8599;</a>
+      <h2 class="stitle" style="margin-bottom:0">New Arrivals</h2>
     </div>
     <div class="rgrid" id="recentGrid">
       <!-- filled dynamically from /.netlify/functions/products (newest items marked "New") -->
     </div>
     <div class="rv" style="text-align:center;margin-top:2.2rem;transition-delay:.32s">
-      <a href="shop.html" class="btn btn-blood">&#128722; Go to Shop &amp; Order</a>
+      <a href="shop.html" class="btn btn-blood">View More &#8599;</a>
     </div>
   </div>
 </div>
@@ -609,28 +597,25 @@ function renderRecent(products){
     const da = new Date(a.dateAdded || 0).getTime();
     const db = new Date(b.dateAdded || 0).getTime();
     return db - da;
-  }).slice(0, 5);
+  }).slice(0, 4);
 
   const cardsHtml = items.map((p, i) => {
     const img = (p.photos && p.photos[0]) || '';
-    return `<a href="shop.html" class="rcard rv" style="transition-delay:${(i * 0.06).toFixed(2)}s">` +
-      `<div class="rcard-img"><img src="${escapeHtml(img)}" alt="${escapeHtml(p.title)}" loading="lazy"></div>` +
-      `<div class="rcard-body">` +
+    const imgEsc = escapeHtml(img);
+    return `<div class="rcard rv" style="transition-delay:${(i * 0.06).toFixed(2)}s">` +
+      `<div class="rcard-img" data-lightbox-src="${imgEsc}"><img src="${imgEsc}" alt="${escapeHtml(p.title)}" loading="lazy"></div>` +
+      `<a href="shop.html" class="rcard-body">` +
         `<div class="rcard-title">${escapeHtml(p.title)}</div>` +
         `<div class="rcard-foot"><span class="rcard-price">&euro;${effectivePrice(p).toFixed(2)}</span><span class="tag tag-new">New</span></div>` +
-      `</div></a>`;
+      `</a></div>`;
   }).join('');
 
-  const fullShopHtml = `<a href="shop.html" class="rcard-all rv" style="transition-delay:${(items.length * 0.06).toFixed(2)}s">` +
-      `<div class="rcard-all-inner">` +
-        `<div class="rcard-all-sym">&#8734;</div>` +
-        `<div class="rcard-all-lbl">Full Shop</div>` +
-        `<div class="rcard-all-hint">Browse the full catalogue &#8599;</div>` +
-      `</div></a>`;
-
   const grid = document.getElementById('recentGrid');
-  grid.innerHTML = cardsHtml + fullShopHtml;
+  grid.innerHTML = cardsHtml;
   grid.querySelectorAll('.rv').forEach(el => io.observe(el));
+  grid.querySelectorAll('.rcard-img').forEach(el => {
+    el.addEventListener('click', () => openLightbox(el.dataset.lightboxSrc));
+  });
 }
 
 function renderProjects(projects){
