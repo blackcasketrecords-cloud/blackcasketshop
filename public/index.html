@@ -16,6 +16,7 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--bone);font-family:'Crimson Text',serif;font-size:17px;line-height:1.65;overflow-x:hidden}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.45}
+.page-frame{max-width:1600px;margin:0 auto;border-left:1px solid var(--bordhi);border-right:1px solid var(--bordhi)}
 
 /* HERO */
 .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.8rem 1.5rem;overflow:hidden}
@@ -68,7 +69,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .div span{font-family:'Cinzel',serif;font-size:.85rem;display:inline-block;transform:rotate(180deg)}
 
 /* RELEASES */
-.rel-bg{background:var(--deep);padding:2rem 1.5rem 2.6rem}
+.rel-bg{background:var(--bg);padding:2rem 1.5rem 2.6rem}
 @media(max-width:600px){.rel-bg{padding:1.5rem 1.5rem 2rem}}
 .rel-inner{max-width:1040px;margin:0 auto}
 .rel-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.2rem;flex-wrap:wrap;gap:.8rem}
@@ -254,6 +255,7 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
 </style>
 </head>
 <body>
+<div class="page-frame">
 
 <!-- HERO -->
 <section class="hero">
@@ -463,6 +465,7 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
   <img id="lightboxImg" src="" alt="">
 </div>
 
+</div><!-- /page-frame -->
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const io = new IntersectionObserver(e => {
   e.forEach(x => { if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target)} });
