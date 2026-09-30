@@ -53,13 +53,11 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .cat-btn.active{opacity:1;color:var(--parch);border-left-color:var(--bloodhi);background:rgba(196,186,168,.05)}
 
 /* Sale / New / Pre-order — highlighted special filters at the top of the sidebar */
-.cat-btn-special{opacity:.92;font-weight:700;margin-bottom:.35rem}
+.cat-btn-special{opacity:.92;font-weight:700;margin-bottom:.35rem;color:var(--parch)}
 .cat-btn-special:hover{opacity:1}
-.cat-btn-sale{color:var(--parch)}
 .cat-btn-sale.active{border-left-color:var(--bloodhi);background:rgba(107,15,15,.16);text-shadow:0 0 12px rgba(160,30,30,.5)}
-.cat-btn-new{color:#bcd4f2}
 .cat-btn-new.active{border-left-color:var(--new);background:rgba(58,123,213,.15);text-shadow:0 0 10px rgba(58,123,213,.4)}
-.cat-btn-preorder{color:#e8c9a8;margin-bottom:1rem}
+.cat-btn-preorder{margin-bottom:1rem}
 .cat-btn-preorder.active{border-left-color:var(--pre);background:rgba(200,120,58,.15);text-shadow:0 0 10px rgba(200,120,58,.4)}
 
 .cat-list{margin-top:.2rem}
@@ -282,9 +280,9 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
         <button class="sidebar-close" id="sidebarClose">&times;</button>
       </div>
       <div class="sidebar-inner">
-        <button class="cat-btn cat-btn-special cat-btn-sale" data-cat="__sale__">&#9670; Sale</button>
+        <button class="cat-btn cat-btn-special cat-btn-sale" data-cat="__sale__">&#10022; Sale</button>
         <button class="cat-btn cat-btn-special cat-btn-new" data-cat="__new__">&#10022; New Arrivals</button>
-        <button class="cat-btn cat-btn-special cat-btn-preorder" data-cat="__preorder__">&#8987; Pre-order</button>
+        <button class="cat-btn cat-btn-special cat-btn-preorder" data-cat="__preorder__">&#10022; Pre-order</button>
 
         <div class="cat-list">
           <button class="cat-btn active" data-cat="">All</button>
@@ -812,14 +810,12 @@ function renderPaymentSummary(){
 function goCheckout(){
   if(!cartCount())return;
   document.getElementById('shopSection').style.display='none';
-  document.getElementById('shopToolbar').style.display='none';
   document.getElementById('checkoutSection').classList.add('active');
   renderCartSummary();goStep(1);window.scrollTo(0,0);
 }
 function backToShop(){
   document.getElementById('checkoutSection').classList.remove('active');
   document.getElementById('shopSection').style.display='block';
-  document.getElementById('shopToolbar').style.display='flex';
   window.scrollTo(0,0);
 }
 function goStep(n){
