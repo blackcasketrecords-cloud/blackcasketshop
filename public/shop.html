@@ -221,11 +221,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .btn-primary{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;color:var(--parch);border:1px solid var(--bloodhi);background:rgba(107,15,15,.4);padding:.82em 2.2em;cursor:pointer;transition:all .28s;width:100%;margin-top:.5rem}
 .btn-primary:hover:not(:disabled){background:rgba(107,15,15,.7);border-color:var(--parch);box-shadow:0 0 22px rgba(107,15,15,.4)}
 .btn-primary:disabled{opacity:.3;cursor:not-allowed}
-.btn-back{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bone);border:1px solid var(--border);background:none;padding:.65em 1.6em;cursor:pointer;transition:all .25s;margin-bottom:1.5rem}
+.btn-back{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--bone);border:1px solid var(--border);background:none;padding:.78em 2em;cursor:pointer;transition:all .25s}
 .btn-back:hover{border-color:var(--bordhi);color:var(--parch)}
-.btn-next{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;color:var(--parch);border:1px solid var(--bloodhi);background:rgba(107,15,15,.4);padding:.78em 2em;cursor:pointer;transition:all .28s;flex:1;min-width:180px}
-.btn-next:hover{background:rgba(107,15,15,.65);border-color:var(--parch)}
+.btn-next{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--parch);border:1px solid var(--bloodhi);background:rgba(107,15,15,.4);padding:.78em 2em;cursor:pointer;transition:all .28s}
+.btn-next:hover:not(.disabled){background:rgba(107,15,15,.65);border-color:var(--parch)}
+.btn-next.disabled{opacity:.3;pointer-events:none}
 .row-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.5rem}
+.row-btns .btn-back,.row-btns .btn-next{flex:1;min-width:180px}
 .success-screen{display:none;text-align:center;padding:5rem 2rem}
 .success-screen.active{display:block}
 .success-cross{font-size:2.2rem;opacity:.28;letter-spacing:.8rem;margin-bottom:2rem}
@@ -355,7 +357,7 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
     <p style="font-family:Cinzel,serif;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;opacity:.35;margin-bottom:1.5rem">Max 3 units per item</p>
     <div class="row-btns">
       <button class="btn-back" onclick="backToShop()">&#8592; Continue Shopping</button>
-      <button class="btn-next" onclick="goStep(2)">Next: Details &#8594;</button>
+      <button class="btn-next disabled" id="cartNextBtn" onclick="goCartNext()">Next: Details &#8594;</button>
     </div>
   </div>
 
@@ -528,6 +530,14 @@ function updateCartBar(){
   document.getElementById('cartCount').textContent=n+(n===1?' item':' items');
   document.getElementById('cartTotal').textContent='€'+cartTotal().toFixed(2);
   document.getElementById('checkoutBtn').classList.toggle('disabled',n===0);
+  var nextBtn=document.getElementById('cartNextBtn');
+  if(nextBtn) nextBtn.classList.toggle('disabled',n===0);
+}
+
+// Guard against advancing to Details with an empty cart (e.g. items removed while on the Cart step)
+function goCartNext(){
+  if(!cartCount())return;
+  goStep(2);
 }
 
 function addToCart(id){
