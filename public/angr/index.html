@@ -162,6 +162,12 @@ a{color:inherit}
 .color-btn{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:.5em .7em;border:none;background:none;color:var(--bone);opacity:.55;cursor:pointer}
 .color-btn.active{opacity:1;color:var(--parch);background:rgba(196,186,168,.08)}
 .banner-rm{align-self:flex-start}
+.discount-item{border:1px solid var(--border);background:rgba(196,186,168,.02);padding:1rem;margin-bottom:1rem}
+.discount-item-row{display:flex;gap:.8rem;flex-wrap:wrap}
+.discount-item-row .field{flex:1;min-width:110px}
+.discount-item-actions{display:flex;align-items:center;gap:.9rem;margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--border);flex-wrap:wrap}
+.discount-item-actions .toggle-row{margin:0}
+.discount-used-hint{font-size:.78rem;opacity:.5;font-style:italic}
 @media(max-width:600px){
   .content-view{padding:1rem .8rem 4rem}
   .banner-row{flex-direction:column}
@@ -194,6 +200,7 @@ a{color:inherit}
   <div class="view-tabs">
     <button class="view-tab active" id="tabProducts">Products</button>
     <button class="view-tab" id="tabContent">Site Content</button>
+    <button class="view-tab" id="tabDiscounts">Discounts</button>
   </div>
 
   <div class="layout">
@@ -355,6 +362,15 @@ a{color:inherit}
   <input type="file" id="ug_hero_input" accept="image/*" style="display:none">
   <input type="file" id="ug_hero_mobile_input" accept="image/*" style="display:none">
   <input type="file" id="ug_gallery_input" accept="image/*" style="display:none">
+
+  <div class="content-view hidden" id="discountsView">
+    <section class="content-section">
+      <h2 class="csec-title">Discount Codes</h2>
+      <p class="csec-hint">A code never discounts shipping, items already on sale, or pre-order items &mdash; only items at their regular price. Leave "Expires" or "Max uses" empty for no limit.</p>
+      <div id="discountsList"></div>
+      <button class="btn btn-ghost btn-sm" id="addDiscountBtn">+ Generate new code</button>
+    </section>
+  </div>
 </div>
 
 <div class="overlay" id="overlay">
@@ -540,18 +556,156 @@ document.getElementById('seedBtn').addEventListener('click', async ()=>{
 
 // ---- VIEW TABS (Products / Site Content) ----
 let contentLoaded = false;
+let discountsLoaded = false;
 function switchView(v){
   document.getElementById('tabProducts').classList.toggle('active', v === 'products');
   document.getElementById('tabContent').classList.toggle('active', v === 'content');
+  document.getElementById('tabDiscounts').classList.toggle('active', v === 'discounts');
   document.querySelector('.layout').classList.toggle('hidden', v !== 'products');
   document.getElementById('contentView').classList.toggle('hidden', v !== 'content');
+  document.getElementById('discountsView').classList.toggle('hidden', v !== 'discounts');
   if (v === 'content' && !contentLoaded) {
     contentLoaded = true;
     loadContent();
   }
+  if (v === 'discounts' && !discountsLoaded) {
+    discountsLoaded = true;
+    loadDiscounts();
+  }
 }
 document.getElementById('tabProducts').addEventListener('click', () => switchView('products'));
 document.getElementById('tabContent').addEventListener('click', () => switchView('content'));
+document.getElementById('tabDiscounts').addEventListener('click', () => switchView('discounts'));
+
+// ---- DISCOUNT CODES ----
+let discounts = [];
+
+function randomDiscountCode(){
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no 0/O/1/I to avoid confusion
+  var s='';
+  for(var i=0;i<8;i++) s+=chars[Math.floor(Math.random()*chars.length)];
+  return s;
+}
+
+async function loadDiscounts(){
+  try{
+    const res = await api('list-discounts', {});
+    discounts = res.discounts || [];
+  }catch(e){
+    discounts = [];
+  }
+  renderDiscounts();
+}
+
+function renderDiscounts(){
+  const wrap = document.getElementById('discountsList');
+  if(!discounts.length){
+    wrap.innerHTML = '<p style="opacity:.5;font-style:italic;margin-bottom:.8rem">No discount codes yet.</p>';
+    return;
+  }
+  wrap.innerHTML = discounts.map((d, i) => `
+    <div class="discount-item" data-idx="${i}">
+      <div class="discount-item-row">
+        <div class="field">
+          <label>Code</label>
+          <input type="text" class="d-code" data-idx="${i}" maxlength="24" value="${escapeHtml(d.code || '')}">
+        </div>
+        <div class="field" style="max-width:110px">
+          <label>Type</label>
+          <div class="color-toggle d-type-toggle" data-idx="${i}">
+            <button type="button" class="color-btn ${d.type !== 'fixed' ? 'active' : ''}" data-type="percent">%</button>
+            <button type="button" class="color-btn ${d.type === 'fixed' ? 'active' : ''}" data-type="fixed">&euro;</button>
+          </div>
+        </div>
+        <div class="field" style="max-width:110px">
+          <label>Value</label>
+          <input type="number" class="d-value" data-idx="${i}" min="0" step="0.01" value="${d.value != null ? d.value : ''}">
+        </div>
+        <div class="field" style="max-width:160px">
+          <label>Expires (optional)</label>
+          <input type="date" class="d-expires" data-idx="${i}" value="${escapeHtml(d.expiresAt || '')}">
+        </div>
+        <div class="field" style="max-width:130px">
+          <label>Max uses (optional)</label>
+          <input type="number" class="d-maxuses" data-idx="${i}" min="1" step="1" value="${d.maxUses != null ? d.maxUses : ''}">
+        </div>
+      </div>
+      <div class="discount-item-actions">
+        <label class="toggle-row"><input type="checkbox" class="d-enabled" data-idx="${i}" ${d.enabled !== false ? 'checked' : ''}><span>Enabled</span></label>
+        <span class="discount-used-hint">Used ${d.usedCount || 0}${d.maxUses ? ' / ' + d.maxUses : ''} time${(d.usedCount || 0) === 1 ? '' : 's'}</span>
+        <button type="button" class="btn btn-blood btn-sm d-save" data-idx="${i}">Save</button>
+        <button type="button" class="btn btn-danger btn-sm d-delete" data-idx="${i}">Delete</button>
+        <span class="status-msg d-status" data-idx="${i}"></span>
+      </div>
+    </div>`).join('');
+}
+
+document.getElementById('addDiscountBtn').addEventListener('click', () => {
+  discounts.unshift({
+    id: null,
+    code: randomDiscountCode(),
+    type: 'percent',
+    value: 10,
+    enabled: true,
+    expiresAt: null,
+    maxUses: null,
+    usedCount: 0
+  });
+  renderDiscounts();
+});
+
+document.getElementById('discountsList').addEventListener('click', async (e) => {
+  const toggleBtn = e.target.closest('.d-type-toggle .color-btn');
+  if (toggleBtn) {
+    const idx = Number(toggleBtn.closest('.d-type-toggle').dataset.idx);
+    discounts[idx].type = toggleBtn.dataset.type;
+    renderDiscounts();
+    return;
+  }
+
+  const saveBtn = e.target.closest('.d-save');
+  if (saveBtn) {
+    const idx = Number(saveBtn.dataset.idx);
+    const card = saveBtn.closest('.discount-item');
+    const statusEl = card.querySelector('.d-status');
+    const d = discounts[idx];
+    const payload = {
+      id: d.id || undefined,
+      code: card.querySelector('.d-code').value,
+      type: d.type,
+      value: parseFloat(card.querySelector('.d-value').value) || 0,
+      enabled: card.querySelector('.d-enabled').checked,
+      expiresAt: card.querySelector('.d-expires').value || null,
+      maxUses: card.querySelector('.d-maxuses').value ? parseInt(card.querySelector('.d-maxuses').value, 10) : null
+    };
+    statusEl.textContent = 'Saving...';
+    statusEl.style.color = '';
+    try{
+      const res = await api('save-discount', { payload });
+      discounts[idx] = res.discount;
+      renderDiscounts();
+    }catch(err){
+      statusEl.textContent = err.message;
+      statusEl.style.color = '#e08a8a';
+    }
+    return;
+  }
+
+  const delBtn = e.target.closest('.d-delete');
+  if (delBtn) {
+    const idx = Number(delBtn.dataset.idx);
+    const d = discounts[idx];
+    if (!d.id) { discounts.splice(idx, 1); renderDiscounts(); return; }
+    if (!confirm('Delete code "' + d.code + '"? This cannot be undone.')) return;
+    try{
+      await api('delete-discount', { id: d.id });
+      discounts.splice(idx, 1);
+      renderDiscounts();
+    }catch(err){
+      alert('Delete failed: ' + err.message);
+    }
+  }
+});
 
 // ---- SITE CONTENT (News + Banners + Project pages) ----
 let siteContent = { newsItems: [], banners: [], projects: {} };
