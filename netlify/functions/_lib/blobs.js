@@ -41,4 +41,23 @@ async function saveSiteContent(content) {
   await productsStore().setJSON('site-content', content);
 }
 
-module.exports = { productsStore, imageStore, getCatalog, saveCatalog, getSiteContent, saveSiteContent };
+// Discount codes: stored as one JSON array under key "discounts" in the same store.
+async function getDiscounts() {
+  const data = await productsStore().get('discounts', { type: 'json' });
+  return data || [];
+}
+
+async function saveDiscounts(discounts) {
+  await productsStore().setJSON('discounts', discounts);
+}
+
+module.exports = {
+  productsStore,
+  imageStore,
+  getCatalog,
+  saveCatalog,
+  getSiteContent,
+  saveSiteContent,
+  getDiscounts,
+  saveDiscounts
+};
