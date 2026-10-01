@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const { getCatalog, saveCatalog, imageStore, getSiteContent, saveSiteContent } = require('./_lib/blobs');
+const { getCatalog, saveCatalog, imageStore, getSiteContent, saveSiteContent, getDiscounts, saveDiscounts } = require('./_lib/blobs');
 const { makeToken, isAuthed, setCookieHeader, clearCookieHeader } = require('./_lib/auth');
 const { CATEGORIES, GENRES, PROJECTS } = require('./_lib/data');
 
@@ -61,6 +61,33 @@ function sanitizeProduct(input, existing) {
   p.preorder = p.preorder || { enabled: false, priceNow: null, priceAfter: null };
   p.project = p.project && PROJECTS.includes(p.project) ? p.project : 'blackcasket';
   return p;
+}
+
+function sanitizeDiscount(input, existing) {
+  const d = existing
+    ? Object.assign({}, existing)
+    : { id: crypto.randomUUID(), createdAt: new Date().toISOString(), usedCount: 0 };
+
+  if (typeof input.code === 'string') {
+    d.code = input.code.trim().toUpperCase().replace(/[^A-Z0-9_-]/g, '').slice(0, 24);
+  }
+  if (input.type === 'percent' || input.type === 'fixed') d.type = input.type;
+  if (typeof input.value === 'number' && !Number.isNaN(input.value)) d.value = input.value;
+  if (typeof input.enabled === 'boolean') d.enabled = input.enabled;
+  if (typeof input.expiresAt === 'string' && input.expiresAt) d.expiresAt = input.expiresAt.slice(0, 20);
+  else if (input.expiresAt === null || input.expiresAt === '') d.expiresAt = null;
+  if (typeof input.maxUses === 'number' && !Number.isNaN(input.maxUses)) d.maxUses = input.maxUses;
+  else if (input.maxUses === null || input.maxUses === '') d.maxUses = null;
+
+  d.code = d.code || '';
+  d.type = d.type === 'fixed' ? 'fixed' : 'percent';
+  d.value = typeof d.value === 'number' && d.value > 0 ? d.value : 0;
+  if (d.type === 'percent' && d.value > 100) d.value = 100;
+  d.enabled = d.enabled !== false;
+  d.expiresAt = d.expiresAt || null;
+  d.maxUses = typeof d.maxUses === 'number' && d.maxUses > 0 ? Math.round(d.maxUses) : null;
+  d.usedCount = typeof d.usedCount === 'number' ? d.usedCount : 0;
+  return d;
 }
 
 exports.handler = async (event) => {
@@ -189,6 +216,34 @@ exports.handler = async (event) => {
     const content = { newsItems, banners, projects };
     await saveSiteContent(content);
     return json(200, { ok: true, content });
+  }
+
+  if (action === 'list-discounts') {
+    const discounts = await getDiscounts();
+    return json(200, { ok: true, discounts });
+  }
+
+  if (action === 'save-discount') {
+    const discounts = await getDiscounts();
+    const incoming = body.payload || {};
+    const idx = incoming.id ? discounts.findIndex((d) => d.id === incoming.id) : -1;
+    const discount = sanitizeDiscount(incoming, idx >= 0 ? discounts[idx] : null);
+
+    if (!discount.code) return json(400, { error: 'Code is required' });
+    const dup = discounts.find((d, i) => d.code === discount.code && i !== idx);
+    if (dup) return json(400, { error: 'A code with this name already exists' });
+
+    if (idx >= 0) discounts[idx] = discount;
+    else discounts.unshift(discount);
+    await saveDiscounts(discounts);
+    return json(200, { ok: true, discount });
+  }
+
+  if (action === 'delete-discount') {
+    const discounts = await getDiscounts();
+    const next = discounts.filter((d) => d.id !== body.id);
+    await saveDiscounts(next);
+    return json(200, { ok: true });
   }
 
   if (action === 'upload-image') {
