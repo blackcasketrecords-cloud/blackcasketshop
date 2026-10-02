@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Black Casket Records — Underground Cassette Label & Distro</title>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <style>
 :root{
   --bg:#000;--deep:#06060a;--ash:#0f0f14;
@@ -672,6 +673,15 @@ function cp(id, btn){
     btn.textContent='Copied!';btn.classList.add('ok');
     setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('ok')},2000);
   });
+}
+
+// Account confirmation/invite/password-reset emails link back to the site
+// root — this just lets the widget pick up the token from the URL and show
+// the right step (set password, etc.) even though the full account UI
+// (order history, saved details) lives on the Shop page.
+if(typeof netlifyIdentity!=='undefined'){
+  netlifyIdentity.on('login', ()=>{ netlifyIdentity.close(); });
+  netlifyIdentity.init();
 }
 </script>
 </body>

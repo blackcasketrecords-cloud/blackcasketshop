@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shop — Black Casket Records</title>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <style>
 :root{--bg:#000;--deep:#06060a;--ash:#0f0f14;--bone:#d4cbb8;--parch:#f2ead6;--blood:#6b0f0f;--bloodhi:rgba(160,30,30,.95);--border:rgba(196,186,168,.12);--bordhi:rgba(196,186,168,.32);--new:#3a7bd5;--pre:#c8783a}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -27,6 +28,17 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .btn-checkout{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--parch);border:1px solid var(--bloodhi);background:rgba(107,15,15,.4);padding:.6em 1.6em;cursor:pointer;transition:all .25s}
 .btn-checkout:hover:not(.disabled){background:rgba(107,15,15,.7);border-color:var(--parch)}
 .btn-checkout.disabled{opacity:.3;pointer-events:none}
+.nav-account{position:relative}
+.account-menu{display:none;position:absolute;top:calc(100% + .5rem);right:0;background:var(--ash);border:1px solid var(--bordhi);min-width:190px;z-index:50;padding:.6rem 0}
+.account-email{display:block;font-family:'Crimson Text',serif;font-size:.78rem;opacity:.6;padding:.3rem 1rem .5rem;border-bottom:1px solid var(--border);margin-bottom:.3rem;word-break:break-all}
+.account-menu-item{display:block;width:100%;text-align:left;background:none;border:none;color:var(--bone);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;padding:.55em 1rem;cursor:pointer}
+.account-menu-item:hover{color:var(--parch);background:rgba(196,186,168,.06)}
+.my-order-item{display:flex;align-items:center;justify-content:space-between;gap:1rem;border:1px solid var(--border);padding:.8em 1.1em;margin-bottom:.7rem;font-family:'Crimson Text',serif;font-size:.9rem}
+.moi-status{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.moi-status-new{color:#e0c88f}
+.moi-status-paid,.moi-status-shipped{color:#8fb8d8}
+.moi-status-completed{color:#8fb88f}
+.moi-status-cancelled{color:#e08a8a}
 @media(max-width:600px){
   .page-nav{gap:.28rem;padding:.7rem 1rem}
   .nav-btn{font-size:.48rem;letter-spacing:.13em;padding:.5em .75em}
@@ -288,6 +300,14 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
       <a href="index.html#contact" class="nav-btn">Contact</a>
     </div>
     <div class="nav-cart">
+      <div class="nav-account" id="navAccount">
+        <button class="nav-btn" id="accountBtn">Account</button>
+        <div class="account-menu" id="accountMenu">
+          <span class="account-email" id="accountEmail"></span>
+          <button class="account-menu-item" onclick="showMyOrders()">My Orders</button>
+          <button class="account-menu-item" onclick="netlifyIdentity.logout()">Logout</button>
+        </div>
+      </div>
       <div class="cart-info">
         <span>Cart:</span><span class="cart-count" id="cartCount">0 items</span>
         <span class="cart-sep">&middot;</span>
@@ -513,6 +533,13 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
     <div style="margin-top:1rem"><button class="btn-back" onclick="goStep(2)">&#8592; Back to Details</button></div>
   </div>
 </div>
+<div class="checkout-section" id="accountSection">
+  <div class="slabel" style="font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;opacity:.55;margin-bottom:.65rem">Account</div><h2 class="stitle" style="font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,5vw,3.5rem);color:var(--parch);margin-bottom:2rem;line-height:1">My Orders</h2>
+  <div id="myOrdersList"></div>
+  <div class="row-btns">
+    <button class="btn-back" onclick="closeAccountSection()">&#8592; Back to Shop</button>
+  </div>
+</div>
 <div class="success-screen" id="successScreen">
   <div class="success-cross"><span>&#10013;</span> <span>&#10013;</span> <span>&#10013;</span></div>
   <h2 class="success-title">Order Placed</h2>
@@ -578,6 +605,12 @@ function updateCartBar(){
 function goCartNext(){
   if(!cartCount())return;
   goStep(2);
+  if(typeof netlifyIdentity!=='undefined' && netlifyIdentity.currentUser()){
+    var user = netlifyIdentity.currentUser();
+    var emailEl = document.getElementById('f_email');
+    if(emailEl && !emailEl.value && user.email) emailEl.value = user.email;
+    loadProfile().then(function(p){ if(p) prefillFromProfile(p); });
+  }
 }
 
 function addToCart(id){
@@ -1071,28 +1104,34 @@ function placeOrder(){
       if(discountCode){
         fetch('/.netlify/functions/discount',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'redeem',code:discountCode})}).catch(function(){});
       }
-      fetch('/.netlify/functions/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-        action:'create',
-        items:orderItems,
-        subtotal:subtotal,
-        shippingCost:shipping,
-        discountCode:discountCode,
-        discountAmount:discount,
-        total:total,
-        paymentMethod:pmNames[pm]||pm,
-        customer:{
-          name:document.getElementById('f_name').value,
-          email:document.getElementById('f_email').value,
-          phone:document.getElementById('f_phone').value
-        },
-        shipping:{
-          country:country,
-          city:document.getElementById('f_city').value,
-          address:document.getElementById('f_address').value,
-          zip:document.getElementById('f_zip').value
-        },
-        notes:document.getElementById('f_notes').value
-      })}).catch(function(){});
+      authHeaders().then(function(authH){
+        var headers = Object.assign({'Content-Type':'application/json'}, authH);
+        fetch('/.netlify/functions/order',{method:'POST',headers:headers,body:JSON.stringify({
+          action:'create',
+          items:orderItems,
+          subtotal:subtotal,
+          shippingCost:shipping,
+          discountCode:discountCode,
+          discountAmount:discount,
+          total:total,
+          paymentMethod:pmNames[pm]||pm,
+          customer:{
+            name:document.getElementById('f_name').value,
+            email:document.getElementById('f_email').value,
+            phone:document.getElementById('f_phone').value
+          },
+          shipping:{
+            country:country,
+            city:document.getElementById('f_city').value,
+            address:document.getElementById('f_address').value,
+            zip:document.getElementById('f_zip').value
+          },
+          notes:document.getElementById('f_notes').value
+        })}).catch(function(){});
+      });
+      if(typeof netlifyIdentity!=='undefined' && netlifyIdentity.currentUser()){
+        saveProfileFromForm();
+      }
       cart=[];saveCart();updateCartBar();appliedDiscount=null;
       document.getElementById('checkoutSection').classList.remove('active');
       document.getElementById('successScreen').classList.add('active');
@@ -1137,6 +1176,161 @@ function updateShippingPreview(){
   });
 }
 setTimeout(updateShippingPreview, 100);
+
+// ── ACCOUNT (Netlify Identity) ──
+// Guest checkout always works without logging in. Logging in just saves your
+// details for next time and keeps a history of orders placed while signed in
+// (orders placed as a guest, before/without logging in, aren't linked to it).
+let currentProfile = null;
+let profileLoaded = false;
+
+function updateAccountUI(user){
+  var btn = document.getElementById('accountBtn');
+  var menu = document.getElementById('accountMenu');
+  if(!btn || !menu) return;
+  if(user){
+    btn.textContent = (user.user_metadata && user.user_metadata.full_name) || user.email;
+    btn.onclick = toggleAccountMenu;
+    document.getElementById('accountEmail').textContent = user.email;
+  }else{
+    btn.textContent = 'Account';
+    btn.onclick = function(){ netlifyIdentity.open('login'); };
+    menu.classList.remove('open');
+    menu.style.display = 'none';
+    currentProfile = null;
+    profileLoaded = false;
+  }
+}
+function toggleAccountMenu(){
+  var menu = document.getElementById('accountMenu');
+  menu.style.display = menu.style.display==='block' ? 'none' : 'block';
+}
+document.addEventListener('click', function(e){
+  var wrap = document.getElementById('navAccount');
+  var menu = document.getElementById('accountMenu');
+  if(wrap && menu && !wrap.contains(e.target)) menu.style.display='none';
+});
+
+async function authHeaders(){
+  try{
+    if(typeof netlifyIdentity==='undefined') return {};
+    var user = netlifyIdentity.currentUser();
+    if(!user) return {};
+    var token = await user.jwt();
+    return {'Authorization':'Bearer '+token};
+  }catch(e){ return {}; }
+}
+
+async function loadProfile(){
+  if(profileLoaded) return currentProfile;
+  if(typeof netlifyIdentity==='undefined') return null;
+  var user = netlifyIdentity.currentUser();
+  if(!user) return null;
+  try{
+    var headers = Object.assign({'Content-Type':'application/json'}, await authHeaders());
+    var res = await fetch('/.netlify/functions/account',{method:'POST',headers:headers,body:JSON.stringify({action:'get-profile'})});
+    var data = await res.json();
+    currentProfile = data.profile || null;
+    profileLoaded = true;
+  }catch(e){ currentProfile = null; }
+  return currentProfile;
+}
+
+function prefillFromProfile(p){
+  if(!p) return;
+  var map = {f_name:'name', f_phone:'phone', f_city:'city', f_address:'address', f_zip:'zip'};
+  Object.keys(map).forEach(function(id){
+    var el = document.getElementById(id);
+    if(el && !el.value && p[map[id]]) el.value = p[map[id]];
+  });
+  var countryEl = document.getElementById('f_country');
+  var searchEl = document.getElementById('countrySearch');
+  if(countryEl && !countryEl.value && p.country){
+    countryEl.value = p.country;
+    if(searchEl) searchEl.value = p.country;
+  }
+}
+
+async function saveProfileFromForm(){
+  if(typeof netlifyIdentity==='undefined') return;
+  var user = netlifyIdentity.currentUser();
+  if(!user) return;
+  var profile = {
+    name: document.getElementById('f_name').value,
+    phone: document.getElementById('f_phone').value,
+    country: document.getElementById('f_country').value,
+    city: document.getElementById('f_city').value,
+    address: document.getElementById('f_address').value,
+    zip: document.getElementById('f_zip').value
+  };
+  try{
+    var headers = Object.assign({'Content-Type':'application/json'}, await authHeaders());
+    await fetch('/.netlify/functions/account',{method:'POST',headers:headers,body:JSON.stringify({action:'save-profile',profile:profile})});
+    currentProfile = profile; profileLoaded = true;
+  }catch(e){}
+}
+
+async function showMyOrders(){
+  var menu = document.getElementById('accountMenu');
+  if(menu) menu.style.display='none';
+  if(typeof netlifyIdentity==='undefined') return;
+  var user = netlifyIdentity.currentUser();
+  if(!user){ netlifyIdentity.open('login'); return; }
+  document.getElementById('shopSection').style.display='none';
+  document.getElementById('checkoutSection').classList.remove('active');
+  document.getElementById('accountSection').classList.add('active');
+  window.scrollTo(0,0);
+  var list = document.getElementById('myOrdersList');
+  list.innerHTML = '<p style="opacity:.5;font-style:italic">Loading...</p>';
+  try{
+    var headers = Object.assign({'Content-Type':'application/json'}, await authHeaders());
+    var res = await fetch('/.netlify/functions/account',{method:'POST',headers:headers,body:JSON.stringify({action:'my-orders'})});
+    var data = await res.json();
+    renderMyOrders(data.orders || []);
+  }catch(e){
+    list.innerHTML = '<p style="opacity:.6">Could not load your orders — try again.</p>';
+  }
+}
+function closeAccountSection(){
+  document.getElementById('accountSection').classList.remove('active');
+  document.getElementById('shopSection').style.display='block';
+}
+function renderMyOrders(orders){
+  var list = document.getElementById('myOrdersList');
+  if(!orders || !orders.length){
+    list.innerHTML = '<p style="opacity:.5;font-style:italic">No orders yet — anything you order while logged in will show up here.</p>';
+    return;
+  }
+  orders.sort(function(a,b){ return String(b.createdAt||'').localeCompare(String(a.createdAt||'')); });
+  list.innerHTML = orders.map(function(o){
+    var d = o.createdAt ? new Date(o.createdAt) : null;
+    var dateStr = d && !isNaN(d.getTime()) ? d.toLocaleDateString() : '';
+    var status = o.status || 'new';
+    return '<div class="my-order-item"><span>'+dateStr+'</span><span class="moi-status moi-status-'+status+'">'+status+'</span><span>€'+(typeof o.total==='number'?o.total.toFixed(2):'0.00')+'</span></div>';
+  }).join('');
+}
+
+// Guarded: if the Identity widget script fails to load (network hiccup, an
+// ad/privacy blocker, a CDN hiccup), the site must not break — guest
+// checkout has to keep working regardless, just without account features.
+if(typeof netlifyIdentity!=='undefined'){
+  netlifyIdentity.on('init', function(user){ updateAccountUI(user); });
+  netlifyIdentity.on('login', function(user){
+    updateAccountUI(user);
+    netlifyIdentity.close();
+    profileLoaded = false;
+    var detailsVisible = document.getElementById('stepDetails') && document.getElementById('stepDetails').style.display !== 'none';
+    if(detailsVisible){
+      var emailEl = document.getElementById('f_email');
+      if(emailEl && !emailEl.value && user.email) emailEl.value = user.email;
+    }
+    loadProfile().then(function(p){
+      if(p && detailsVisible) prefillFromProfile(p);
+    });
+  });
+  netlifyIdentity.on('logout', function(){ updateAccountUI(null); });
+  netlifyIdentity.init();
+}
 </script>
 </body>
 </html>
