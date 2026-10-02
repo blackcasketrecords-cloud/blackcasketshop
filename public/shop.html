@@ -1042,6 +1042,13 @@ function placeOrder(){
   var country = document.getElementById('f_country').value;
   var discount = window._discountValue || 0;
   var discountCode = appliedDiscount ? appliedDiscount.code : '';
+  var subtotal = cartTotal();
+  var orderItems = cart.map(function(item){
+    var p=PRODUCTS.find(function(x){return x.id===item.id;});
+    if(!p) return null;
+    var unitPrice = effectivePrice(p);
+    return {id:p.id,title:p.title,qty:item.qty,unitPrice:unitPrice,lineTotal:unitPrice*item.qty};
+  }).filter(Boolean);
   var fd=new FormData();
   fd.append('form-name','order');
   fd.append('payment_method', pmNames[pm] || pm);
@@ -1064,6 +1071,28 @@ function placeOrder(){
       if(discountCode){
         fetch('/.netlify/functions/discount',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'redeem',code:discountCode})}).catch(function(){});
       }
+      fetch('/.netlify/functions/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        action:'create',
+        items:orderItems,
+        subtotal:subtotal,
+        shippingCost:shipping,
+        discountCode:discountCode,
+        discountAmount:discount,
+        total:total,
+        paymentMethod:pmNames[pm]||pm,
+        customer:{
+          name:document.getElementById('f_name').value,
+          email:document.getElementById('f_email').value,
+          phone:document.getElementById('f_phone').value
+        },
+        shipping:{
+          country:country,
+          city:document.getElementById('f_city').value,
+          address:document.getElementById('f_address').value,
+          zip:document.getElementById('f_zip').value
+        },
+        notes:document.getElementById('f_notes').value
+      })}).catch(function(){});
       cart=[];saveCart();updateCartBar();appliedDiscount=null;
       document.getElementById('checkoutSection').classList.remove('active');
       document.getElementById('successScreen').classList.add('active');
