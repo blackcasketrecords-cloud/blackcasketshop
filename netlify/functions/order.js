@@ -33,14 +33,16 @@ function sanitizeItems(items) {
   }));
 }
 
-function sanitizeOrder(body) {
+function sanitizeOrder(body, userId) {
   const customer = body.customer || {};
   const shipping = body.shipping || {};
   return {
     id: crypto.randomUUID(),
     status: 'new',
     createdAt: new Date().toISOString(),
-    userId: null, // reserved for account linking
+    // Taken from the verified Identity JWT (if the request was authenticated),
+    // never from the client-supplied body — a guest checkout leaves this null.
+    userId: userId || null,
     items: sanitizeItems(body.items),
     subtotal: num(body.subtotal),
     shippingCost: num(body.shippingCost),
@@ -63,10 +65,16 @@ function sanitizeOrder(body) {
   };
 }
 
-exports.handler = async (event) => {
+exports.handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {
     return json(405, { error: 'Method Not Allowed' });
   }
+
+  // Netlify verifies the Identity JWT itself (when the request carries an
+  // Authorization: Bearer <token> header) and only then populates this —
+  // so it's safe to trust, unlike anything the client sends in the body.
+  const identityUser = context.clientContext && context.clientContext.user;
+  const userId = identityUser ? identityUser.sub : null;
 
   let body;
   try {
@@ -86,7 +94,7 @@ exports.handler = async (event) => {
     return json(400, { error: 'Order has no items' });
   }
 
-  const order = sanitizeOrder(body);
+  const order = sanitizeOrder(body, userId);
 
   try {
     await saveOrder(order);
