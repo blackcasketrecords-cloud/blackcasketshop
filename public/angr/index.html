@@ -168,6 +168,23 @@ a{color:inherit}
 .discount-item-actions{display:flex;align-items:center;gap:.9rem;margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--border);flex-wrap:wrap}
 .discount-item-actions .toggle-row{margin:0}
 .discount-used-hint{font-size:.78rem;opacity:.5;font-style:italic}
+.order-item{border:1px solid var(--border);background:rgba(196,186,168,.02);margin-bottom:1rem}
+.order-item-row{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;padding:1rem;cursor:pointer}
+.order-item-row:hover{background:rgba(196,186,168,.04)}
+.order-item-col{flex:1;min-width:110px}
+.order-item-col .ocol-label{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;opacity:.5;display:block;margin-bottom:.2rem}
+.order-item-col .ocol-val{font-size:.88rem}
+.order-status-select{font-family:'Crimson Text',serif;font-size:.82rem;background:var(--ash);color:var(--bone);border:1px solid var(--border);padding:.4em .6em}
+.order-status-new{color:#e0c88f}
+.order-status-paid{color:#8fb8d8}
+.order-status-shipped{color:#8fb8d8}
+.order-status-completed{color:#8fb88f}
+.order-status-cancelled{color:#e08a8a}
+.order-detail{display:none;border-top:1px solid var(--border);padding:1rem;font-size:.86rem}
+.order-detail.open{display:block}
+.order-detail-row{display:flex;justify-content:space-between;padding:.25em 0;border-bottom:1px dashed var(--border)}
+.order-detail-section{margin-bottom:1rem}
+.order-detail-section h4{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;opacity:.6;margin-bottom:.5rem}
 @media(max-width:600px){
   .content-view{padding:1rem .8rem 4rem}
   .banner-row{flex-direction:column}
@@ -201,6 +218,7 @@ a{color:inherit}
     <button class="view-tab active" id="tabProducts">Products</button>
     <button class="view-tab" id="tabContent">Site Content</button>
     <button class="view-tab" id="tabDiscounts">Discounts</button>
+    <button class="view-tab" id="tabOrders">Orders</button>
   </div>
 
   <div class="layout">
@@ -369,6 +387,14 @@ a{color:inherit}
       <p class="csec-hint">A code never discounts shipping, items already on sale, or pre-order items &mdash; only items at their regular price. Leave "Expires" or "Max uses" empty for no limit.</p>
       <div id="discountsList"></div>
       <button class="btn btn-ghost btn-sm" id="addDiscountBtn">+ Generate new code</button>
+    </section>
+  </div>
+
+  <div class="content-view hidden" id="ordersView">
+    <section class="content-section">
+      <h2 class="csec-title">Orders</h2>
+      <p class="csec-hint">Every order placed at checkout, newest first. Click an order to see full details &mdash; items, shipping address, payment method and any discount used.</p>
+      <div id="ordersList"></div>
     </section>
   </div>
 </div>
@@ -557,13 +583,16 @@ document.getElementById('seedBtn').addEventListener('click', async ()=>{
 // ---- VIEW TABS (Products / Site Content) ----
 let contentLoaded = false;
 let discountsLoaded = false;
+let ordersLoaded = false;
 function switchView(v){
   document.getElementById('tabProducts').classList.toggle('active', v === 'products');
   document.getElementById('tabContent').classList.toggle('active', v === 'content');
   document.getElementById('tabDiscounts').classList.toggle('active', v === 'discounts');
+  document.getElementById('tabOrders').classList.toggle('active', v === 'orders');
   document.querySelector('.layout').classList.toggle('hidden', v !== 'products');
   document.getElementById('contentView').classList.toggle('hidden', v !== 'content');
   document.getElementById('discountsView').classList.toggle('hidden', v !== 'discounts');
+  document.getElementById('ordersView').classList.toggle('hidden', v !== 'orders');
   if (v === 'content' && !contentLoaded) {
     contentLoaded = true;
     loadContent();
@@ -572,10 +601,15 @@ function switchView(v){
     discountsLoaded = true;
     loadDiscounts();
   }
+  if (v === 'orders' && !ordersLoaded) {
+    ordersLoaded = true;
+    loadOrders();
+  }
 }
 document.getElementById('tabProducts').addEventListener('click', () => switchView('products'));
 document.getElementById('tabContent').addEventListener('click', () => switchView('content'));
 document.getElementById('tabDiscounts').addEventListener('click', () => switchView('discounts'));
+document.getElementById('tabOrders').addEventListener('click', () => switchView('orders'));
 
 // ---- DISCOUNT CODES ----
 let discounts = [];
@@ -704,6 +738,157 @@ document.getElementById('discountsList').addEventListener('click', async (e) => 
     }catch(err){
       alert('Delete failed: ' + err.message);
     }
+  }
+});
+
+// ---- ORDERS ----
+let orders = [];
+let orderDetailsCache = {};
+let openOrderId = null;
+const ORDER_STATUSES = ['new', 'paid', 'shipped', 'completed', 'cancelled'];
+
+function fmtOrderDate(iso){
+  if(!iso) return '';
+  var d = new Date(iso);
+  if(isNaN(d.getTime())) return iso;
+  return d.toLocaleString(undefined, {year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+
+async function loadOrders(){
+  const wrap = document.getElementById('ordersList');
+  wrap.innerHTML = '<p style="opacity:.5;font-style:italic">Loading...</p>';
+  try{
+    const res = await api('list-orders', {});
+    orders = res.orders || [];
+  }catch(e){
+    orders = [];
+  }
+  renderOrders();
+}
+
+function renderOrders(){
+  const wrap = document.getElementById('ordersList');
+  if(!orders.length){
+    wrap.innerHTML = '<p style="opacity:.5;font-style:italic">No orders yet.</p>';
+    return;
+  }
+  wrap.innerHTML = orders.map((o) => `
+    <div class="order-item" data-id="${escapeHtml(o.id)}">
+      <div class="order-item-row">
+        <div class="order-item-col">
+          <span class="ocol-label">Date</span>
+          <span class="ocol-val">${escapeHtml(fmtOrderDate(o.createdAt))}</span>
+        </div>
+        <div class="order-item-col">
+          <span class="ocol-label">Customer</span>
+          <span class="ocol-val">${escapeHtml(o.name || '—')}<br><span style="opacity:.6;font-size:.82rem">${escapeHtml(o.email || '')}</span></span>
+        </div>
+        <div class="order-item-col">
+          <span class="ocol-label">Total</span>
+          <span class="ocol-val">&euro;${(typeof o.total === 'number' ? o.total : 0).toFixed(2)}</span>
+        </div>
+        <div class="order-item-col" style="max-width:160px">
+          <span class="ocol-label">Status</span>
+          <select class="order-status-select o-status order-status-${escapeHtml(o.status || 'new')}" data-id="${escapeHtml(o.id)}">
+            ${ORDER_STATUSES.map((s) => `<option value="${s}" ${o.status === s ? 'selected' : ''}>${s}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div class="order-detail" id="order-detail-${escapeHtml(o.id)}"></div>
+    </div>`).join('');
+}
+
+function renderOrderDetail(order){
+  const items = (order.items || []).map((it) => `
+    <div class="order-detail-row"><span>${escapeHtml(it.title || it.id)}${it.qty > 1 ? ' &times;' + it.qty : ''}</span><span>&euro;${(it.lineTotal || 0).toFixed(2)}</span></div>
+  `).join('') || '<p style="opacity:.5;font-style:italic">No items recorded.</p>';
+
+  const c = order.customer || {};
+  const sh = order.shipping || {};
+
+  return `
+    <div class="order-detail-section">
+      <h4>Items</h4>
+      ${items}
+      <div class="order-detail-row"><span>Subtotal</span><span>&euro;${(order.subtotal || 0).toFixed(2)}</span></div>
+      ${order.discountCode ? `<div class="order-detail-row"><span>Discount (${escapeHtml(order.discountCode)})</span><span>&minus;&euro;${(order.discountAmount || 0).toFixed(2)}</span></div>` : ''}
+      <div class="order-detail-row"><span>Shipping</span><span>&euro;${(order.shippingCost || 0).toFixed(2)}</span></div>
+      <div class="order-detail-row" style="border-bottom:none;font-weight:bold"><span>Total</span><span>&euro;${(order.total || 0).toFixed(2)}</span></div>
+    </div>
+    <div class="order-detail-section">
+      <h4>Customer</h4>
+      <div class="order-detail-row"><span>Name</span><span>${escapeHtml(c.name || '—')}</span></div>
+      <div class="order-detail-row"><span>Email</span><span>${escapeHtml(c.email || '—')}</span></div>
+      <div class="order-detail-row"><span>Phone</span><span>${escapeHtml(c.phone || '—')}</span></div>
+    </div>
+    <div class="order-detail-section">
+      <h4>Shipping Address</h4>
+      <div class="order-detail-row"><span>Country</span><span>${escapeHtml(sh.country || '—')}</span></div>
+      <div class="order-detail-row"><span>City</span><span>${escapeHtml(sh.city || '—')}</span></div>
+      <div class="order-detail-row"><span>Address</span><span>${escapeHtml(sh.address || '—')}</span></div>
+      <div class="order-detail-row"><span>ZIP</span><span>${escapeHtml(sh.zip || '—')}</span></div>
+    </div>
+    <div class="order-detail-section">
+      <h4>Payment</h4>
+      <div class="order-detail-row" style="border-bottom:none"><span>Method</span><span>${escapeHtml(order.paymentMethod || '—')}</span></div>
+    </div>
+    ${order.notes ? `<div class="order-detail-section"><h4>Notes</h4><p>${escapeHtml(order.notes)}</p></div>` : ''}
+  `;
+}
+
+document.getElementById('ordersList').addEventListener('click', async (e) => {
+  if(e.target.closest('.o-status')) return;
+  const row = e.target.closest('.order-item-row');
+  if(!row) return;
+  const item = row.closest('.order-item');
+  const id = item.dataset.id;
+  const detail = document.getElementById('order-detail-' + id);
+
+  if(openOrderId === id){
+    detail.classList.remove('open');
+    openOrderId = null;
+    return;
+  }
+  if(openOrderId){
+    const prev = document.getElementById('order-detail-' + openOrderId);
+    if(prev) prev.classList.remove('open');
+  }
+  openOrderId = id;
+  detail.classList.add('open');
+
+  if(orderDetailsCache[id]){
+    detail.innerHTML = renderOrderDetail(orderDetailsCache[id]);
+    return;
+  }
+  detail.innerHTML = '<p style="opacity:.5;font-style:italic;padding:1rem 0">Loading...</p>';
+  try{
+    const res = await api('get-order', { id });
+    orderDetailsCache[id] = res.order;
+    if(openOrderId === id) detail.innerHTML = renderOrderDetail(res.order);
+  }catch(err){
+    detail.innerHTML = '<p style="color:#e08a8a;padding:1rem 0">Failed to load: ' + escapeHtml(err.message) + '</p>';
+  }
+});
+
+document.getElementById('ordersList').addEventListener('change', async (e) => {
+  const sel = e.target.closest('.o-status');
+  if(!sel) return;
+  const id = sel.dataset.id;
+  const status = sel.value;
+  const prevClass = Array.from(sel.classList).find((c) => c.startsWith('order-status-') && c !== 'order-status-select');
+  if(prevClass) sel.classList.remove(prevClass);
+  sel.classList.add('order-status-' + status);
+  sel.disabled = true;
+  try{
+    await api('update-order-status', { id, status });
+    const o = orders.find((x) => x.id === id);
+    if(o) o.status = status;
+    if(orderDetailsCache[id]) orderDetailsCache[id].status = status;
+  }catch(err){
+    alert('Failed to update status: ' + err.message);
+    loadOrders();
+  }finally{
+    sel.disabled = false;
   }
 });
 
