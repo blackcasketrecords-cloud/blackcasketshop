@@ -1,7 +1,9 @@
 const crypto = require('crypto');
-const { getCatalog, saveCatalog, imageStore, getSiteContent, saveSiteContent, getDiscounts, saveDiscounts } = require('./_lib/blobs');
+const { getCatalog, saveCatalog, imageStore, getSiteContent, saveSiteContent, getDiscounts, saveDiscounts, listOrderSummaries, getOrder, updateOrderStatus } = require('./_lib/blobs');
 const { makeToken, isAuthed, setCookieHeader, clearCookieHeader } = require('./_lib/auth');
 const { CATEGORIES, GENRES, PROJECTS } = require('./_lib/data');
+
+const ORDER_STATUSES = ['new', 'paid', 'shipped', 'completed', 'cancelled'];
 
 // Side-project pages that have their own editable content block (excludes
 // "blackcasket", which is the main label and has no dedicated page).
@@ -244,6 +246,24 @@ exports.handler = async (event) => {
     const next = discounts.filter((d) => d.id !== body.id);
     await saveDiscounts(next);
     return json(200, { ok: true });
+  }
+
+  if (action === 'list-orders') {
+    const orders = await listOrderSummaries();
+    return json(200, { ok: true, orders });
+  }
+
+  if (action === 'get-order') {
+    const order = await getOrder(body.id);
+    if (!order) return json(404, { error: 'Not found' });
+    return json(200, { ok: true, order });
+  }
+
+  if (action === 'update-order-status') {
+    if (!ORDER_STATUSES.includes(body.status)) return json(400, { error: 'Invalid status' });
+    const order = await updateOrderStatus(body.id, body.status);
+    if (!order) return json(404, { error: 'Not found' });
+    return json(200, { ok: true, order });
   }
 
   if (action === 'upload-image') {
