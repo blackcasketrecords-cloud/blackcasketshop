@@ -303,12 +303,21 @@ document.getElementById('shareBtn').addEventListener('click', function(){
 });
 
 // ── LOGOUT ──
+// netlifyIdentity.logout() clears the session asynchronously (it makes a
+// network call before actually invalidating the token). Navigating away
+// immediately — as a previous version of this page did — aborts that
+// in-flight request, so the session never actually gets cleared and the
+// NEXT page you land on still thinks you're logged in. Instead we just
+// trigger the logout and let the 'logout' event (below) flip this page
+// back to the login gate once it has genuinely completed.
 document.getElementById('logoutBtn').addEventListener('click', function(){
   try{
     if(typeof netlifyIdentity!=='undefined'){
       netlifyIdentity.logout();
+      return;
     }
   }catch(e){}
+  // Widget unavailable or threw synchronously — nothing to wait for.
   window.location.href = 'index.html';
 });
 
