@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account — Black Casket Records</title>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<style>
+:root{--bg:#000;--deep:#06060a;--ash:#0f0f14;--bone:#d4cbb8;--parch:#f2ead6;--blood:#6b0f0f;--bloodhi:rgba(160,30,30,.95);--border:rgba(196,186,168,.12);--bordhi:rgba(196,186,168,.32)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--bone);font-family:'Crimson Text',serif;font-size:17px;line-height:1.65;overflow-x:hidden;min-height:100vh}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.45}
+.hidden{display:none !important}
+
+/* HEADER */
+.page-header{padding:2.5rem 1.5rem 1.5rem;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:.8rem}
+.page-header-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.site-name{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(1.6rem,4vw,2.8rem);color:var(--parch);text-decoration:none;text-shadow:0 0 40px rgba(107,15,15,.5)}
+.back-link{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--bone);opacity:.5;text-decoration:none;border-bottom:1px solid transparent;transition:all .25s;padding-bottom:.2em}
+.back-link:hover{opacity:.9;border-bottom-color:var(--bordhi);color:var(--parch)}
+
+/* BUTTONS (shared look) */
+.btn{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;padding:.75em 1.8em;border:1px solid var(--bordhi);background:transparent;color:var(--parch);cursor:pointer;transition:all .25s;white-space:nowrap;display:inline-block}
+.btn:hover{background:rgba(196,186,168,.06)}
+.btn-blood{border-color:var(--bloodhi);background:rgba(107,15,15,.38)}
+.btn-blood:hover{background:rgba(107,15,15,.65);border-color:var(--parch)}
+
+/* FOCUS: remove raw browser outline, replace with themed keyboard-only ring */
+.btn:focus,.back-link:focus,.nav-item:focus,.field input:focus,.field select:focus,.burger-toggle:focus,.sidebar-close:focus{outline:none}
+.btn:focus-visible,.back-link:focus-visible,.nav-item:focus-visible,.field input:focus-visible,.field select:focus-visible,.burger-toggle:focus-visible,.sidebar-close:focus-visible{outline:2px solid var(--bordhi);outline-offset:3px}
+
+/* LOGIN GATE */
+.gate-wrap{min-height:60vh;display:flex;align-items:center;justify-content:center;padding:2rem 1.5rem;text-align:center}
+.gate-box{max-width:360px}
+.gate-sym{font-family:'UnifrakturMaguntia',cursive;font-size:2.2rem;color:var(--parch);opacity:.4;margin-bottom:1rem;display:inline-block;transform:rotate(180deg)}
+.gate-title{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--parch);margin-bottom:.8rem}
+.gate-text{opacity:.7;font-style:italic;margin-bottom:1.6rem;line-height:1.75}
+
+/* APP SHELL */
+.app{display:none}
+.topbar{display:none;align-items:center;gap:.8rem;padding:.8rem 1.2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(0,0,0,.95);z-index:60}
+.burger-toggle{display:none;align-items:center;justify-content:center;width:2.2rem;height:2.2rem;flex-shrink:0;font-size:1.05rem;border:1px solid var(--border);background:none;color:var(--bone);cursor:pointer}
+.topbar h1{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--parch)}
+
+.layout{display:flex;max-width:1100px;margin:0 auto;align-items:flex-start}
+.sidebar{width:220px;flex-shrink:0;border-right:1px solid var(--border);position:sticky;top:0;align-self:flex-start;max-height:100vh;overflow-y:auto}
+.sidebar-inner{padding:1.8rem 1.3rem}
+.sidebar-header{display:none}
+.sidebar-user{padding-bottom:1.2rem;margin-bottom:1rem;border-bottom:1px solid var(--border)}
+.sidebar-user-label{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.26em;text-transform:uppercase;opacity:.42;margin-bottom:.4rem}
+.sidebar-user-email{font-size:.88rem;color:var(--parch);word-break:break-all;line-height:1.4}
+.nav-group{margin-bottom:1rem}
+.nav-item{display:flex;align-items:center;gap:.6rem;width:100%;text-align:left;background:none;border:none;border-left:3px solid transparent;color:var(--bone);font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:.75em .8em;cursor:pointer;opacity:.62;transition:all .2s}
+.nav-item:hover{opacity:.9;background:rgba(196,186,168,.04)}
+.nav-item.active{opacity:1;color:var(--parch);border-left-color:var(--bloodhi);background:rgba(196,186,168,.05)}
+.nav-sep{height:1px;background:var(--border);margin:1rem 0}
+.nav-icon{flex-shrink:0;width:14px;height:14px}
+
+.content{flex:1;min-width:0;padding:2.2rem 2rem 4rem}
+.panel{display:none}
+.panel.active{display:block;animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.panel-title{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--parch);opacity:.65;margin-bottom:1.6rem;padding-bottom:.7rem;border-bottom:1px solid var(--border)}
+
+/* ACCOUNT INFO FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;max-width:560px}
+.form-grid.single{grid-template-columns:1fr}
+@media(max-width:560px){.form-grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:.35rem}
+.field label{font-family:'Cinzel',serif;font-size:.47rem;letter-spacing:.24em;text-transform:uppercase;opacity:.45}
+.field input{background:rgba(196,186,168,.04);border:1px solid var(--border);color:var(--parch);font-family:'Crimson Text',serif;font-size:.95rem;padding:.65rem .85rem;transition:border-color .22s;width:100%}
+.field input:focus{border-color:var(--bordhi)}
+.field input[readonly]{opacity:.5;cursor:not-allowed}
+.form-actions{display:flex;align-items:center;gap:1rem;margin-top:1.6rem}
+.save-msg{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#8fb88f;opacity:0;transition:opacity .3s}
+.save-msg.show{opacity:.9}
+
+/* ORDERS */
+.my-order-item{border:1px solid var(--border);margin-bottom:.8rem;background:rgba(196,186,168,.015);transition:border-color .2s}
+.my-order-item:hover{border-color:var(--bordhi)}
+.moi-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85em 1.1em;cursor:pointer}
+.moi-left{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.moi-date{font-size:.9rem;opacity:.85}
+.moi-id{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.08em;opacity:.35}
+.moi-status{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85;border:1px solid currentColor;padding:.3em .7em}
+.moi-status-new{color:#e0c88f}
+.moi-status-paid,.moi-status-shipped{color:#8fb8d8}
+.moi-status-completed{color:#8fb88f}
+.moi-status-cancelled{color:#e08a8a}
+.moi-total{font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;color:var(--parch)}
+.moi-caret{opacity:.4;font-size:.7rem;transition:transform .2s}
+.my-order-item.open .moi-caret{transform:rotate(180deg)}
+.moi-detail{display:none;padding:0 1.1em 1.1em;border-top:1px solid var(--border)}
+.my-order-item.open .moi-detail{display:block}
+.moi-line{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;border-bottom:1px solid rgba(196,186,168,.06);font-size:.85rem}
+.moi-line:last-of-type{border-bottom:none}
+.moi-ship{margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--border);font-size:.85rem;opacity:.75;font-style:italic}
+.moi-sumrow{display:flex;justify-content:space-between;padding-top:.6rem;margin-top:.3rem;border-top:1px solid var(--border);font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase}
+.empty-note,.load-note{opacity:.5;font-style:italic;font-size:.92rem}
+
+/* LOYALTY (TBA style) */
+.tba-wrap{padding:2rem 0}
+.slabel{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.42em;text-transform:uppercase;opacity:.5;margin-bottom:.6rem}
+.stitle{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(1.8rem,4vw,2.6rem);color:var(--parch);text-shadow:0 0 30px rgba(107,15,15,.2);margin-bottom:1rem;line-height:1}
+.tba-badge{display:inline-block;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bone);border:1px solid var(--bordhi);padding:.65em 1.5em;opacity:.75;margin-bottom:1.4rem}
+.tba-desc{font-style:italic;opacity:.72;max-width:420px;line-height:1.8}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(10px);background:var(--ash);border:1px solid var(--bordhi);color:var(--parch);font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:.8em 1.4em;opacity:0;pointer-events:none;transition:all .3s;z-index:300}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.sidebar-backdrop{display:none}
+.sidebar-close{display:none}
+@media(max-width:860px){
+  .topbar{display:flex}
+  .burger-toggle{display:inline-flex}
+  .sidebar{position:fixed;inset:0;z-index:250;background:var(--deep);width:280px;max-width:84vw;max-height:none;transform:translateX(-100%);transition:transform .3s ease;overflow-y:auto}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.3rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--deep);z-index:2}
+  .sidebar-header-title{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--parch)}
+  .sidebar-close{display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;font-size:1.1rem;background:none;border:1px solid var(--border);color:var(--bone);cursor:pointer}
+  .sidebar-backdrop{display:block;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:240;opacity:0;pointer-events:none;transition:opacity .3s}
+  .sidebar-backdrop.show{opacity:1;pointer-events:auto}
+  .content{padding:1.6rem 1.2rem 3rem}
+  .layout{display:block}
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="page-header-top">
+    <a href="index.html" class="site-name">Black Casket Records</a>
+  </div>
+  <a href="index.html" class="back-link">&#8592; Back to Home</a>
+</header>
+
+<!-- LOGIN GATE: shown when there is no logged-in Identity session -->
+<div class="gate-wrap" id="gateWrap">
+  <div class="gate-box">
+    <div class="gate-sym">&#10013;</div>
+    <div class="gate-title">Account access required</div>
+    <p class="gate-text">Log in to view your profile, orders and loyalty status.</p>
+    <button class="btn btn-blood" id="gateLoginBtn">Login / Sign Up</button>
+  </div>
+</div>
+
+<!-- APP SHELL: shown once a session is confirmed -->
+<div class="app" id="app">
+  <div class="topbar">
+    <button class="burger-toggle" id="sidebarToggle">&#9776;</button>
+    <h1>My Account</h1>
+  </div>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-header-title">My Account</span>
+        <button class="sidebar-close" id="sidebarClose">&times;</button>
+      </div>
+      <div class="sidebar-inner">
+        <div class="sidebar-user">
+          <div class="sidebar-user-label">Signed in as</div>
+          <div class="sidebar-user-email" id="sidebarEmail">&nbsp;</div>
+        </div>
+        <div class="nav-group">
+          <button class="nav-item active" data-panel="info">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg>
+            Account Info
+          </button>
+          <button class="nav-item" data-panel="orders">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="1"></rect><path d="M8 7V5a4 4 0 018 0v2"></path></svg>
+            Orders
+          </button>
+          <button class="nav-item" data-panel="loyalty">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"></circle><path d="M8.5 13 7 21l5-2.5L17 21l-1.5-8"></path></svg>
+            Loyalty Program
+          </button>
+        </div>
+        <div class="nav-sep"></div>
+        <div class="nav-group">
+          <button class="nav-item" id="shareBtn">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 10.5 15.4 6.5M8.6 13.5l6.8 4"></path></svg>
+            Share
+          </button>
+          <a class="nav-item" href="shop.html" style="text-decoration:none">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.5 9h-12z"></path><path d="M6 6 5 3H2"></path><circle cx="9" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+            Go to Shop
+          </a>
+          <button class="nav-item" id="logoutBtn">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"></path><path d="M16 17l5-5-5-5"></path><path d="M21 12H9"></path></svg>
+            Logout
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <!-- ACCOUNT INFO -->
+      <section class="panel active" id="panel-info">
+        <div class="panel-title">Account Info</div>
+        <form id="profileForm">
+          <div class="form-grid">
+            <div class="field">
+              <label>Email</label>
+              <input type="text" id="f_email" readonly>
+            </div>
+            <div class="field">
+              <label>Name</label>
+              <input type="text" id="f_name" autocomplete="name">
+            </div>
+            <div class="field">
+              <label>Phone</label>
+              <input type="text" id="f_phone" autocomplete="tel">
+            </div>
+            <div class="field">
+              <label>Country</label>
+              <input type="text" id="f_country" autocomplete="country-name">
+            </div>
+            <div class="field">
+              <label>City</label>
+              <input type="text" id="f_city" autocomplete="address-level2">
+            </div>
+            <div class="field">
+              <label>Zip / Postal</label>
+              <input type="text" id="f_zip" autocomplete="postal-code">
+            </div>
+            <div class="field" style="grid-column:1/-1">
+              <label>Address</label>
+              <input type="text" id="f_address" autocomplete="street-address">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-blood" id="saveProfileBtn">Save Changes</button>
+            <span class="save-msg" id="saveMsg">Saved</span>
+          </div>
+        </form>
+      </section>
+
+      <!-- ORDERS -->
+      <section class="panel" id="panel-orders">
+        <div class="panel-title">Orders</div>
+        <div id="ordersList"><p class="load-note">Loading...</p></div>
+      </section>
+
+      <!-- LOYALTY -->
+      <section class="panel" id="panel-loyalty">
+        <div class="panel-title">Loyalty Program</div>
+        <div class="tba-wrap">
+          <div class="slabel">Coming Soon</div>
+          <h2 class="stitle">Loyalty Program</h2>
+          <div class="tba-badge">In the Works</div>
+          <p class="tba-desc">A rewards program for repeat orders is being built &mdash; points, discounts, and perks for the label's regulars. Check back soon.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toast">Link copied</div>
+
+<script>
+// ── PANEL SWITCHING ──
+function switchPanel(name){
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.toggle('active', p.id === 'panel-'+name); });
+  document.querySelectorAll('.nav-item[data-panel]').forEach(function(b){ b.classList.toggle('active', b.dataset.panel === name); });
+  closeSidebar();
+  if(name === 'orders') loadOrders();
+}
+document.querySelectorAll('.nav-item[data-panel]').forEach(function(btn){
+  btn.addEventListener('click', function(){ switchPanel(btn.dataset.panel); });
+});
+
+// ── MOBILE SIDEBAR ──
+function openSidebar(){ document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebarBackdrop').classList.add('show'); }
+function closeSidebar(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarBackdrop').classList.remove('show'); }
+var sidebarToggleBtn = document.getElementById('sidebarToggle');
+if(sidebarToggleBtn) sidebarToggleBtn.addEventListener('click', openSidebar);
+var sidebarCloseBtn = document.getElementById('sidebarClose');
+if(sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeSidebar);
+document.getElementById('sidebarBackdrop').addEventListener('click', closeSidebar);
+
+// ── TOAST ──
+function showToast(msg){
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2200);
+}
+
+// ── SHARE ──
+document.getElementById('shareBtn').addEventListener('click', function(){
+  var url = location.origin + '/shop.html';
+  if(navigator.share){
+    navigator.share({ title: 'Black Casket Records', url: url }).catch(function(){});
+  }else if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(function(){ showToast('Link copied'); }).catch(function(){ showToast('Could not copy link'); });
+  }else{
+    showToast('Could not copy link');
+  }
+});
+
+// ── LOGOUT ──
+document.getElementById('logoutBtn').addEventListener('click', function(){
+  try{
+    if(typeof netlifyIdentity!=='undefined'){
+      netlifyIdentity.logout();
+    }
+  }catch(e){}
+  window.location.href = 'index.html';
+});
+
+// ── GATE LOGIN ──
+document.getElementById('gateLoginBtn').addEventListener('click', function(){
+  try{ if(typeof netlifyIdentity!=='undefined') netlifyIdentity.open('login'); }catch(e){}
+});
+
+// ── AUTH HEADERS ──
+async function authHeaders(){
+  try{
+    if(typeof netlifyIdentity==='undefined') return {};
+    var user = netlifyIdentity.currentUser();
+    if(!user) return {};
+    var token = await user.jwt();
+    return {'Authorization':'Bearer '+token};
+  }catch(e){ return {}; }
+}
+
+// ── ACCOUNT INFO ──
+async function loadProfile(user){
+  document.getElementById('f_email').value = user.email || '';
+  try{
+    var headers = Object.assign({'Content-Type':'application/json'}, await authHeaders());
+    var res = await fetch('/.netlify/functions/account',{method:'POST',headers:headers,body:JSON.stringify({action:'get-profile'})});
+    var data = await res.json();
+    var p = data.profile || null;
+    if(p){
+      document.getElementById('f_name').value = p.name || '';
+      document.getElementById('f_phone').value = p.phone || '';
+      document.getElementById('f_country').value = p.country || '';
+      document.getElementById('f_city').value = p.city || '';
+      document.getElementById('f_address').value = p.address || '';
+      document.getElementById('f_zip').value = p.zip || '';
+    }
+  }catch(e){}
+}
+document.getElementById('profileForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  var profile = {
+    name: document.getElementById('f_name').value,
+    phone: document.getElementById('f_phone').value,
+    country: document.getElementById('f_country').value,
+    city: document.getElementById('f_city').value,
+    address: document.getElementById('f_address').value,
+    zip: document.getElementById('f_zip').value
+  };
+  var btn = document.getElementById('saveProfileBtn');
+  btn.disabled = true;
+  try{
+    var headers = Object.assign({'Content-Type':'application/json'}, await authHeaders());
+    await fetch('/.netlify/functions/account',{method:'POST',headers:headers,body:JSON.stringify({action:'save-profile',profile:profile})});
+    var msg = document.getElementById('saveMsg');
+    msg.classList.add('show');
+    setTimeout(function(){ msg.classList.remove('show'); }, 2000);
+  }catch(e){}
+  btn.disabled = false;
+});
+
+// ── ORDERS ──
+var ordersLoaded = false;
+var orderDetailCache = {};
+async function loadOrders(){
+  if(ordersLoaded) return;
+  ordersLoaded = true;
+  var list = document.getElementById('ordersList');
+  try{
+    var headers = Object.assign({'Content-Type':'application/json'}, await authHeaders());
+    var res = await fetch('/.netlify/functions/account',{method:'POST',headers:headers,body:JSON.stringify({action:'my-orders'})});
+    var data = await res.json();
+    renderOrders(data.orders || []);
+  }catch(e){
+    ordersLoaded = false;
+    list.innerHTML = '<p class="load-note">Could not load your orders — try again.</p>';
+  }
+}
+function renderOrders(orders){
+  var list = document.getElementById('ordersList');
+  if(!orders || !orders.length){
+    list.innerHTML = '<p class="empty-note">No orders yet — anything you order while logged in will show up here.</p>';
+    return;
+  }
+  orders.sort(function(a,b){ return String(b.createdAt||'').localeCompare(String(a.createdAt||'')); });
+  list.innerHTML = orders.map(function(o){
+    var d = o.createdAt ? new Date(o.createdAt) : null;
+    var dateStr = d && !isNaN(d.getTime()) ? d.toLocaleDateString() : '';
+    var status = o.status || 'new';
+    return '<div class="my-order-item" data-id="'+o.id+'">'+
+      '<div class="moi-head">'+
+        '<div class="moi-left"><span class="moi-date">'+dateStr+'</span><span class="moi-id">#'+String(o.id).slice(0,8)+'</span></div>'+
+        '<div class="moi-left"><span class="moi-status moi-status-'+status+'">'+status+'</span><span class="moi-total">€'+(typeof o.total==='number'?o.total.toFixed(2):'0.00')+'</span><span class="moi-caret">&#9660;</span></div>'+
+      '</div>'+
+      '<div class="moi-detail"><p class="load-note">Loading details...</p></div>'+
+    '</div>';
+  }).join('');
+  list.querySelectorAll('.my-order-item').forEach(function(item){
+    item.querySelector('.moi-head').addEventListener('click', function(){ toggleOrder(item); });
+  });
+}
+async function toggleOrder(item){
+  var wasOpen = item.classList.contains('open');
+  item.classList.toggle('open', !wasOpen);
+  if(wasOpen) return;
+  var id = item.dataset.id;
+  var detailEl = item.querySelector('.moi-detail');
+  if(orderDetailCache[id]){
+    detailEl.innerHTML = renderOrderDetail(orderDetailCache[id]);
+    return;
+  }
+  try{
+    var headers = Object.assign({'Content-Type':'application/json'}, await authHeaders());
+    var res = await fetch('/.netlify/functions/account',{method:'POST',headers:headers,body:JSON.stringify({action:'get-order', id:id})});
+    var data = await res.json();
+    if(data.order){
+      orderDetailCache[id] = data.order;
+      detailEl.innerHTML = renderOrderDetail(data.order);
+    }else{
+      detailEl.innerHTML = '<p class="load-note">Could not load order details.</p>';
+    }
+  }catch(e){
+    detailEl.innerHTML = '<p class="load-note">Could not load order details.</p>';
+  }
+}
+function renderOrderDetail(order){
+  var items = (order.items || []).map(function(it){
+    return '<div class="moi-line"><span>'+escapeHtml(it.title)+' &times; '+it.qty+'</span><span>€'+(typeof it.lineTotal==='number'?it.lineTotal.toFixed(2):'0.00')+'</span></div>';
+  }).join('');
+  var ship = order.shipping || {};
+  var shipStr = [ship.address, ship.city, ship.zip, ship.country].filter(Boolean).join(', ');
+  return items +
+    (shipStr ? '<div class="moi-ship">Ships to: '+escapeHtml(shipStr)+'</div>' : '') +
+    '<div class="moi-sumrow"><span>Total</span><span>€'+(typeof order.total==='number'?order.total.toFixed(2):'0.00')+'</span></div>';
+}
+function escapeHtml(s){
+  var d = document.createElement('div');
+  d.textContent = s == null ? '' : String(s);
+  return d.innerHTML;
+}
+
+// ── IDENTITY INIT ──
+// Guarded: if the Identity widget script fails to load, show the login gate
+// rather than throwing — the page just can't do anything useful without it.
+function showGate(){
+  document.getElementById('gateWrap').classList.remove('hidden');
+  document.getElementById('app').style.display = 'none';
+}
+function showApp(user){
+  document.getElementById('gateWrap').classList.add('hidden');
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('sidebarEmail').textContent = user.email || '';
+  loadProfile(user);
+}
+if(typeof netlifyIdentity!=='undefined'){
+  netlifyIdentity.on('init', function(user){
+    if(user){ showApp(user); } else { showGate(); }
+  });
+  netlifyIdentity.on('login', function(user){
+    netlifyIdentity.close();
+    showApp(user);
+  });
+  netlifyIdentity.on('logout', function(){ showGate(); });
+  netlifyIdentity.init();
+}else{
+  showGate();
+}
+</script>
+</body>
+</html>

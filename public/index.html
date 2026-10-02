@@ -34,7 +34,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .hero-title{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(3rem,11.5vw,8.2rem);color:var(--parch);line-height:.84;text-align:left;text-shadow:0 0 55px rgba(107,15,15,.8),0 0 110px rgba(107,15,15,.3);margin-bottom:0}
 .hero-tag{font-family:'Cinzel',serif;font-size:clamp(.48rem,1.1vw,.64rem);letter-spacing:.36em;text-transform:uppercase;opacity:.68;margin-bottom:.3rem}
 .hero-since{font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.28em;text-transform:uppercase;opacity:.48;margin-bottom:1.1rem}
-.cta-row{display:flex;gap:1.1rem;justify-content:center;flex-wrap:wrap}
+.cta-row{display:flex;gap:1.1rem;justify-content:center;align-items:center;flex-wrap:wrap}
 
 .btn{font-family:'Cinzel',serif;font-size:.64rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;padding:.7em 2rem;border:1px solid;transition:all .3s ease;white-space:nowrap;cursor:pointer;display:inline-block}
 .btn-blood{color:var(--parch);border-color:rgba(160,30,30,.95);background:rgba(107,15,15,.38)}
@@ -44,10 +44,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .nav-account{position:relative;display:inline-block}
 .account-btn{display:inline-flex;align-items:center;gap:.55em;cursor:pointer}
 .account-icon{flex-shrink:0}
-.account-menu{display:none;position:absolute;top:calc(100% + .6rem);left:50%;transform:translateX(-50%);background:var(--ash);border:1px solid var(--bordhi);min-width:190px;z-index:20;padding:.6rem 0;text-align:left}
-.account-email{display:block;font-family:'Crimson Text',serif;font-size:.78rem;opacity:.6;padding:.3rem 1rem .5rem;border-bottom:1px solid var(--border);margin-bottom:.3rem;word-break:break-all}
-.account-menu-item{display:block;width:100%;text-align:left;background:none;border:none;color:var(--bone);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;padding:.55em 1rem;cursor:pointer}
-.account-menu-item:hover{color:var(--parch);background:rgba(196,186,168,.06)}
+
+/* FOCUS: remove raw browser outline, replace with themed keyboard-only ring */
+.btn:focus,.nav-btn:focus,.account-btn:focus{outline:none}
+.btn:focus-visible,.nav-btn:focus-visible,.account-btn:focus-visible{outline:2px solid var(--bordhi);outline-offset:3px}
 
 /* TAPE */
 .tape{background:rgba(107,15,15,.35);border-top:1px solid rgba(140,20,20,.7);border-bottom:1px solid rgba(140,20,20,.7);padding:.7rem 0;overflow:hidden;white-space:nowrap}
@@ -284,11 +284,6 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
           <svg class="account-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg>
           <span id="accountBtnLabel">Login</span>
         </button>
-        <div class="account-menu" id="accountMenu">
-          <span class="account-email" id="accountEmail"></span>
-          <button class="account-menu-item" onclick="goToMyOrders()">My Orders</button>
-          <button class="account-menu-item" onclick="netlifyIdentity.logout()">Logout</button>
-        </div>
       </div>
     </div>
   </div>
@@ -700,29 +695,15 @@ function cp(id, btn){
 function updateAccountUI(user){
   var btn = document.getElementById('accountBtn');
   var label = document.getElementById('accountBtnLabel');
-  var menu = document.getElementById('accountMenu');
-  if(!btn||!label||!menu) return;
+  if(!btn||!label) return;
   if(user){
     label.textContent = 'My Profile';
-    btn.onclick = toggleAccountMenu;
-    var emailEl = document.getElementById('accountEmail');
-    if(emailEl) emailEl.textContent = user.email;
+    btn.onclick = function(){ window.location.href = 'account.html'; };
   }else{
     label.textContent = 'Login';
     btn.onclick = function(){ netlifyIdentity.open('login'); };
-    menu.style.display = 'none';
   }
 }
-function toggleAccountMenu(){
-  var menu = document.getElementById('accountMenu');
-  if(menu) menu.style.display = menu.style.display==='block' ? 'none' : 'block';
-}
-document.addEventListener('click', function(e){
-  var wrap = document.getElementById('navAccount');
-  var menu = document.getElementById('accountMenu');
-  if(wrap && menu && !wrap.contains(e.target)) menu.style.display='none';
-});
-function goToMyOrders(){ window.location.href = 'shop.html#account'; }
 
 // Account confirmation/invite/password-reset emails link back to the site
 // root — this lets the widget pick up the token from the URL and show the

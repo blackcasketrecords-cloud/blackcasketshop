@@ -27,16 +27,16 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .nav-account{position:relative}
 .account-btn{display:inline-flex;align-items:center;gap:.5em;cursor:pointer}
 .account-icon{flex-shrink:0}
-.account-menu{display:none;position:absolute;top:calc(100% + .5rem);right:0;background:var(--ash);border:1px solid var(--bordhi);min-width:190px;z-index:50;padding:.6rem 0}
-.account-email{display:block;font-family:'Crimson Text',serif;font-size:.78rem;opacity:.6;padding:.3rem 1rem .5rem;border-bottom:1px solid var(--border);margin-bottom:.3rem;word-break:break-all}
-.account-menu-item{display:block;width:100%;text-align:left;background:none;border:none;color:var(--bone);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;padding:.55em 1rem;cursor:pointer}
-.account-menu-item:hover{color:var(--parch);background:rgba(196,186,168,.06)}
 
 /* NAV */
 .page-nav{padding:.8rem 1.5rem;border-bottom:1px solid var(--border);display:flex;gap:.6rem;flex-wrap:wrap}
 .nav-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;text-decoration:none;padding:.65em 1.4em;border:1px solid rgba(196,186,168,.25);color:var(--bone);background:transparent;transition:all .25s;white-space:nowrap}
 .nav-btn:hover,.nav-btn.active{border-color:rgba(196,186,168,.65);color:var(--parch);background:rgba(196,186,168,.04)}
 @media(max-width:600px){.page-nav{gap:.28rem;padding:.7rem 1rem}.nav-btn{font-size:.48rem;letter-spacing:.13em;padding:.5em .75em}}
+
+/* FOCUS: remove raw browser outline, replace with themed keyboard-only ring */
+.btn:focus,.nav-btn:focus,.account-btn:focus,.back-link:focus{outline:none}
+.btn:focus-visible,.nav-btn:focus-visible,.account-btn:focus-visible,.back-link:focus-visible{outline:2px solid var(--bordhi);outline-offset:3px}
 
 /* LAYOUT */
 .wrap{max-width:1040px;margin:0 auto;padding:4rem 1.5rem 2rem}
@@ -126,11 +126,6 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
         <svg class="account-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg>
         <span id="accountBtnLabel">Login</span>
       </button>
-      <div class="account-menu" id="accountMenu">
-        <span class="account-email" id="accountEmail"></span>
-        <button class="account-menu-item" onclick="goToMyOrders()">My Orders</button>
-        <button class="account-menu-item" onclick="netlifyIdentity.logout()">Logout</button>
-      </div>
     </div>
   </div>
   <a href="index.html" class="back-link">&#8592; Back to Home</a>
@@ -208,29 +203,15 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
 function updateAccountUI(user){
   var btn = document.getElementById('accountBtn');
   var label = document.getElementById('accountBtnLabel');
-  var menu = document.getElementById('accountMenu');
-  if(!btn||!label||!menu) return;
+  if(!btn||!label) return;
   if(user){
     label.textContent = 'My Profile';
-    btn.onclick = toggleAccountMenu;
-    var emailEl = document.getElementById('accountEmail');
-    if(emailEl) emailEl.textContent = user.email;
+    btn.onclick = function(){ window.location.href = 'account.html'; };
   }else{
     label.textContent = 'Login';
     btn.onclick = function(){ netlifyIdentity.open('login'); };
-    menu.style.display = 'none';
   }
 }
-function toggleAccountMenu(){
-  var menu = document.getElementById('accountMenu');
-  if(menu) menu.style.display = menu.style.display==='block' ? 'none' : 'block';
-}
-document.addEventListener('click', function(e){
-  var wrap = document.getElementById('navAccount');
-  var menu = document.getElementById('accountMenu');
-  if(wrap && menu && !wrap.contains(e.target)) menu.style.display='none';
-});
-function goToMyOrders(){ window.location.href = 'shop.html#account'; }
 if(typeof netlifyIdentity!=='undefined'){
   netlifyIdentity.on('init', function(user){ updateAccountUI(user); });
   netlifyIdentity.on('login', function(user){ updateAccountUI(user); netlifyIdentity.close(); });
