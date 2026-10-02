@@ -30,6 +30,20 @@ function ordersStore() {
   return openStore('bcr-orders');
 }
 
+// Accounts: one small JSON profile per logged-in customer (saved address/phone
+// for fast repeat checkout), keyed by their Netlify Identity user id ("sub").
+function accountsStore() {
+  return openStore('bcr-accounts');
+}
+
+async function getProfile(userId) {
+  return accountsStore().get(userId, { type: 'json' });
+}
+
+async function saveProfile(userId, profile) {
+  await accountsStore().setJSON(userId, profile);
+}
+
 async function getCatalog() {
   const data = await productsStore().get('catalog', { type: 'json' });
   return data || [];
@@ -66,7 +80,8 @@ function orderMetadata(order) {
     name: (order.customer && order.customer.name) || '',
     total: typeof order.total === 'number' ? order.total : 0,
     status: order.status || 'new',
-    createdAt: order.createdAt || new Date().toISOString()
+    createdAt: order.createdAt || new Date().toISOString(),
+    userId: order.userId || null
   };
 }
 
@@ -105,6 +120,7 @@ module.exports = {
   productsStore,
   imageStore,
   ordersStore,
+  accountsStore,
   getCatalog,
   saveCatalog,
   getSiteContent,
@@ -114,5 +130,7 @@ module.exports = {
   saveOrder,
   getOrder,
   listOrderSummaries,
-  updateOrderStatus
+  updateOrderStatus,
+  getProfile,
+  saveProfile
 };
