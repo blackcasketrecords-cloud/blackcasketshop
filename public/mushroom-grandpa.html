@@ -4,9 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mushroom Grandpa — Black Casket Records</title>
-<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <style>
+@font-face{
+  font-family:'UnifrakturMaguntia';
+  src:url('fonts/UnifrakturMaguntia.woff2') format('woff2');
+  font-weight:normal;
+  font-style:normal;
+  font-display:swap;
+}
 :root{
   --bg:#000;--deep:#06060a;--ash:#0f0f14;
   --bone:#d4cbb8;--parch:#f2ead6;
@@ -21,7 +28,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* HEADER / NAV */
 .page-header{padding:2.5rem 1.5rem 1.5rem;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:.8rem}
 .page-header-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.site-name{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(1.6rem,4vw,2.8rem);color:var(--parch);text-decoration:none;text-shadow:0 0 40px rgba(107,15,15,.5)}
+.site-name{font-family:'UnifrakturMaguntia',cursive;font-feature-settings:'cv01' 1,'cv06' 1;font-size:clamp(1.6rem,4vw,2.8rem);color:var(--parch);text-decoration:none;text-shadow:0 0 40px rgba(107,15,15,.5)}
 .back-link{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--bone);opacity:.5;text-decoration:none;border-bottom:1px solid transparent;transition:all .25s;padding-bottom:.2em}
 .back-link:hover{opacity:.9;border-bottom-color:var(--bordhi);color:var(--parch)}
 .nav-account{position:relative}
@@ -43,9 +50,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* TBA CENTERPIECE */
 .tba-wrap{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:3rem 1.5rem}
 .tba-inner{max-width:480px}
-.tba-sym{font-family:'UnifrakturMaguntia',cursive;font-size:2.6rem;color:var(--parch);opacity:.4;margin-bottom:1rem;display:inline-block;transform:rotate(180deg)}
+.tba-sym{font-family:'UnifrakturMaguntia',cursive;font-feature-settings:'cv01' 1,'cv06' 1;font-size:2.6rem;color:var(--parch);opacity:.4;margin-bottom:1rem;display:inline-block;transform:rotate(180deg)}
 .slabel{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;opacity:.55;margin-bottom:.65rem}
-.stitle{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,6vw,3.4rem);color:var(--parch);text-shadow:0 0 30px rgba(107,15,15,.2);margin-bottom:1.2rem;line-height:1}
+.stitle{font-family:'UnifrakturMaguntia',cursive;font-feature-settings:'cv01' 1,'cv06' 1;font-size:clamp(2rem,6vw,3.4rem);color:var(--parch);text-shadow:0 0 30px rgba(107,15,15,.2);margin-bottom:1.2rem;line-height:1}
 .tba-desc{font-style:italic;font-size:1.02rem;opacity:.72;line-height:1.85;margin-bottom:2.2rem}
 .tba-badge{display:inline-block;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;color:var(--bone);border:1px solid var(--bordhi);padding:.7em 1.6em;opacity:.75;margin-bottom:2.2rem}
 

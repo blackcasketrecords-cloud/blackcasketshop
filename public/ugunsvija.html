@@ -4,9 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ugunsvija — Black Casket Records</title>
-<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <style>
+@font-face{
+  font-family:'UnifrakturMaguntia';
+  src:url('fonts/UnifrakturMaguntia.woff2') format('woff2');
+  font-weight:normal;
+  font-style:normal;
+  font-display:swap;
+}
 :root{
   --bg:#000;--deep:#06060a;--ash:#0f0f14;
   --bone:#d4cbb8;--parch:#f2ead6;
@@ -21,7 +28,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* HEADER / NAV */
 .page-header{padding:2.5rem 1.5rem 1.5rem;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:.8rem}
 .page-header-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.site-name{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(1.6rem,4vw,2.8rem);color:var(--parch);text-decoration:none;text-shadow:0 0 40px rgba(107,15,15,.5)}
+.site-name{font-family:'UnifrakturMaguntia',cursive;font-feature-settings:'cv01' 1,'cv06' 1;font-size:clamp(1.6rem,4vw,2.8rem);color:var(--parch);text-decoration:none;text-shadow:0 0 40px rgba(107,15,15,.5)}
 .back-link{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--bone);opacity:.5;text-decoration:none;border-bottom:1px solid transparent;transition:all .25s;padding-bottom:.2em}
 .back-link:hover{opacity:.9;border-bottom-color:var(--bordhi);color:var(--parch)}
 .nav-account{position:relative}
@@ -39,7 +46,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* LAYOUT */
 .wrap{max-width:1040px;margin:0 auto;padding:2.2rem 1.5rem 1.2rem}
 .slabel{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;opacity:.55;margin-bottom:.55rem}
-.stitle{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,5vw,4rem);color:var(--parch);text-shadow:0 0 30px rgba(107,15,15,.2);margin-bottom:1rem;line-height:1}
+.stitle{font-family:'UnifrakturMaguntia',cursive;font-feature-settings:'cv01' 1,'cv06' 1;font-size:clamp(2rem,5vw,4rem);color:var(--parch);text-shadow:0 0 30px rgba(107,15,15,.2);margin-bottom:1rem;line-height:1}
 .about-text p{opacity:.82;font-size:1.05rem;line-height:1.85;margin-bottom:.9rem}
 .about-text p em{color:var(--parch);opacity:1}
 
@@ -65,7 +72,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .ug-hero-overlay{position:relative;z-index:2;padding:2.2rem 1.5rem 1.8rem;max-width:1040px;margin:0 auto;width:100%}
 .ug-logo-wrap{width:72px;height:72px;border-radius:50%;overflow:hidden;background:rgba(196,186,168,.06);border:1px solid var(--bordhi);display:flex;align-items:center;justify-content:center;margin-bottom:.9rem}
 .ug-logo-wrap img{width:100%;height:100%;object-fit:cover}
-.ug-logo-ph{font-family:'UnifrakturMaguntia',cursive;font-size:1.7rem;color:var(--parch);opacity:.5;display:inline-block;transform:rotate(180deg)}
+.ug-logo-ph{font-family:'UnifrakturMaguntia',cursive;font-feature-settings:'cv01' 1,'cv06' 1;font-size:1.7rem;color:var(--parch);opacity:.5;display:inline-block;transform:rotate(180deg)}
 .ug-tagline{font-style:italic;font-size:1rem;opacity:.8;max-width:440px;line-height:1.6;text-shadow:0 2px 12px rgba(0,0,0,.7)}
 @media(max-width:600px){
   .ug-hero{aspect-ratio:4/3;min-height:260px;max-height:420px}

@@ -4,9 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shop — Black Casket Records</title>
-<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <style>
+@font-face{
+  font-family:'UnifrakturMaguntia';
+  src:url('fonts/UnifrakturMaguntia.woff2') format('woff2');
+  font-weight:normal;
+  font-style:normal;
+  font-display:swap;
+}
 :root{--bg:#000;--deep:#06060a;--ash:#0f0f14;--bone:#d4cbb8;--parch:#f2ead6;--blood:#6b0f0f;--bloodhi:rgba(160,30,30,.95);--border:rgba(196,186,168,.12);--bordhi:rgba(196,186,168,.32);--new:#3a7bd5;--pre:#c8783a}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -14,7 +21,7 @@ body{background:var(--bg);color:var(--bone);font-family:'Crimson Text',serif;fon
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.45}
 .page-header{padding:2.5rem 1.5rem 1.5rem;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:.8rem}
 .page-header-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.site-name{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(1.6rem,4vw,2.8rem);color:var(--parch);text-decoration:none;text-shadow:0 0 40px rgba(107,15,15,.5)}
+.site-name{font-family:'UnifrakturMaguntia',cursive;font-feature-settings:'cv01' 1,'cv06' 1;font-size:clamp(1.6rem,4vw,2.8rem);color:var(--parch);text-decoration:none;text-shadow:0 0 40px rgba(107,15,15,.5)}
 .back-link{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--bone);opacity:.5;text-decoration:none;border-bottom:1px solid transparent;transition:all .25s}
 .back-link:hover{opacity:.9;border-bottom-color:var(--bordhi);color:var(--parch)}
 .page-nav{padding:.8rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
@@ -272,7 +279,7 @@ body.identity-modal-open .sticky-head{z-index:1}
 .success-cross{font-size:2.2rem;opacity:.28;letter-spacing:.8rem;margin-bottom:2rem}
 .success-cross span{display:inline-block;transform:rotate(180deg)}
 .btn-cross{display:inline-block;transform:rotate(180deg)}
-.success-title{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,6vw,4rem);color:var(--parch);margin-bottom:1.5rem}
+.success-title{font-family:'UnifrakturMaguntia',cursive;font-feature-settings:'cv01' 1,'cv06' 1;font-size:clamp(2rem,6vw,4rem);color:var(--parch);margin-bottom:1.5rem}
 .success-text{opacity:.58;max-width:440px;margin:0 auto 2.5rem;line-height:1.85;font-style:italic;font-size:1.05rem}
 .success-link{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--bone);text-decoration:none;border-bottom:1px solid var(--bordhi);padding-bottom:.18em;opacity:.55}
 .success-link:hover{opacity:.9}
@@ -399,7 +406,7 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
   </div>
 
   <div id="stepCart">
-    <div class="slabel" style="font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;opacity:.55;margin-bottom:.65rem">Your Order</div><h2 class="stitle" style="font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,5vw,3.5rem);color:var(--parch);margin-bottom:2rem;line-height:1">Cart</h2>
+    <div class="slabel" style="font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;opacity:.55;margin-bottom:.65rem">Your Order</div><h2 class="stitle" style="font-family:'UnifrakturMaguntia',cursive;font-feature-settings:'cv01' 1,'cv06' 1;font-size:clamp(2rem,5vw,3.5rem);color:var(--parch);margin-bottom:2rem;line-height:1">Cart</h2>
     <div class="order-summary" id="cartSummary"></div>
     <p style="font-family:Cinzel,serif;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;opacity:.35;margin-bottom:1.5rem">Max 3 units per item</p>
     <div class="row-btns">
@@ -409,7 +416,7 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
   </div>
 
   <div id="stepDetails" style="display:none">
-    <div class="slabel" style="font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;opacity:.55;margin-bottom:.65rem">Delivery</div><h2 class="stitle" style="font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,5vw,3.5rem);color:var(--parch);margin-bottom:2rem;line-height:1">Your Details</h2>
+    <div class="slabel" style="font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;opacity:.55;margin-bottom:.65rem">Delivery</div><h2 class="stitle" style="font-family:'UnifrakturMaguntia',cursive;font-feature-settings:'cv01' 1,'cv06' 1;font-size:clamp(2rem,5vw,3.5rem);color:var(--parch);margin-bottom:2rem;line-height:1">Your Details</h2>
     <div class="form-section">
       <div class="form-title">Contact</div>
       <div class="form-grid">
@@ -470,7 +477,7 @@ footer p{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.3em;text-tra
   </div>
 
   <div id="stepPayment" style="display:none">
-    <div class="slabel" style="font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;opacity:.55;margin-bottom:.65rem">Choose Payment</div><h2 class="stitle" style="font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,5vw,3.5rem);color:var(--parch);margin-bottom:2rem;line-height:1">Payment</h2>
+    <div class="slabel" style="font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;opacity:.55;margin-bottom:.65rem">Choose Payment</div><h2 class="stitle" style="font-family:'UnifrakturMaguntia',cursive;font-feature-settings:'cv01' 1,'cv06' 1;font-size:clamp(2rem,5vw,3.5rem);color:var(--parch);margin-bottom:2rem;line-height:1">Payment</h2>
     <div class="order-summary" id="paymentSummary" style="margin-bottom:2rem"></div>
     <div class="discount-box" id="discountBox">
       <div class="discount-label">Discount Code</div>
